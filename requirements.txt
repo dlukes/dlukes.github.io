@@ -1,0 +1,9 @@
+# just a fairly incomplete list to hint at what's needed to compile this blog,
+# in addition to the theme and plugins which are included as git submodules
+beautifulsoup4==4.4.1
+Fabric==1.10.2
+ghp-import==0.4.1
+Markdown==2.6.5
+nbconvert==4.1.0
+pelican==3.6.3
+pelican-alias==1.1
