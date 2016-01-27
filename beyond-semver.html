@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Beyond semantic versioning? (cross-post) - Little Umbrellas</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+<style type="text/css">
+
+/*some stuff for output/input prompts*/
+div.cell{border:1px solid transparent;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}div.cell.selected{border-radius:4px;border:thin #ababab solid}
+div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
+div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
+div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
+@media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
+div.prompt:empty{padding-top:0;padding-bottom:0}
+div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;}
+div.inner_cell{width:90%;}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;}
+div.input_prompt{color:navy;border-top:1px solid transparent;}
+div.output_wrapper{margin-top:5px;position:relative;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.output_scroll{height:24em;width:100%;overflow:auto;border-radius:4px;-webkit-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);-moz-box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);box-shadow:inset 0 2px 8px rgba(0, 0, 0, 0.8);}
+div.output_collapsed{margin:0px;padding:0px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;width:100%;}
+div.out_prompt_overlay{height:100%;padding:0px 0.4em;position:absolute;border-radius:4px;}
+div.out_prompt_overlay:hover{-webkit-box-shadow:inset 0 0 1px #000000;-moz-box-shadow:inset 0 0 1px #000000;box-shadow:inset 0 0 1px #000000;background:rgba(240, 240, 240, 0.5);}
+div.output_prompt{color:darkred;}
+
+a.anchor-link:link{text-decoration:none;padding:0px 20px;visibility:hidden;}
+h1:hover .anchor-link,h2:hover .anchor-link,h3:hover .anchor-link,h4:hover .anchor-link,h5:hover .anchor-link,h6:hover .anchor-link{visibility:visible;}
+/* end stuff for output/input prompts*/
+
+
+.highlight-ipynb .hll { background-color: #ffffcc }
+.highlight-ipynb  { background: #f8f8f8; }
+.highlight-ipynb .c { color: #408080; font-style: italic } /* Comment */
+.highlight-ipynb .err { border: 1px solid #FF0000 } /* Error */
+.highlight-ipynb .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight-ipynb .o { color: #666666 } /* Operator */
+.highlight-ipynb .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight-ipynb .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight-ipynb .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight-ipynb .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight-ipynb .gd { color: #A00000 } /* Generic.Deleted */
+.highlight-ipynb .ge { font-style: italic } /* Generic.Emph */
+.highlight-ipynb .gr { color: #FF0000 } /* Generic.Error */
+.highlight-ipynb .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight-ipynb .gi { color: #00A000 } /* Generic.Inserted */
+.highlight-ipynb .go { color: #888888 } /* Generic.Output */
+.highlight-ipynb .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight-ipynb .gs { font-weight: bold } /* Generic.Strong */
+.highlight-ipynb .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight-ipynb .gt { color: #0044DD } /* Generic.Traceback */
+.highlight-ipynb .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight-ipynb .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight-ipynb .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight-ipynb .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight-ipynb .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight-ipynb .kt { color: #B00040 } /* Keyword.Type */
+.highlight-ipynb .m { color: #666666 } /* Literal.Number */
+.highlight-ipynb .s { color: #BA2121 } /* Literal.String */
+.highlight-ipynb .na { color: #7D9029 } /* Name.Attribute */
+.highlight-ipynb .nb { color: #008000 } /* Name.Builtin */
+.highlight-ipynb .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight-ipynb .no { color: #880000 } /* Name.Constant */
+.highlight-ipynb .nd { color: #AA22FF } /* Name.Decorator */
+.highlight-ipynb .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight-ipynb .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight-ipynb .nf { color: #0000FF } /* Name.Function */
+.highlight-ipynb .nl { color: #A0A000 } /* Name.Label */
+.highlight-ipynb .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight-ipynb .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight-ipynb .nv { color: #19177C } /* Name.Variable */
+.highlight-ipynb .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight-ipynb .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight-ipynb .mf { color: #666666 } /* Literal.Number.Float */
+.highlight-ipynb .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight-ipynb .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight-ipynb .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight-ipynb .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight-ipynb .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight-ipynb .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight-ipynb .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight-ipynb .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight-ipynb .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight-ipynb .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight-ipynb .sx { color: #008000 } /* Literal.String.Other */
+.highlight-ipynb .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight-ipynb .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight-ipynb .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight-ipynb .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight-ipynb .vc { color: #19177C } /* Name.Variable.Class */
+.highlight-ipynb .vg { color: #19177C } /* Name.Variable.Global */
+.highlight-ipynb .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight-ipynb .il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+
+<style type="text/css">
+/* Overrides of notebook CSS for static HTML export */
+div.entry-content {
+  overflow: visible;
+  padding: 8px;
+}
+.input_area {
+  padding: 0.2em;
+}
+
+a.heading-anchor {
+ white-space: normal;
+}
+
+.rendered_html
+code {
+ font-size: .8em;
+}
+
+pre.ipynb {
+  color: black;
+  background: #f7f7f7;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0px;
+  font-size: 13px;
+}
+
+/* remove the prompt div from text cells */
+div.text_cell .prompt {
+    display: none;
+}
+
+/* remove horizontal padding from text cells, */
+/* so it aligns with outer body text */
+div.text_cell_render {
+    padding: 0.5em 0em;
+}
+
+img.anim_icon{padding:0; border:0; vertical-align:middle; -webkit-box-shadow:none; -box-shadow:none}
+</style>
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+    <link href="http://dlukes.github.io/output/images/favicon.ico" rel="icon">
+
+<link rel="canonical" href="http://dlukes.github.io/output/beyond-semver.html">
+
+        <meta name="author" content="dlukes" />
+        <meta name="keywords" content="floss,semver,versioning,underscore.js,library,development,dependency" />
+        <meta name="description" content="Semantic versioning is a good idea, but it would be better to use an explicit keyword system to signal (non-)breaking changes in library versions." />
+
+        <meta property="og:site_name" content="Little Umbrellas" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Beyond semantic versioning? (cross-post)"/>
+        <meta property="og:url" content="http://dlukes.github.io/output/beyond-semver.html"/>
+        <meta property="og:description" content="Semantic versioning is a good idea, but it would be better to use an explicit keyword system to signal (non-)breaking changes in library versions."/>
+        <meta property="article:published_time" content="2014-12-14" />
+            <meta property="article:section" content="floss" />
+            <meta property="article:tag" content="floss" />
+            <meta property="article:tag" content="semver" />
+            <meta property="article:tag" content="versioning" />
+            <meta property="article:tag" content="underscore.js" />
+            <meta property="article:tag" content="library" />
+            <meta property="article:tag" content="development" />
+            <meta property="article:tag" content="dependency" />
+            <meta property="article:author" content="dlukes" />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://dlukes.github.io/output/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://dlukes.github.io/output/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://dlukes.github.io/output/theme/css/pygments/zenburn.css" rel="stylesheet">
+    <link href="http://dlukes.github.io/output/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://dlukes.github.io/output/theme/css/style.css" type="text/css"/>
+
+        <link href="http://dlukes.github.io/output/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Little Umbrellas ATOM Feed"/>
+
+
+
+        <link href="http://dlukes.github.io/output/feeds/floss.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Little Umbrellas floss ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://dlukes.github.io/output/" class="navbar-brand">
+Little Umbrellas            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="http://dlukes.github.io/output/pages/about.html">
+                             about me
+                          </a></li>
+                        <li class="active">
+                            <a href="http://dlukes.github.io/output/category/floss.html">floss</a>
+                        </li>
+                        <li >
+                            <a href="http://dlukes.github.io/output/category/ling.html">ling</a>
+                        </li>
+                        <li >
+                            <a href="http://dlukes.github.io/output/category/os-x-tips.html">os x tips</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><span>
+                <form class="navbar-search" action="http://dlukes.github.io/output/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+              <li><a href="http://dlukes.github.io/output/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://dlukes.github.io/output/beyond-semver.html"
+                       rel="bookmark"
+                       title="Permalink to Beyond semantic versioning? (cross-post)">
+                        Beyond semantic versioning? (cross-post)
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-12-14T00:00:00+01:00"> Sun 14 December 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://dlukes.github.io/output/tag/floss.html">floss</a>
+        /
+	<a href="http://dlukes.github.io/output/tag/semver.html">semver</a>
+        /
+	<a href="http://dlukes.github.io/output/tag/versioning.html">versioning</a>
+        /
+	<a href="http://dlukes.github.io/output/tag/underscorejs.html">underscore.js</a>
+        /
+	<a href="http://dlukes.github.io/output/tag/library.html">library</a>
+        /
+	<a href="http://dlukes.github.io/output/tag/development.html">development</a>
+        /
+	<a href="http://dlukes.github.io/output/tag/dependency.html">dependency</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <h1>Background</h1>
+<p>Ever since I first read about <a href="http://semver.org/">semantic versioning</a>, I've
+thought of it as a neat idea. But only recently did it occur to me that what
+I liked about the idea was its goal, much less its execution (more on that
+below). What made it obvious was <a href="https://github.com/jashkenas/underscore/issues/1805">this lengthy
+discussion</a> about breaking
+changes introduced in v1.7 of <a href="http://underscorejs.org/">underscore.js</a> without
+an accompanying major version bump.</p>
+<p>Even though I still think sticking to semver is the right thing to do if your
+community of users expects you to (even if you don't personally like the
+system), I am convinced there are fundamentally better ways of dealing with the
+problem of safely and consistently updating dependencies.</p>
+<p>It made me want to add <a href="https://github.com/jashkenas/underscore/issues/1805#issuecomment-66929684">my two cents to the
+discussion</a>,
+as someone who's more of a dabbler in programming and not really part of the
+community, so feel free to ignore me :) I attach my commentary below for
+reference (it's virtually the same text as in the link above).</p>
+<h1>tl;dr</h1>
+<p>semver is trying to do the right thing, but doing it wrong -- instead of
+<strong>implicitly</strong> encoding severity of change information in <strong>version numbers</strong>,
+<strong>explicit keywords</strong> like :patch, :potentially-breaking or :major-api-change
+would make much more sense.</p>
+<h1>More verbosely</h1>
+<p>I've always found the goals of semver worthy, but this thread has made me
+realize that while its aims are commendable, its methods are kind of broken:</p>
+<ol>
+<li>
+<p>semver tries to take an existing semiotic system (= version numbers), which
+has developed informally and is therefore a loose convention rather than an
+exact spec, and reinterpret it in terms of an exact spec (or impose that spec on
+it). trouble is, the prior informal meaning won't go away so easily (why should
+it?), especially for projects that have been around longer than semver. the
+problem then is, since the two systems (the informal one and semver) look the
+same in terms of their symbolic representation, it's hard to guess which one
+you're dealing with by just eyeballing the version number of a library (or
+project in general).</p>
+<p>it's like if someone decided that "f*ck" should mean "orchid" from now on,
+because it's nicer -- on hearing the word, you'd never know if it's being
+used as the original profanity, or in its new meaning. homonymy is a pain to
+deal with when it's accidental (cf. NLP), so why introduce it on purpose?
+the job that semver set out to do should be fulfilled by a new formal means
+which is instantly recognizable, not by hijacking an existing one and
+overlaying additional interpretation on it and thus making it <strong>ambiguous</strong>.</p>
+</li>
+<li>
+<p>even if version numbers hadn't existed before semver, they're terribly
+<strong>inadequate</strong> for the purpose of conveying information about the severity of
+changes introduced by an update (though I understand their appeal to
+mathematically-minded people). they're inadequate because they're <strong>implicit</strong>
+-- it's a bit like if someone decided they don't need hash maps because they can
+make do with arrays by remembering the order in which they're adding in the
+key-val pairs. if I remember the order, then I know which key the given index
+implicitly refers to, and the result is as good as a hash map, isn't it?</p>
+<p>except it isn't. keys are useful because they have <strong>explicit semantics</strong>,
+making it instantly clear what kind of value you're retrieving. in the same
+way, encoding the information about the severity of changes into version
+numbers makes it implicit (in addition to being ambiguous, as stated
+previously). why not use explicit keyword tags along with the version number
+(which can be romantic, semantic -- whichever floats the dev team's boat and
+best reflects the progress of the project) to give a heads up as to the
+nature of the update? e.g. :patch, :potentially-breaking, :major-api-change
+etc.</p>
+<p>granted, even language is a code which needs to be learned, like semver
+(gross oversimplification here, but let's not get into the details of
+language acquisition), but since it's widely established and
+conventionalized for conveying the kinds of meanings semver is trying to
+convey, <strong>why not just use it when it's available</strong>? why use a system
+(version numbers) which is less well-suited to the purpose <strong>and</strong> ambiguous
+to boot?</p>
+<p>(on the other hand, numbers are eminently well-suited for keeping track of
+which version is newer than which and how much so -- the original purpose of
+version numbering -- because they are designed to have orderings defined on
+them. by contrast, words would do a terrible job at this. if you care to
+indicate the evolution of your codebase, you might introduce your own
+disciplined <a href="http://sentimentalversioning.org/">romantic or sentimental</a>
+versioning scheme, which ironically is a more meaningful and ergo semantic
+way of doing versioning than semver, because it sticks to the conventional
+semantics of numbers (the closer the numbers, the more similar the
+versions). if you don't care about this, which is perfectly fine, you might
+as well use dates for version numbers.)</p>
+</li>
+</ol>
+<p>keyword tags have the advantage that they're instantly human-readable by anyone
+who has a basic command of English. if there is sufficient will in the
+community, a useful subset can be frozen in a binding spec, so that they are
+machine-readable as well.</p>
+<p>I'm not sure whether these keywords should be an appendix to the version number
+(like v2.3.4-:potentially-breaking), or whether the information they provide
+should be more extensive and included in a formalized preamble to the changelog
+(finally forcing people to at least take a glance at it ;) ). using the latter
+approach, the information provided could be (optionally) even more targeted,
+e.g. detailing explicitly which parts of the API are affected in a non-backwards
+compatible manner by the update.</p>
+<p>anyways, just a few ideas :) I am not primarily a coder, so there may be obvious
+drawbacks to this scheme that I can't see or which have already been discussed
+by the community on multiple occasions which have escaped my attention. in which
+case, please bear with me and excuse my lack of sophistication.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'littleumbrellas'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'beyond-semver';
+                var disqus_url = 'http://dlukes.github.io/output/beyond-semver.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<div id="aboutme">
+        <p>
+            <img width="100%" class="img-thumbnail" src="images/avatar.jpeg"/>
+        </p>
+    <p>
+        <strong>About dlukes</strong><br/>
+        Language tourist, Python enthusiast & Frank Zappa aficionado
+    </p>
+</div>
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+            <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/dlukes"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="http://stackoverflow.com/users/1826241/dlukes"><i class="fa fa-stack-overflow fa-lg"></i> stack overflow</a></li>
+                <li class="list-group-item"><a href="https://plus.google.com/+DavidLukešDvl"><i class="fa fa-google-plus-square fa-lg"></i> g+</a></li>
+                <li class="list-group-item"><a href="https://www.facebook.com/fyodor.konstantinovitch.cherdyntsev"><i class="fa fa-facebook-square fa-lg"></i> facebook</a></li>
+              </ul>
+            </li>
+
+
+
+            <li class="list-group-item"><a href="http://dlukes.github.io/output/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                <ul class="list-group " id="tags">
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/output/tag/kontext.html">
+                            KonText
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/output/tag/korpus.html">
+                            korpus
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/output/tag/konkordance.html">
+                            konkordance
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/output/tag/noske.html">
+                            NoSke
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/output/tag/bonito.html">
+                            Bonito
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/linguistics.html">
+                            linguistics
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/programming.html">
+                            programming
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/floss.html">
+                            floss
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/underscorejs.html">
+                            underscore.js
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/charset.html">
+                            charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/unicode.html">
+                            unicode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/osx.html">
+                            osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/output/tag/automator.html">
+                            automator
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://www.korpus.cz" target="_blank">
+                Czech National Corpus
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://trnka.korpus.cz/~lukes/" target="_blank">
+                My academic homepage
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://wodymarcowe.blogspot.cz" target="_blank">
+                A blonde in Poland
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://xkcd.com" target="_blank">
+                xkcd
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://pbfcomics.com" target="_blank">
+                Perry Bible Fellowship
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://phdcomics.com/comics.php" target="_blank">
+                PhD Comics
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>
+            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 dlukes
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://dlukes.github.io/output/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://dlukes.github.io/output/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://dlukes.github.io/output/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'littleumbrellas'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+
+</body>
+</html>

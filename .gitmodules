@@ -1,6 +1,0 @@
-[submodule "pelican-bootstrap3"]
-	path = pelican-bootstrap3
-	url = git@github.com:dlukes/pelican-bootstrap3.git
-[submodule "pelican-plugins"]
-	path = pelican-plugins
-	url = git@github.com:getpelican/pelican-plugins.git

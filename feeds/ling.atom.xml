@@ -1,0 +1,1264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/output/" rel="alternate"></link><link href="http://dlukes.github.io/output/feeds/ling.atom.xml" rel="self"></link><id>http://dlukes.github.io/output/</id><updated>2016-01-27T00:00:00+01:00</updated><entry><title>How computers handle text: a gentle but thorough introduction to Unicode</title><link href="http://dlukes.github.io/output/unicode.html" rel="alternate"></link><updated>2016-01-27T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-01-27:output/unicode.html</id><summary type="html">&lt;p&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Or, &lt;a href="http://www.joelonsoftware.com/articles/Unicode.html"&gt;the absolute minimum every &lt;del&gt;software developer&lt;/del&gt; linguist absolutely, positively must know about Unicode and character sets (no excuses!)&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: This text was written as part of a larger programming tutorial in Python, and the code samples are taken from an interactive session using the &lt;a href="http://jupyter.org/"&gt;Jupyter notebook&lt;/a&gt;. As a consequence, there are digressions here and there about playing with text data in Python. These might seem:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;useless if what you came for is just the part about text encoding;&lt;/li&gt;
+&lt;li&gt;long-winded if you already know some Python;&lt;/li&gt;
+&lt;li&gt;or confusing if, on the contrary, you're not familiar with programming at all, much less with Python.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If any of these is your case, my advice is: ignore the code, focus on the comments around it, they're more than enough to follow the thread of the explanation. Though if you've got a little more time, why not &lt;a href="https://repl.it/languages/python3"&gt;try some of these out in an interactive Python session&lt;/a&gt;? ;) And now, without further ado...&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Much like any other piece of data inside a digital computer, text is represented as a series of binary digits (bits), i.e. 0's and 1's. A mapping between sequences of bits and characters is called an encoding. How many different characters your encoding can handle depends on how many bits you allow per character:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;with 1 bit you can have 2^1 = 2 characters (one is represented by 0, the other by 1)&lt;/li&gt;
+&lt;li&gt;with 2 bits you can have 2^2 = 4 characters(represented by 00, 01, 10 and 11)&lt;/li&gt;
+&lt;li&gt;etc.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The oldest encoding still in widespread use (it's what makes the Internet and the web tick) is &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;&lt;code&gt;ASCII&lt;/code&gt;&lt;/a&gt;, which is a 7-bit encoding:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[1]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[1]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;128&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;This means it can represent &lt;a href="http://www.ascii-code.com/"&gt;128 different characters&lt;/a&gt;, which comfortably fits the basic Latin alphabet (both lowercase and uppercase), Arabic numerals, punctuation and some "control characters" which were primarily useful on the old &lt;a href="https://en.wikipedia.org/wiki/Teleprinter"&gt;teletype terminals&lt;/a&gt; for which &lt;code&gt;ASCII&lt;/code&gt; was designed. For instance, the letter "A" corresponds to the number 65 (&lt;code&gt;1000001&lt;/code&gt; in binary, see below).&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;"ASCII" stands for "&lt;strong&gt;American&lt;/strong&gt; Standard Code for Information Interchange" -- which explains why there are no accented characters, for instance.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Nowadays, &lt;code&gt;ASCII&lt;/code&gt; is represented using 8 bits (== 1 byte), because that's the unit of computer memory which has become ubiquitous (in terms of both hardware and software assumptions), but still uses only 7 bits' worth of information.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[2]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[2]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;256&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[3]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# how to find out the binary representation of a decimal number?&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;{:b}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;65&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[3]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;apos;1000001&amp;apos;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[4]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# Digression/explanation: the format() method&lt;/span&gt;
+&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;span class="c1"&gt;# the format() string method inserts its arguments into the string&lt;/span&gt;
+&lt;span class="c1"&gt;# wherever there is a &amp;quot;{}&amp;quot;&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;{} {} {}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;bar&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;baz&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[4]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;apos;foo bar baz&amp;apos;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[5]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# you can also specify a different order by using (zero-based) &lt;/span&gt;
+&lt;span class="c1"&gt;# positional indices -- or even repeating them&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;{1} {0} {1}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;bar&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[5]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;apos;bar foo bar&amp;apos;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[6]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# for long strings with many insertions, where you might mess up the&lt;/span&gt;
+&lt;span class="c1"&gt;# order of arguments, keyword arguments are also available&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;{foo_arg} {bar_arg}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bar_arg&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bar&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;foo_arg&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[6]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;apos;foo bar&amp;apos;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[7]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# and you can also request various formatting adjustments or conversions&lt;/span&gt;
+&lt;span class="c1"&gt;# to be made by specifying them after a &amp;quot;:&amp;quot; -- e.g. &amp;quot;b&amp;quot; prints a given&lt;/span&gt;
+&lt;span class="c1"&gt;# number in its binary representation&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;{:b}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[7]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;apos;101101&amp;apos;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[8]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# or simply&lt;/span&gt;
+&lt;span class="nb"&gt;bin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;45&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;# but that has an ugly &amp;quot;0b&amp;quot; in front, and we would&amp;#39;ve missed out on&lt;/span&gt;
+&lt;span class="c1"&gt;# format() if we&amp;#39;d used that directly!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[8]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;apos;0b101101&amp;apos;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;What happens in the range [128; 256) is not covered by the &lt;code&gt;ASCII&lt;/code&gt; standard. In the 1990s, many encodings were standardized which used this range for their own purposes, usually representing additional accented characters used in a particular region. E.g. Czech (and Slovak, Polish...) alphabets can be represented using the ISO &lt;code&gt;latin-2&lt;/code&gt; encoding, or Microsoft's &lt;code&gt;cp-1250&lt;/code&gt;. Encodings which stick with the same character mappings as &lt;code&gt;ASCII&lt;/code&gt; in the range [0; 128) &lt;strong&gt;and represent them physically in the same way (as 1 byte)&lt;/strong&gt;, while potentially adding more character mappings beyond that, are called &lt;strong&gt;&lt;code&gt;ASCII&lt;/code&gt;-compatible&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ASCII&lt;/code&gt; compatibility is a good thing&amp;trade;, because when you start reading a character stream in a computer, there's &lt;strong&gt;no way to know in advance what encoding it is in&lt;/strong&gt; (unless it's a file you've encoded yourself). So in practice, a heuristic has been established to start reading the stream assuming it is &lt;code&gt;ASCII&lt;/code&gt; by default, and switch to a different encoding if evidence becomes available that motivates it. For instance, HTML files should all start something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;/&amp;gt;&lt;/span&gt;
+  ...
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This way, whenever a program wants to read a file like this, it can start off with &lt;code&gt;ASCII&lt;/code&gt;, waiting to see if it reaches the &lt;code&gt;charset&lt;/code&gt; (i.e. encoding) attribute, and once it does, it can switch from &lt;code&gt;ASCII&lt;/code&gt; to that encoding (&lt;code&gt;UTF-8&lt;/code&gt; here) and restart reading the file, now fairly sure that it's using the correct encoding. This trick works only if we can assume that whatever encoding the rest of the file is in, the first few lines can be considered as &lt;code&gt;ASCII&lt;/code&gt; for all practical intents and purposes.&lt;/p&gt;
+&lt;p&gt;Without the &lt;code&gt;charset&lt;/code&gt; attribute, the only way to know if the encoding is right would be for you to look at the rendered text and see if it makes sense; if it did not, you'd have to resort to trial and error, manually switching the encodings and looking for the one in which the numbers behind the characters stop coming out as gibberish and are actually translated into intelligible text.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[9]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# Let&amp;#39;s take a look at printable characters in the latin-2 character&lt;/span&gt;
+&lt;span class="c1"&gt;# set. Each mapping is called a &amp;quot;codepoint&amp;quot;: it is a correspondence&lt;/span&gt;
+&lt;span class="c1"&gt;# between an integer and a character.&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;codecs&lt;/span&gt;
+
+&lt;span class="n"&gt;latin2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;codepoint&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;256&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;byte&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;bytes&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;codepoint&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+    &lt;span class="n"&gt;character&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;codecs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;decode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;byte&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;latin2&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;character&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;isprintable&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+        &lt;span class="n"&gt;latin2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;codepoint&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;character&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+
+&lt;span class="n"&gt;latin2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[9]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;[(32, &amp;apos; &amp;apos;),
+ (33, &amp;apos;!&amp;apos;),
+ (34, &amp;apos;&amp;quot;&amp;apos;),
+ (35, &amp;apos;#&amp;apos;),
+ (36, &amp;apos;$&amp;apos;),
+ (37, &amp;apos;%&amp;apos;),
+ (38, &amp;apos;&amp;amp;&amp;apos;),
+ (39, &amp;quot;&amp;apos;&amp;quot;),
+ (40, &amp;apos;(&amp;apos;),
+ (41, &amp;apos;)&amp;apos;),
+ (42, &amp;apos;*&amp;apos;),
+ (43, &amp;apos;+&amp;apos;),
+ (44, &amp;apos;,&amp;apos;),
+ (45, &amp;apos;-&amp;apos;),
+ (46, &amp;apos;.&amp;apos;),
+ (47, &amp;apos;/&amp;apos;),
+ (48, &amp;apos;0&amp;apos;),
+ (49, &amp;apos;1&amp;apos;),
+ (50, &amp;apos;2&amp;apos;),
+ (51, &amp;apos;3&amp;apos;),
+ (52, &amp;apos;4&amp;apos;),
+ (53, &amp;apos;5&amp;apos;),
+ (54, &amp;apos;6&amp;apos;),
+ (55, &amp;apos;7&amp;apos;),
+ (56, &amp;apos;8&amp;apos;),
+ (57, &amp;apos;9&amp;apos;),
+ (58, &amp;apos;:&amp;apos;),
+ (59, &amp;apos;;&amp;apos;),
+ (60, &amp;apos;&amp;lt;&amp;apos;),
+ (61, &amp;apos;=&amp;apos;),
+ (62, &amp;apos;&amp;gt;&amp;apos;),
+ (63, &amp;apos;?&amp;apos;),
+ (64, &amp;apos;@&amp;apos;),
+ (65, &amp;apos;A&amp;apos;),
+ (66, &amp;apos;B&amp;apos;),
+ (67, &amp;apos;C&amp;apos;),
+ (68, &amp;apos;D&amp;apos;),
+ (69, &amp;apos;E&amp;apos;),
+ (70, &amp;apos;F&amp;apos;),
+ (71, &amp;apos;G&amp;apos;),
+ (72, &amp;apos;H&amp;apos;),
+ (73, &amp;apos;I&amp;apos;),
+ (74, &amp;apos;J&amp;apos;),
+ (75, &amp;apos;K&amp;apos;),
+ (76, &amp;apos;L&amp;apos;),
+ (77, &amp;apos;M&amp;apos;),
+ (78, &amp;apos;N&amp;apos;),
+ (79, &amp;apos;O&amp;apos;),
+ (80, &amp;apos;P&amp;apos;),
+ (81, &amp;apos;Q&amp;apos;),
+ (82, &amp;apos;R&amp;apos;),
+ (83, &amp;apos;S&amp;apos;),
+ (84, &amp;apos;T&amp;apos;),
+ (85, &amp;apos;U&amp;apos;),
+ (86, &amp;apos;V&amp;apos;),
+ (87, &amp;apos;W&amp;apos;),
+ (88, &amp;apos;X&amp;apos;),
+ (89, &amp;apos;Y&amp;apos;),
+ (90, &amp;apos;Z&amp;apos;),
+ (91, &amp;apos;[&amp;apos;),
+ (92, &amp;apos;\\&amp;apos;),
+ (93, &amp;apos;]&amp;apos;),
+ (94, &amp;apos;^&amp;apos;),
+ (95, &amp;apos;_&amp;apos;),
+ (96, &amp;apos;&amp;#96;&amp;apos;),
+ (97, &amp;apos;a&amp;apos;),
+ (98, &amp;apos;b&amp;apos;),
+ (99, &amp;apos;c&amp;apos;),
+ (100, &amp;apos;d&amp;apos;),
+ (101, &amp;apos;e&amp;apos;),
+ (102, &amp;apos;f&amp;apos;),
+ (103, &amp;apos;g&amp;apos;),
+ (104, &amp;apos;h&amp;apos;),
+ (105, &amp;apos;i&amp;apos;),
+ (106, &amp;apos;j&amp;apos;),
+ (107, &amp;apos;k&amp;apos;),
+ (108, &amp;apos;l&amp;apos;),
+ (109, &amp;apos;m&amp;apos;),
+ (110, &amp;apos;n&amp;apos;),
+ (111, &amp;apos;o&amp;apos;),
+ (112, &amp;apos;p&amp;apos;),
+ (113, &amp;apos;q&amp;apos;),
+ (114, &amp;apos;r&amp;apos;),
+ (115, &amp;apos;s&amp;apos;),
+ (116, &amp;apos;t&amp;apos;),
+ (117, &amp;apos;u&amp;apos;),
+ (118, &amp;apos;v&amp;apos;),
+ (119, &amp;apos;w&amp;apos;),
+ (120, &amp;apos;x&amp;apos;),
+ (121, &amp;apos;y&amp;apos;),
+ (122, &amp;apos;z&amp;apos;),
+ (123, &amp;apos;{&amp;apos;),
+ (124, &amp;apos;|&amp;apos;),
+ (125, &amp;apos;}&amp;apos;),
+ (126, &amp;apos;~&amp;apos;),
+ (161, &amp;apos;Ą&amp;apos;),
+ (162, &amp;apos;˘&amp;apos;),
+ (163, &amp;apos;Ł&amp;apos;),
+ (164, &amp;apos;¤&amp;apos;),
+ (165, &amp;apos;Ľ&amp;apos;),
+ (166, &amp;apos;Ś&amp;apos;),
+ (167, &amp;apos;§&amp;apos;),
+ (168, &amp;apos;¨&amp;apos;),
+ (169, &amp;apos;Š&amp;apos;),
+ (170, &amp;apos;Ş&amp;apos;),
+ (171, &amp;apos;Ť&amp;apos;),
+ (172, &amp;apos;Ź&amp;apos;),
+ (174, &amp;apos;Ž&amp;apos;),
+ (175, &amp;apos;Ż&amp;apos;),
+ (176, &amp;apos;°&amp;apos;),
+ (177, &amp;apos;ą&amp;apos;),
+ (178, &amp;apos;˛&amp;apos;),
+ (179, &amp;apos;ł&amp;apos;),
+ (180, &amp;apos;´&amp;apos;),
+ (181, &amp;apos;ľ&amp;apos;),
+ (182, &amp;apos;ś&amp;apos;),
+ (183, &amp;apos;ˇ&amp;apos;),
+ (184, &amp;apos;¸&amp;apos;),
+ (185, &amp;apos;š&amp;apos;),
+ (186, &amp;apos;ş&amp;apos;),
+ (187, &amp;apos;ť&amp;apos;),
+ (188, &amp;apos;ź&amp;apos;),
+ (189, &amp;apos;˝&amp;apos;),
+ (190, &amp;apos;ž&amp;apos;),
+ (191, &amp;apos;ż&amp;apos;),
+ (192, &amp;apos;Ŕ&amp;apos;),
+ (193, &amp;apos;Á&amp;apos;),
+ (194, &amp;apos;Â&amp;apos;),
+ (195, &amp;apos;Ă&amp;apos;),
+ (196, &amp;apos;Ä&amp;apos;),
+ (197, &amp;apos;Ĺ&amp;apos;),
+ (198, &amp;apos;Ć&amp;apos;),
+ (199, &amp;apos;Ç&amp;apos;),
+ (200, &amp;apos;Č&amp;apos;),
+ (201, &amp;apos;É&amp;apos;),
+ (202, &amp;apos;Ę&amp;apos;),
+ (203, &amp;apos;Ë&amp;apos;),
+ (204, &amp;apos;Ě&amp;apos;),
+ (205, &amp;apos;Í&amp;apos;),
+ (206, &amp;apos;Î&amp;apos;),
+ (207, &amp;apos;Ď&amp;apos;),
+ (208, &amp;apos;Đ&amp;apos;),
+ (209, &amp;apos;Ń&amp;apos;),
+ (210, &amp;apos;Ň&amp;apos;),
+ (211, &amp;apos;Ó&amp;apos;),
+ (212, &amp;apos;Ô&amp;apos;),
+ (213, &amp;apos;Ő&amp;apos;),
+ (214, &amp;apos;Ö&amp;apos;),
+ (215, &amp;apos;×&amp;apos;),
+ (216, &amp;apos;Ř&amp;apos;),
+ (217, &amp;apos;Ů&amp;apos;),
+ (218, &amp;apos;Ú&amp;apos;),
+ (219, &amp;apos;Ű&amp;apos;),
+ (220, &amp;apos;Ü&amp;apos;),
+ (221, &amp;apos;Ý&amp;apos;),
+ (222, &amp;apos;Ţ&amp;apos;),
+ (223, &amp;apos;ß&amp;apos;),
+ (224, &amp;apos;ŕ&amp;apos;),
+ (225, &amp;apos;á&amp;apos;),
+ (226, &amp;apos;â&amp;apos;),
+ (227, &amp;apos;ă&amp;apos;),
+ (228, &amp;apos;ä&amp;apos;),
+ (229, &amp;apos;ĺ&amp;apos;),
+ (230, &amp;apos;ć&amp;apos;),
+ (231, &amp;apos;ç&amp;apos;),
+ (232, &amp;apos;č&amp;apos;),
+ (233, &amp;apos;é&amp;apos;),
+ (234, &amp;apos;ę&amp;apos;),
+ (235, &amp;apos;ë&amp;apos;),
+ (236, &amp;apos;ě&amp;apos;),
+ (237, &amp;apos;í&amp;apos;),
+ (238, &amp;apos;î&amp;apos;),
+ (239, &amp;apos;ď&amp;apos;),
+ (240, &amp;apos;đ&amp;apos;),
+ (241, &amp;apos;ń&amp;apos;),
+ (242, &amp;apos;ň&amp;apos;),
+ (243, &amp;apos;ó&amp;apos;),
+ (244, &amp;apos;ô&amp;apos;),
+ (245, &amp;apos;ő&amp;apos;),
+ (246, &amp;apos;ö&amp;apos;),
+ (247, &amp;apos;÷&amp;apos;),
+ (248, &amp;apos;ř&amp;apos;),
+ (249, &amp;apos;ů&amp;apos;),
+ (250, &amp;apos;ú&amp;apos;),
+ (251, &amp;apos;ű&amp;apos;),
+ (252, &amp;apos;ü&amp;apos;),
+ (253, &amp;apos;ý&amp;apos;),
+ (254, &amp;apos;ţ&amp;apos;),
+ (255, &amp;apos;˙&amp;apos;)]&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Using the 8th bit (and thus the codepoint range [128; 256)) solves the problem of handling languages with character sets different than that of American English, but introduces a lot of complexity -- whenever you come across a text file with an unknown encoding, it might be in one of literally dozens of encodings. Additional drawbacks include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;how to handle multilingual text with characters from many different alphabets, which are not part of the same 8-bit encoding?&lt;/li&gt;
+&lt;li&gt;how to handle writing systems which have way more than 256 "characters", e.g. Chinese, Japanese and Korean (CJK) ideograms?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For these purposes, a standard encoding known as &lt;a href="https://en.wikipedia.org/wiki/Unicode"&gt;&lt;strong&gt;Unicode&lt;/strong&gt;&lt;/a&gt; was developed which strives for universal coverage of all possible character sets. Unicode is much bigger than the encodings we've seen so far -- its most frequently used subset, the &lt;a href="https://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane"&gt;Basic Multilingual Plane&lt;/a&gt;, has 2^16 codepoints, but overall the number of codepoints is past 1M and there's room to accommodate many more.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[10]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[10]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;65536&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Now, the most straightforward representation for 2^16 codepoints is what? Well, it's simply using 16 bits per character, i.e. 2 bytes. That encoding exists, it's called &lt;code&gt;UTF-16&lt;/code&gt;, but consider the drawbacks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we've lost &lt;code&gt;ASCII&lt;/code&gt; compatibility by the simple fact of using 2 bytes per character instead of 1 (encoding "a" as &lt;code&gt;01100001&lt;/code&gt; or &lt;code&gt;01100001|00000000&lt;/code&gt;, with the &lt;code&gt;|&lt;/code&gt; indicating an imaginary boundary between bytes, is not the same thing)&lt;/li&gt;
+&lt;li&gt;encoding a string in a character set which uses a "reasonable" number of characters (like any European language) now takes twice as much space without any added benefit (which is probably not a good idea, given the general dominance of English -- one of those "reasonable character set size" languages -- in electronic communication)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Looks like we'll have to think outside the box. The box in question here is called &lt;strong&gt;fixed-width encodings&lt;/strong&gt; -- all of the encoding schemes we've encountered so far were fixed-width, meaning that each character was represented by either 7, 8 or 16 bits. In other word, you could jump around the string in multiples of 7, 8 or 16 and always land at the beginning of a character. (Not exactly true for &lt;code&gt;UTF-16&lt;/code&gt;, because it is something more than just a "16-bit &lt;code&gt;ASCII&lt;/code&gt;": it has ways of handling characters beyond 2^16 using so-called &lt;a href="https://en.wikipedia.org/wiki/UTF-16#U.2B10000_to_U.2B10FFFF"&gt;surrogate sequences&lt;/a&gt; -- but you get the gist.)&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;"UTF" stands for "Unicode Transformation Format".&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The smart idea that some bright people have come up with was to use a &lt;strong&gt;variable-width encoding&lt;/strong&gt;. The most ubiquitous one currently is &lt;strong&gt;&lt;code&gt;UTF-8&lt;/code&gt;&lt;/strong&gt;, which we've already met in the HTML example above. &lt;code&gt;UTF-8&lt;/code&gt; &lt;em&gt;is&lt;/em&gt; &lt;code&gt;ASCII&lt;/code&gt;-compatible, i.e. the 1's and 0's used to encode text containing only &lt;code&gt;ASCII&lt;/code&gt; characters are the same regardless of whether you use &lt;code&gt;ASCII&lt;/code&gt; or &lt;code&gt;UTF-8&lt;/code&gt;: it's a sequence of 8-bit bytes. But &lt;code&gt;UTF-8&lt;/code&gt; can also handle many more additional characters, as defined by the Unicode standard, by using progressively longer and longer sequences of bits.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[11]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;print_as_binary_utf8&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;Prints binary representation of string as encoded by UTF-8.&lt;/span&gt;
+&lt;span class="sd"&gt;    &lt;/span&gt;
+&lt;span class="sd"&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+    &lt;span class="c1"&gt;# encode the string as UTF-8&lt;/span&gt;
+    &lt;span class="n"&gt;byte&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;encode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# get the hexadecimal representation of the bytes&lt;/span&gt;
+    &lt;span class="n"&gt;hexa&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;byte&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="c1"&gt;# convert the hexadecimal representation to a decimal integer&lt;/span&gt;
+    &lt;span class="n"&gt;inte&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hexa&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;base&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# create a string containing the integer, formatted as binary&lt;/span&gt;
+    &lt;span class="n"&gt;binary_str&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&amp;#39;{}&amp;#39; encoded in UTF-8 is: {:b}&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;inte&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# print that binary representation. whew! if there&amp;#39;s an easier&lt;/span&gt;
+    &lt;span class="c1"&gt;# way (e.g. at least skipping the intermediate hexadecimal&lt;/span&gt;
+    &lt;span class="c1"&gt;# representation), please let me know!&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;binary_str&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;print_as_binary_utf8&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="c1"&gt;# the representations...&lt;/span&gt;
+&lt;span class="n"&gt;print_as_binary_utf8&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;č&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="c1"&gt;# ... keep...&lt;/span&gt;
+&lt;span class="n"&gt;print_as_binary_utf8&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;字&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# ... getting longer.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;&amp;apos;A&amp;apos; encoded in UTF-8 is: 1000001
+&amp;apos;č&amp;apos; encoded in UTF-8 is: 1100010010001101
+&amp;apos;字&amp;apos; encoded in UTF-8 is: 111001011010110110010111
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;How does it achieve that? The obvious problem here is that with a fixed-width encoding, you just chop up the string at regular intervals (7, 8, 16 bits) and you know that each interval represents one character. So &lt;strong&gt;how do you know where to chop up a variable width-encoded string, if each character can take up a different number of bits?&lt;/strong&gt; We won't go into the details, but essentially, the trick is to &lt;strong&gt;use some of the bits&lt;/strong&gt; in the representation of a codepoint &lt;strong&gt;to store information&lt;/strong&gt; not about which character it is (whether it's an "A" or a "字"), but &lt;strong&gt;how many bits it occupies&lt;/strong&gt;. In other words, if you want to skip ahead 10 characters in a string encoded with a variable width-encoding, you can't just skip 10 * 7 or 8 or 16 bits; you have to read all the intervening characters to figure out how much space they take up.&lt;/p&gt;
+&lt;p&gt;There's much more to Unicode than this simple introduction, for instance the various ways diacritics are handled: "č" can be represented either as a single codepoint (&lt;a href="http://www.fileformat.info/info/unicode/char/010D/index.htm"&gt;&lt;code&gt;LATIN SMALL LETTER C WITH CARON&lt;/code&gt;&lt;/a&gt; -- all Unicode codepoints have cute names like this) or a sequence of two codepoints, the character "c" and a combining diacritic mark (&lt;code&gt;COMBINING CARON&lt;/code&gt;). You can search for the codepoints corresponding to Unicode characters e.g. &lt;a href="http://www.fileformat.info/info/unicode/char/search.htm"&gt;here&lt;/a&gt; and play with them in Python using the &lt;code&gt;chr(0xXXXX)&lt;/code&gt; built-in function or with the special string escape sequence &lt;code&gt;\uXXXX&lt;/code&gt; (where &lt;code&gt;XXXX&lt;/code&gt; is the hexadecimal representation of the codepoint) -- both are ways to get the character corresponding to the given codepoint:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[12]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# &amp;quot;č&amp;quot; as LATIN SMALL LETTER C WITH CARON, codepoint 010D&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x010D&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u010D&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;č
+č
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[13]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# &amp;quot;č&amp;quot; as a sequence of LATIN SMALL LETTER C, codepoint 0063, and&lt;/span&gt;
+&lt;span class="c1"&gt;# COMBINING CARON, codepoint 030c&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x0063&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x030c&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u0063\u030c&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;č
+č
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;blockquote&gt;&lt;p&gt;Hexadecimal is just a more convenient way of representing sequences of bits, where each of the &lt;code&gt;X&lt;/code&gt;'s can be a number between 0 and 15 (10--15 are represented by the letters A--F). Each hexadecimal number can thus represent 16 different values, and therefore it can stand in for a sequence of 4 bits (2^4 == 16). Without worrying too much about the details right now, our old friend &lt;code&gt;ASCII&lt;/code&gt; uppercase "A" can be thought of equivalently either as decimal 65, binary &lt;code&gt;1000001&lt;/code&gt;, or hexadecimal &lt;code&gt;0x41&lt;/code&gt; (the "0x" prefix is there just to say "this is a hexadecimal number"). &amp;gt;&lt;/p&gt;
+&lt;p&gt;Binary and hexadecimal numbers are often written padded with leading zeros to some number of bytes, but these have no effect on the value, much like decimal 42 and 00000042 are effectively the same numbers.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[14]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# use hex() to find out the hexadecimal representation of a decimal&lt;/span&gt;
+&lt;span class="c1"&gt;# integer...&lt;/span&gt;
+&lt;span class="nb"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;99&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[14]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;apos;0x63&amp;apos;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[15]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# ... and int() to go back&lt;/span&gt;
+&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x63&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[15]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;99&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;This means you have to be careful when working with languages that use accents, because &lt;strong&gt;for a computer, the two possible representations are of course different strings&lt;/strong&gt;, even though for you, they're conceptually the same:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[16]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u010D&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;s2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u0063\u030c&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;# s1 and s2 look the same to the naked eye...&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;č č
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[17]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# ... but in the eternal realm of Plato&amp;#39;s Ideas, they&amp;#39;re not&lt;/span&gt;
+&lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[17]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;False&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Watch out, &lt;strong&gt;they even have different lengths&lt;/strong&gt;! This might come to bite you if you're trying to compute the length of a word in letters.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[18]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;s1 is&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;character(s) long.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;s2 is&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;character(s) long.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;s1 is 1 character(s) long.
+s2 is 2 character(s) long.
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Generally, most text out there will use the first, single-codepoint approach whenever possible, and pre-packaged linguistic corpora will try to be consistent about this (unless they come from the web, which always warrants being suspicious and defensive about your material). If you're worried about inconsistencies in your data, you can perform a &lt;a href="https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization"&gt;normalization&lt;/a&gt;:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[19]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;unicodedata&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;normalize&lt;/span&gt;
+
+&lt;span class="c1"&gt;# NFC stands for Normal Form C; this normalization applies a canonical&lt;/span&gt;
+&lt;span class="c1"&gt;# decomposition (into a multi-codepoint representation) followed by a&lt;/span&gt;
+&lt;span class="c1"&gt;# canonical composition (into a single-codepoint representation)&lt;/span&gt;
+&lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;normalize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NFC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;s2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;normalize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;NFC&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[19]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;True&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Let's wrap things up by saying that Python itself uses Unicode internally and (mostly?) assumes &lt;code&gt;UTF-8&lt;/code&gt; when reading files. So if you're using &lt;code&gt;UTF-8&lt;/code&gt; as is increasingly the case (and you should be), you won't have to worry too much about encodings, except perhaps for normalization.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[20]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# a good idea when dealing with Unicode text from an unknown and&lt;/span&gt;
+&lt;span class="c1"&gt;# unreliable source is to look at the set of codepoints contained&lt;/span&gt;
+&lt;span class="c1"&gt;# in it and eliminate or replace those that shouldn&amp;#39;t be there&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;unicodedata&lt;/span&gt;
+
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inspect_codepoints&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;charset&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;charset&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;info&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;r&amp;quot;{} (\u{:04x}): {} (category: {})&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+            &lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;unicodedata&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+            &lt;span class="n"&gt;unicodedata&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;category&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+        &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        
+
+&lt;span class="c1"&gt;# depending on your font configuration, it may be very hard to spot&lt;/span&gt;
+&lt;span class="c1"&gt;# the two intruders in the sentence below that look like regular&lt;/span&gt;
+&lt;span class="c1"&gt;# letters but really are specialized variants; you might want&lt;/span&gt;
+&lt;span class="c1"&gt;# to replace them before doing further text processing...&lt;/span&gt;
+&lt;span class="n"&gt;inspect_codepoints&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Intruders here, good 𝗍hinɡ I checked.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;  (\u0020): SPACE (category: Zs)
+, (\u002c): COMMA (category: Po)
+. (\u002e): FULL STOP (category: Po)
+I (\u0049): LATIN CAPITAL LETTER I (category: Lu)
+c (\u0063): LATIN SMALL LETTER C (category: Ll)
+d (\u0064): LATIN SMALL LETTER D (category: Ll)
+e (\u0065): LATIN SMALL LETTER E (category: Ll)
+g (\u0067): LATIN SMALL LETTER G (category: Ll)
+h (\u0068): LATIN SMALL LETTER H (category: Ll)
+i (\u0069): LATIN SMALL LETTER I (category: Ll)
+k (\u006b): LATIN SMALL LETTER K (category: Ll)
+n (\u006e): LATIN SMALL LETTER N (category: Ll)
+o (\u006f): LATIN SMALL LETTER O (category: Ll)
+r (\u0072): LATIN SMALL LETTER R (category: Ll)
+s (\u0073): LATIN SMALL LETTER S (category: Ll)
+t (\u0074): LATIN SMALL LETTER T (category: Ll)
+u (\u0075): LATIN SMALL LETTER U (category: Ll)
+ɡ (\u0261): LATIN SMALL LETTER SCRIPT G (category: Ll)
+𝗍 (\u1d5cd): MATHEMATICAL SANS-SERIF SMALL T (category: Ll)
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[21]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span class="c1"&gt;# ... because of course, for a computer, the word &amp;quot;thing&amp;quot; written with&lt;/span&gt;
+&lt;span class="c1"&gt;# two different variants of &amp;quot;g&amp;quot; is really just two different words, which&lt;/span&gt;
+&lt;span class="c1"&gt;# is probably not what you want&lt;/span&gt;
+&lt;span class="s2"&gt;&amp;quot;thing&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;thinɡ&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[21]:&lt;/div&gt;
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;False&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;In any case, here's what happens when processing text with Python ("Unicode" in the central box stands for Python's internal representation of Unicode, which is &lt;strong&gt;not&lt;/strong&gt; &lt;code&gt;UTF-8&lt;/code&gt; nor &lt;code&gt;UTF-16&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Text IO in Python" src="http://www.nltk.org/images/unicode.png" style="max-width: 100%;"&gt;&lt;/p&gt;
+&lt;p&gt;(Image shamelessly hotlinked from / courtesy of the &lt;a href="http://www.nltk.org/book/"&gt;NLTK Book&lt;/a&gt;. Go check it out, it's an awesome intro to Python programming for linguists!)&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;A terminological postscript: we've been using some terms a bit informally and for the most part it's okay, but it's good to get the distinctions straight in one's head at least once. So, a &lt;strong&gt;character set&lt;/strong&gt; is a mapping between &lt;strong&gt;codepoints&lt;/strong&gt; (integers) and &lt;strong&gt;characters&lt;/strong&gt;. We may for instance say that in our character set, the integer 99 corresponds to the character "c".&lt;/p&gt;
+&lt;p&gt;On the other hand, an &lt;strong&gt;encoding&lt;/strong&gt; is a mapping between a &lt;strong&gt;codepoint&lt;/strong&gt; (an integer) and a &lt;strong&gt;physical sequence of 1's and 0's that represent it in memory&lt;/strong&gt;. With fixed-width encodings, this mapping is generally straightforward -- the 1's and 0's directly represent the given integer, only in binary and padded with zeros to fit the desired width. With variable-width encodings, as the necessity creeps in to include the information about how many bits are spanned by the current character, this straightforward correspondence breaks down.&lt;/p&gt;
+&lt;p&gt;A comparison might be helpful here: as encodings, &lt;code&gt;UTF-8&lt;/code&gt; and &lt;code&gt;UTF-16&lt;/code&gt; both use &lt;strong&gt;the same character set&lt;/strong&gt; -- the same integers corresponding to the same characters. But since they're &lt;strong&gt;different encodings&lt;/strong&gt;, when the time comes to turn these integers into sequences of bits to store in a computer's memory, each of them generates a different one.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;For more on Unicode, a great read already hinted at above is Joel Spolsky's &lt;a href="http://www.joelonsoftware.com/articles/Unicode.html"&gt;The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)&lt;/a&gt;. To make the discussion digestible for newcomers, I sometimes slightly distorted facts about how things are "really really" done. And some inaccuracies may be genuine mistakes. In any case, please let me know in the comments! I'm grateful for feedback and looking to improve this material; I'll fix the mistakes and consider ditching some of the simplifications if they prove untenable :)&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</summary><category term="unicode"></category><category term="encoding"></category><category term="charset"></category><category term="programming"></category><category term="linguistics"></category><category term="python"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText -- vylepšená verze</title><link href="http://dlukes.github.io/output/kontext-interface-tweak-update.html" rel="alternate"></link><updated>2015-05-14T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-05-14:output/kontext-interface-tweak-update.html</id><summary type="html">&lt;p&gt;Před nějakou dobou jsem zde vyvěsil
+&lt;a href="http://dlukes.github.io/output/kontext-interface-tweak.html"&gt;skript&lt;/a&gt;, jehož pomocí lze lehce
+"přeskládat" a upravit rozhraní korpusového konkordanceru
+&lt;a href="https://kontext.korpus.cz"&gt;KonText&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;menu je umístěné po straně místo nahoře a permanentně rozbalené&lt;/li&gt;
+&lt;li&gt;nad vyhledanou konkordancí je umístěn rychlý hledací box, v němž lze
+  předchozí dotaz pohodlně upravit&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Víc o motivaci těchto úprav se dočtete
+&lt;a href="/output/kontext-interface-tweak.html#background"&gt;v původním článku&lt;/a&gt;. Stále
+platí, že ČNK nemá v plánu tyto změny začlenit přímo do oficiální verze
+KonTextu, zejména proto, že rychlý hledací box sice v jistých situacích může
+být užitečný, nicméně oproti standardnímu formuláři &lt;em&gt;Nový dotaz&lt;/em&gt; výrazně
+omezuje možnosti pro zadání dotazu.&lt;/p&gt;
+&lt;p&gt;Vylepšená verze, která je k dispozici níže, odstraňuje některé předchozí
+nedostatky skriptu: rychlý hledací box nad konkordancí je větší, ukazuje &lt;strong&gt;vždy
+CQL podobu posledního zadaného dotazu&lt;/strong&gt;&lt;sup id="fnref:1"&gt;&lt;a class="footnote-ref" href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;, a především zůstává zobrazený i
+během listování konkordancí (tj. není k dispozici jen na její první
+stránce). Dotaz lze nyní navíc pro větší přehlednost rozdělit do více řádků,
+takže opětovné vyhledávání se nově spouští stiskem kombinace kláves
+&lt;strong&gt;Ctrl+Enter&lt;/strong&gt; (místo jen Enteru).&lt;/p&gt;
+&lt;p&gt;Výsledné upravené rozhraní KonText vypadá stále podobně:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Upravené rozhraní KonText." src="/output/images/kontext_interface_tweak_update.png" style="max-width: 100%;"&gt;&lt;/p&gt;
+&lt;h1&gt;Postup instalace skriptu&lt;/h1&gt;
+&lt;p&gt;Nová verze skriptu je k dispozici zde:&lt;/p&gt;
+&lt;script src="https://gist.github.com/dlukes/a99dca231db63c9d5bb7.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Kroky k jeho zprovoznění zůstávají stejné:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Nainstalovat si do svého prohlížeče plugin
+    &lt;a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en"&gt;Tampermonkey&lt;/a&gt;,
+    pokud používáte Chrome, nebo
+    &lt;a href="https://addons.mozilla.org/en-us/firefox/addon/greasemonkey/"&gt;Greasemonkey&lt;/a&gt;,
+    pokud používáte Firefox. (Pokud používáte Internet Explorer, budete muset
+    dočasně přesedlat na Chrome nebo Firefox.) Testovaný je skript zatím jen na
+    Chromu.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Založit v daném pluginu nový skript (pro Chrome je tutorial
+    &lt;a href="http://hibbard.eu/tampermonkey-tutorial/"&gt;zde&lt;/a&gt;, pro Firefox
+    &lt;a href="http://hayageek.com/greasemonkey-tutorial/"&gt;zde&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Smazat kostru nového skriptu a nahradit ji skriptem, který si zkopírujete výše.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Skript uložit.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Používat KonText jako normálně -- skript už by podle adresy měl sám poznat,
+    že se má spustit. Pokud se tak nestane, nejspíš to znamená, že je
+    prohlížečový plugin (Tampermonkey nebo Greasemonkey) deaktivovaný a je
+    potřeba jej znovu aktivovat.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;V předchozí verzi se po aplikaci libovolného filtru změnil obsah
+hledacího boxu na parametry filtrování.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText</title><link href="http://dlukes.github.io/output/kontext-interface-tweak.html" rel="alternate"></link><updated>2015-02-17T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-02-17:output/kontext-interface-tweak.html</id><summary type="html">&lt;h1&gt;!POZOR!&lt;/h1&gt;
+&lt;p&gt;K dispozici je nyní
+&lt;a href="http://dlukes.github.io/output/kontext-interface-tweak-update.html"&gt;vylepšená verze níže popsaného skriptu&lt;/a&gt;.&lt;/p&gt;
+&lt;h1&gt;Hledání v korpusech ČNK&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://korpus.cz"&gt;Český národní korpus&lt;/a&gt; je sbírka jazykových korpusů částečně
+vytvářených &lt;a href="http://ucnk.ff.cuni.cz"&gt;Ústavem Českého národního korpusu&lt;/a&gt; a
+částečně jinými institucemi. Všechny jsou hostované na jednom serveru a
+dostupné skrz různá vyhledávací rozhraní
+(tzv. &lt;a href="http://wiki.korpus.cz/doku.php/pojmy:korpusovy_manazer"&gt;konkordancery&lt;/a&gt;),
+např. &lt;a href="https://www.korpus.cz/corpora"&gt;NoSke&lt;/a&gt;,
+&lt;a href="http://ucnk.ff.cuni.cz/bonito/index.php"&gt;Bonito&lt;/a&gt; či nejnověji
+&lt;a href="https://kontext.korpus.cz"&gt;KonText&lt;/a&gt;. Koncem března 2015 ovšem bude podpora
+starších rozhraní ukončena a nadále půjde k datům v ČNK přistupovat primárně
+pouze přes KonText.&lt;/p&gt;
+&lt;p&gt;(Pokud vám odstavec výše nedává příliš smysl, s jazykovými korpusy se setkáváte
+poprvé, ale chcete se dozvědět víc, raději si místo tohoto postu přečtěte,
+&lt;a href="http://wiki.korpus.cz/doku.php/pojmy:korpus"&gt;k čemu je takový korpus dobrý&lt;/a&gt;, a
+&lt;a href="https://kontext.korpus.cz"&gt;zkuste si v něm něco pro zajímavost vyhledat&lt;/a&gt;. Pokud
+se vám při vzpomínce na Bonito či NoSke naopak zaskvěla slza v oku, čtěte dál!)&lt;/p&gt;
+&lt;h1&gt;&lt;a id="background"&gt;&lt;/a&gt;KonText vs. Bonito / NoSke&lt;/h1&gt;
+&lt;p&gt;KonText má oproti starším rozhraním řadu výhod -- bohatší funkcionalitu, mnohé
+pomůcky, které vám pomohou se zadáním složitějších dotazů (sestavení
+morfologického tagu či podmínky &lt;code&gt;within&lt;/code&gt;), a v neposlední řadě mnohem lépe
+vypadá, což kupříkladu mně při práci působí jako balzám na duši. Nicméně
+dlouholetí uživatelé ČNK byli jednoduše zvyklí na některé aspekty Bonita a
+NoSke, které jim teď v KonTextu chybí.&lt;/p&gt;
+&lt;p&gt;Onehdy při rozhovoru s jedním z nich vyplavaly na povrch jako hodně důležité
+dvě stížnosti:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Vrchní menu v KonTextu je zákeřné, schovává se, člověk nemá přehled nad
+   dostupnými funkcemi. Oproti tomu NoSke má menu po straně a je permanentně
+   rozvinuté, takže uživatel má všechny možnosti interakce s konkordancí
+   soustavně jako na dlani.&lt;/li&gt;
+&lt;li&gt;Po zadání dotazu člověk často na základě konkordance zjistí, že jej
+   potřebuje ještě trochu upravit / zjemnit. KonText si sice předchozí dotazy
+   pamatuje, je ale potřeba se k nim doklikat; šikovnější by bylo, kdyby tato
+   možnost byla dostupná přímo ze stránky konkordance v podobě nějakého
+   zjednodušeného hledacího boxu. (NoSke tohle vlastně taky neumí, v Bonitu je
+   to jednodušší.)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;V obou případech jde o smysluplné požadavky, jenže KonText je poměrně velká a
+složitá aplikace, takže i pokud se ČNK rozhodne do ní tyto podněty v nějaké
+podobě zapracovat (např. jako možnost přepnutí zobrazení menu), bude nějakou
+chvíli trvat, než se implementace navrhne, vytvoří, řádně otestuje a konečně
+dostane k uživatelům. Nicméně aby bylo možné alespoň vyzkoušet, jak by zmíněné
+změny vypadaly v praxi, dal jsem dohromady krátký skript, který již v
+prohlížeči nahraný KonText trochu "přestaví" a upraví. Výsledek vypadá
+následovně:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Upravené rozhraní KonText." src="/output/images/kontext_interface_tweak.png" style="max-width: 100%;"&gt;&lt;/p&gt;
+&lt;p&gt;Rovnou předesílám: ten skript je nevzhledný bastl přilepený na KonText
+zvnějšku; proto taky bylo možné jej dát dohromady poměrně rychle, protože si
+neklade nárok na spolehlivost, která se vyžaduje od oficiální verze
+KonTextu. Je to spíš prototyp, jehož účelem je otestovat výše popsané změny v
+praxi a získat představu o tom, zda a do jaké míry jsou přínosné. (Vlastní
+zkušenost: po chvíli používání mi přijde přídatný hledací box nad konkordancí
+hodně šikovný a užitečný.)&lt;/p&gt;
+&lt;p&gt;Teď k jádru pudla: &lt;strong&gt;pokud máte zájem, můžete si KonText takto k obrazu svému&lt;/strong&gt;
+(resp. k obrázku o odstavec výš) &lt;strong&gt;upravit také&lt;/strong&gt; a vyzkoušet, jak vám takové
+nastavení vyhovuje. Když se vám jedna z úprav bude líbit (nebo vás u toho
+napadne jiná, kterou by si KonText zasloužil), můžete pak zadat
+&lt;a href="https://podpora.korpus.cz/projects/kontext/issues/new"&gt;požadavek na nový feature&lt;/a&gt;.
+Návod, jak si KonText upravit, následuje níže.&lt;/p&gt;
+&lt;h1&gt;Postup instalace skriptu&lt;/h1&gt;
+&lt;p&gt;Skript samotný je k dispozici zde:&lt;/p&gt;
+&lt;script src="https://gist.github.com/dlukes/0764590b7a8464cbd000.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;K jeho zprovoznění jsou potřeba následující kroky:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Nainstalovat si do svého prohlížeče plugin
+    &lt;a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en"&gt;Tampermonkey&lt;/a&gt;,
+    pokud používáte Chrome, nebo
+    &lt;a href="https://addons.mozilla.org/en-us/firefox/addon/greasemonkey/"&gt;Greasemonkey&lt;/a&gt;,
+    pokud používáte Firefox. (Pokud používáte Internet Explorer, budete muset
+    dočasně přesedlat na Chrome nebo Firefox.) Testovaný je skript zatím jen na
+    Chromu.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Založit v daném pluginu nový skript (pro Chrome je tutorial
+    &lt;a href="http://hibbard.eu/tampermonkey-tutorial/"&gt;zde&lt;/a&gt;, pro Firefox
+    &lt;a href="http://hayageek.com/greasemonkey-tutorial/"&gt;zde&lt;/a&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Smazat kostru nového skriptu a nahradit ji skriptem, který si zkopírujete výše.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Skript uložit.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Používat KonText jako normálně -- skript už by podle adresy měl sám poznat,
+    že se má spustit. Pokud se tak nestane, nejspíš to znamená, že je
+    prohlížečový plugin (Tampermonkey nebo Greasemonkey) deaktivovaný a je
+    potřeba jej znovu aktivovat.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;Omezení&lt;/h1&gt;
+&lt;p&gt;Skript má pravděpodobně hromadu drobných much, na které se mi zatím nepodařilo
+přijít -- budu se je snažit průběžně opravovat, když na ně padnu, nebo
+&lt;a href="pages/about.html"&gt;když mi o nich dáte vědět&lt;/a&gt;. Krom toho má i některé mouchy, o
+nichž už vím, ale bohužel toho s nimi nejde moc dělat.&lt;/p&gt;
+&lt;p&gt;Asi nejnápadnější je, že přidaný hledací box funguje jen na těch stránkách, kde
+je původní dotaz i součástí adresy URL (což nejsou všechny -- třeba když
+začnete &lt;strong&gt;listovat konkordancí&lt;/strong&gt; na druhou stránku a dál, &lt;strong&gt;dotaz je z adresy
+vyjmut&lt;/strong&gt; a &lt;strong&gt;pomocný hledací box tedy zmizí&lt;/strong&gt;). Ale vzhledem k tomu, že jeho
+hlavní účel má být možnost lehce upravit dotaz po prvním rychlém nahlédnutí do
+konkordance, snad to nebude takový problém. Pokud někdy bude podobný box řádně
+přidán přímo do KonTextu, takovými nedostatky samozřejmě trpět nebude.&lt;/p&gt;
+&lt;p&gt;A ještě k &lt;strong&gt;používání přidaného hledacího boxu&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Typ dotazu, který je do něj potřeba zadat, je stejný jako ten, který jste
+   při prvotním vyhledání konkordance zadali na stránce
+   &lt;a href="https://kontext.korpus.cz/first_form"&gt;Nový dotaz&lt;/a&gt;. Pokud tento prvotní
+   dotaz byl &lt;em&gt;Základní&lt;/em&gt; dotaz, můžete pomocí rychlého boxu zadat jiný
+   &lt;em&gt;Základní&lt;/em&gt; dotaz; pokud to byl &lt;em&gt;CQL&lt;/em&gt; dotaz, můžete ho upravit zas jen na
+   další &lt;em&gt;CQL&lt;/em&gt; dotaz. Důvodem je, že &lt;strong&gt;smyslem&lt;/strong&gt; tohoto pomocného boxu &lt;strong&gt;není
+   nahradit plnohodnotný formulář&lt;/strong&gt; pro zadání dotazu, jen poskytnout rychlou
+   možnost, jak již &lt;strong&gt;zadaný dotaz upravit&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Pomocný hledací box se objeví i poté, co na konkordanci provedete
+   filtrování. V takové situaci se dá použít k tomu, abyste &lt;strong&gt;pozměnili zadání
+   aktuálního filtru&lt;/strong&gt;, tj. filtrování se provede znovu na původní konkordanci,
+   ne na této již filtrované. Pokud chcete opakovaně filtrovat tu samou
+   konkordanci a postupně podle daných kritérií vyřazovat / přidávat řádky, je
+   potřeba místo hledacího boxu opakovaně použít menu &lt;em&gt;Filtr&lt;/em&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;Komu si stěžovat, když to nebude fungovat&lt;/h1&gt;
+&lt;p&gt;Skript je volně šiřitelný pod licencí
+&lt;a href="http://www.gnu.org/copyleft/gpl.html"&gt;GNU GPL v3&lt;/a&gt;, takže se na něj neváže
+žádná záruka. Když se vám ale nebude dařit jej zprovoznit, rád se pokusím
+pomoct! Stačí se ozvat na adresu uvedenou &lt;a href="pages/about.html"&gt;zde&lt;/a&gt;.&lt;/p&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry></feed>
