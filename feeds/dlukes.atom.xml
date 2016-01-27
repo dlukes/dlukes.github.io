@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/output/" rel="alternate"></link><link href="http://dlukes.github.io/output/feeds/dlukes.atom.xml" rel="self"></link><id>http://dlukes.github.io/output/</id><updated>2016-01-27T00:00:00+01:00</updated><entry><title>How computers handle text: a gentle but thorough introduction to Unicode</title><link href="http://dlukes.github.io/output/unicode.html" rel="alternate"></link><updated>2016-01-27T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-01-27:output/unicode.html</id><summary type="html">&lt;p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/dlukes.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2016-01-27T00:00:00+01:00</updated><entry><title>How computers handle text: a gentle but thorough introduction to Unicode</title><link href="http://dlukes.github.io/unicode.html" rel="alternate"></link><updated>2016-01-27T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-01-27:unicode.html</id><summary type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
 &lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
@@ -1068,8 +1068,8 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
 
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;</summary><category term="unicode"></category><category term="encoding"></category><category term="charset"></category><category term="programming"></category><category term="linguistics"></category><category term="python"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText -- vylepšená verze</title><link href="http://dlukes.github.io/output/kontext-interface-tweak-update.html" rel="alternate"></link><updated>2015-05-14T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-05-14:output/kontext-interface-tweak-update.html</id><summary type="html">&lt;p&gt;Před nějakou dobou jsem zde vyvěsil
-&lt;a href="http://dlukes.github.io/output/kontext-interface-tweak.html"&gt;skript&lt;/a&gt;, jehož pomocí lze lehce
+&lt;/div&gt;&lt;/p&gt;</summary><category term="unicode"></category><category term="encoding"></category><category term="charset"></category><category term="programming"></category><category term="linguistics"></category><category term="python"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText -- vylepšená verze</title><link href="http://dlukes.github.io/kontext-interface-tweak-update.html" rel="alternate"></link><updated>2015-05-14T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-05-14:kontext-interface-tweak-update.html</id><summary type="html">&lt;p&gt;Před nějakou dobou jsem zde vyvěsil
+&lt;a href="http://dlukes.github.io/kontext-interface-tweak.html"&gt;skript&lt;/a&gt;, jehož pomocí lze lehce
 "přeskládat" a upravit rozhraní korpusového konkordanceru
 &lt;a href="https://kontext.korpus.cz"&gt;KonText&lt;/a&gt;:&lt;/p&gt;
 &lt;ul&gt;
@@ -1133,9 +1133,9 @@ takže opětovné vyhledávání se nově spouští stiskem kombinace kláves
 hledacího boxu na parametry filtrování.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText</title><link href="http://dlukes.github.io/output/kontext-interface-tweak.html" rel="alternate"></link><updated>2015-02-17T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-02-17:output/kontext-interface-tweak.html</id><summary type="html">&lt;h1&gt;!POZOR!&lt;/h1&gt;
+&lt;/div&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText</title><link href="http://dlukes.github.io/kontext-interface-tweak.html" rel="alternate"></link><updated>2015-02-17T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-02-17:kontext-interface-tweak.html</id><summary type="html">&lt;h1&gt;!POZOR!&lt;/h1&gt;
 &lt;p&gt;K dispozici je nyní
-&lt;a href="http://dlukes.github.io/output/kontext-interface-tweak-update.html"&gt;vylepšená verze níže popsaného skriptu&lt;/a&gt;.&lt;/p&gt;
+&lt;a href="http://dlukes.github.io/kontext-interface-tweak-update.html"&gt;vylepšená verze níže popsaného skriptu&lt;/a&gt;.&lt;/p&gt;
 &lt;h1&gt;Hledání v korpusech ČNK&lt;/h1&gt;
 &lt;p&gt;&lt;a href="http://korpus.cz"&gt;Český národní korpus&lt;/a&gt; je sbírka jazykových korpusů částečně
 vytvářených &lt;a href="http://ucnk.ff.cuni.cz"&gt;Ústavem Českého národního korpusu&lt;/a&gt; a
@@ -1261,7 +1261,7 @@ přidán přímo do KonTextu, takovými nedostatky samozřejmě trpět nebude.&l
 &lt;p&gt;Skript je volně šiřitelný pod licencí
 &lt;a href="http://www.gnu.org/copyleft/gpl.html"&gt;GNU GPL v3&lt;/a&gt;, takže se na něj neváže
 žádná záruka. Když se vám ale nebude dařit jej zprovoznit, rád se pokusím
-pomoct! Stačí se ozvat na adresu uvedenou &lt;a href="pages/about.html"&gt;zde&lt;/a&gt;.&lt;/p&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="http://dlukes.github.io/output/beyond-semver.html" rel="alternate"></link><updated>2014-12-14T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:output/beyond-semver.html</id><summary type="html">&lt;h1&gt;Background&lt;/h1&gt;
+pomoct! Stačí se ozvat na adresu uvedenou &lt;a href="pages/about.html"&gt;zde&lt;/a&gt;.&lt;/p&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="http://dlukes.github.io/beyond-semver.html" rel="alternate"></link><updated>2014-12-14T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:beyond-semver.html</id><summary type="html">&lt;h1&gt;Background&lt;/h1&gt;
 &lt;p&gt;Ever since I first read about &lt;a href="http://semver.org/"&gt;semantic versioning&lt;/a&gt;, I've
 thought of it as a neat idea. But only recently did it occur to me that what
 I liked about the idea was its goal, much less its execution (more on that
@@ -1357,7 +1357,7 @@ compatible manner by the update.&lt;/p&gt;
 &lt;p&gt;anyways, just a few ideas :) I am not primarily a coder, so there may be obvious
 drawbacks to this scheme that I can't see or which have already been discussed
 by the community on multiple occasions which have escaped my attention. in which
-case, please bear with me and excuse my lack of sophistication.&lt;/p&gt;</summary><category term="floss"></category><category term="semver"></category><category term="versioning"></category><category term="underscore.js"></category><category term="library"></category><category term="development"></category><category term="dependency"></category></entry><entry><title>Filling (hardwrapping) paragraphs in Airmail with `par`</title><link href="http://dlukes.github.io/output/fill-par-in-airmail.html" rel="alternate"></link><updated>2014-06-27T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-27:output/fill-par-in-airmail.html</id><summary type="html">&lt;h1&gt;tl;dr&lt;/h1&gt;
+case, please bear with me and excuse my lack of sophistication.&lt;/p&gt;</summary><category term="floss"></category><category term="semver"></category><category term="versioning"></category><category term="underscore.js"></category><category term="library"></category><category term="development"></category><category term="dependency"></category></entry><entry><title>Filling (hardwrapping) paragraphs in Airmail with `par`</title><link href="http://dlukes.github.io/fill-par-in-airmail.html" rel="alternate"></link><updated>2014-06-27T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-27:fill-par-in-airmail.html</id><summary type="html">&lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;Jump directly to &lt;a href="#solution"&gt;the proposed solution&lt;/a&gt;. Tested on OS X 10.9
 (Mavericks).&lt;/p&gt;
 &lt;h1&gt;Back story&lt;/h1&gt;
@@ -1491,4 +1491,4 @@ them, and are a pain to get working again (login, logout, reboot -- anything
 goes). If anyone knows why, please let me know!&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="osx"></category><category term="par"></category><category term="airmail"></category><category term="automator"></category><category term="services"></category><category term="fill"></category><category term="wrap"></category><category term="lines"></category></entry><entry><title>Configuring Emacs Daemon on Mac OS X</title><link href="http://dlukes.github.io/output/configuring-emacs-daemon-on-mac-os-x.html" rel="alternate"></link><updated>2014-06-24T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-24:output/configuring-emacs-daemon-on-mac-os-x.html</id><summary type="html">&lt;p&gt;Coming soon!&lt;/p&gt;</summary></entry></feed>
+&lt;/div&gt;</summary><category term="osx"></category><category term="par"></category><category term="airmail"></category><category term="automator"></category><category term="services"></category><category term="fill"></category><category term="wrap"></category><category term="lines"></category></entry><entry><title>Configuring Emacs Daemon on Mac OS X</title><link href="http://dlukes.github.io/configuring-emacs-daemon-on-mac-os-x.html" rel="alternate"></link><updated>2014-06-24T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-24:configuring-emacs-daemon-on-mac-os-x.html</id><summary type="html">&lt;p&gt;Coming soon!&lt;/p&gt;</summary></entry></feed>
