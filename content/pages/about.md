@@ -1,6 +1,7 @@
 Title: about me
 Tags: about
 Slug: about
+Alias: /output/pages/about.html
 Author: David Lukeš
 
 I'm primarily a phonetician/linguist interested in programming and NLP

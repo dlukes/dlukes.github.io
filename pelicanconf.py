@@ -46,9 +46,10 @@ RELATIVE_URLS = True
 # Redirection for URLs with former output/ doc root
 STATIC_PATHS = ["images", "output"]
 
-# Pplugin
-MARKUP = ("md", "ipynb")
+# Plugins
+MARKUP = ("md")
 PLUGIN_PATHS = ["pelican-plugins"]
-PLUGINS = ["liquid_tags.notebook", "tag_cloud", "tipue_search"]
+PLUGINS = ["liquid_tags.notebook", "tag_cloud", "tipue_search",
+           "pelican_alias"]
 
 CC_LICENSE = "CC-BY-NC-SA"

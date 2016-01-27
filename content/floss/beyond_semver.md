@@ -2,6 +2,7 @@ Title: Beyond semantic versioning? (cross-post)
 Date: 2014-12-14
 Tags: floss, semver, versioning, underscore.js, library, development, dependency
 Slug: beyond-semver
+Alias: /output/beyond-semver.html
 Summary: Semantic versioning is a good idea, but it would be better to use an explicit keyword system to signal (non-)breaking changes in library versions.
 
 # Background

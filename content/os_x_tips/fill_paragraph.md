@@ -3,6 +3,7 @@ Date: 2014-06-27
 Category: os x tips
 Tags: osx, par, airmail, automator, services, fill, wrap, lines
 Slug: fill-par-in-airmail
+Alias: /output/fill-par-in-airmail.html
 Summary: How to use `par` for conveniently filling (hardwrapping) paragraphs in plain text e-mail in Airmail [Beta] on OS X.
 
 # tl;dr

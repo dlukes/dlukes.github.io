@@ -2,6 +2,7 @@ Title: Úprava rozhraní konkordanceru KonText -- vylepšená verze
 Date: 2015-05-14
 Tags: KonText, korpus, konkordance, NoSke, Bonito
 Slug: kontext-interface-tweak-update
+Alias: /output/kontext-interface-tweak-update.html
 Summary: Vylepšená verze skriptu, kterým si uživatel Českého národního korpusu může upravit rozhraní konkordanceru KonText.
 
 Před nějakou dobou jsem zde vyvěsil
