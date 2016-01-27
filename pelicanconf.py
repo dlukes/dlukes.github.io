@@ -37,7 +37,7 @@ AVATAR = "/images/avatar.jpeg"
 ABOUT_ME = "Language tourist, Python enthusiast & Frank Zappa aficionado"
 FAVICON = "images/favicon.ico"
 PYGMENTS_STYLE = "zenburn"
-
+THEME="pelican-bootstrap3"
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing

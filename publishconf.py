@@ -24,5 +24,3 @@ DELETE_OUTPUT_DIRECTORY = True
 
 DISQUS_SITENAME = "littleumbrellas"
 # GOOGLE_ANALYTICS = ""
-
-THEME="pelican-bootstrap3"
