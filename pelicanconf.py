@@ -19,7 +19,6 @@ DIRECT_TEMPLATES = ["index", "tags", "categories", "archives", "search"]
 
 # Blogroll
 LINKS = (("Czech National Corpus", "http://www.korpus.cz"),
-         ("My academic homepage", "http://trnka.korpus.cz/~lukes/"),
          ("A blonde in Poland", "http://wodymarcowe.blogspot.cz"),
          ("xkcd", "http://xkcd.com"),
          ("Perry Bible Fellowship", "http://pbfcomics.com"),
