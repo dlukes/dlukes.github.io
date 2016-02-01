@@ -4,9 +4,9 @@ Slug: about
 Alias: /output/pages/about.html
 Author: David Lukeš
 
-I'm primarily a phonetician/linguist interested in programming and NLP
-applications, an avid fan of Linux and a beginning user of OS X. I like Python
-and [Clojure](http://www.leiningen.org) and would like to
+Hi! My name is David Lukeš and I'm primarily a phonetician/linguist interested
+in programming and NLP applications, an avid fan of Linux and a beginning user
+of OS X. I like Python and [Clojure](http://www.leiningen.org) and would like to
 [learn me a Haskell for great good](http://learnyouahaskell.com); I find R
 useful (though convoluted on occasion) and avoid Perl as much as I can.
 
@@ -31,6 +31,7 @@ As you can tell from the title of this blog (if you're a fellow aficionado), I
 spent most of my teen years listening to the great music of one **Frank
 Zappa**.
 
-More about me on [my homepage](https://trnka.korpus.cz/~lukes/).
+If you're interested in my academic (and more broadly, professional)
+credentials, they're available for inspection [here]({filename}work.md).
 
 ![Contact me at:]({filename}/images/dvl.png)
