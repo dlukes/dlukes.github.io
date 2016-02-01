@@ -39,6 +39,9 @@ PYGMENTS_STYLE = "zenburn"
 THEME="pelican-bootstrap3"
 DEFAULT_PAGINATION = 10
 
+# Bib file for publications list
+PUBLICATIONS_SRC = "bib.tmp"
+
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
@@ -47,8 +50,8 @@ STATIC_PATHS = ["images", "output"]
 
 # Plugins
 MARKUP = ("md")
-PLUGIN_PATHS = ["pelican-plugins"]
+PLUGIN_PATHS = ["pelican-plugins", "pelican-bibtex"]
 PLUGINS = ["liquid_tags.notebook", "tag_cloud", "tipue_search",
-           "pelican_alias"]
+           "pelican_alias", "pelican-bibtex"]
 
 CC_LICENSE = "CC-BY-NC-SA"
