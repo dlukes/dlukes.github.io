@@ -1,5 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/os-x-tips.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2014-06-27T00:00:00+02:00</updated><entry><title>Filling (hardwrapping) paragraphs in Airmail with `par`</title><link href="http://dlukes.github.io/fill-par-in-airmail.html" rel="alternate"></link><updated>2014-06-27T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-27:fill-par-in-airmail.html</id><summary type="html">&lt;h1&gt;tl;dr&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/os-x-tips.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2016-02-20T00:00:00+01:00</updated><entry><title>Configuring Emacs Daemon on Mac OS X</title><link href="http://dlukes.github.io/emacs-daemon-osx.html" rel="alternate"></link><updated>2016-02-20T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-02-20:emacs-daemon-osx.html</id><summary type="html">&lt;p&gt;I know I promised this article a loooong time ago (June 2014, when I first got a
+Mac, to judge by the previous timestamp in the header of this file), but since
+the historically attested readership of this blog is 2 + a bunch of my facebook
+friends who I nagged to read
+&lt;a href="http://dlukes.github.io/unicode.html"&gt;my attempt at explaining character encodings to non-technical people&lt;/a&gt;,
+I don't suppose it's as if a legion of fans have been restlessly looking forward
+to this one ;) Nevertheless, the distinct advantage is that my OS X Emacs setup
+has had the opportunity to grow more mature and also much simpler in the
+meantime, which means that if a third reader accidentally stumbles over this
+note (exploding my ratings...), they might actually find something genuinely
+useful here.&lt;/p&gt;
+&lt;h1&gt;tl;dr&lt;/h1&gt;
+&lt;p&gt;This article presents a way to &lt;strong&gt;start Emacs Daemon&lt;/strong&gt; (a persistent Emacs
+session) &lt;strong&gt;from the GUI&lt;/strong&gt; and &lt;strong&gt;subsequently connect to it&lt;/strong&gt; (creating frames on
+demand) using an &lt;strong&gt;Automator script&lt;/strong&gt;. The &lt;strong&gt;benefit&lt;/strong&gt; is that you &lt;strong&gt;incur
+startup time lag only once&lt;/strong&gt; (when you start the daemon) while still being able
+to &lt;strong&gt;close all frames&lt;/strong&gt; when you're not using Emacs, keeping a &lt;strong&gt;clean
+workspace&lt;/strong&gt;. This is &lt;strong&gt;especially useful&lt;/strong&gt; if your Emacs is &lt;strong&gt;heavily
+customized&lt;/strong&gt; and &lt;strong&gt;loading it takes a while&lt;/strong&gt;. Another &lt;strong&gt;benefit&lt;/strong&gt; is that
+whenever you open a frame connected to an Emacs daemon, &lt;strong&gt;all your previously
+open buffers are still there as you left them&lt;/strong&gt; (as opposed to opening a fresh
+instance of Emacs).&lt;/p&gt;
+&lt;p&gt;Skim over the code blocks to get the
+important gist without the verbose sauce. Tested on OS X 10.11 El Capitan, with
+Homebrew Emacs and Spacemacs config.&lt;/p&gt;
+&lt;h1&gt;Why Emacs Daemon, why this post&lt;/h1&gt;
+&lt;p&gt;Installing Emacs on a Mac in and of itself is not that much of a problem --
+there are several options, ranging from Homebrew and Macports to
+&lt;a href="http://emacsformacosx.com/"&gt;Emacs for Mac OS X&lt;/a&gt;,
+&lt;a href="https://github.com/railwaycat/emacs-mac-port"&gt;Emacs Mac Port&lt;/a&gt; and
+&lt;a href="http://aquamacs.org/"&gt;Aquamacs&lt;/a&gt;. The last two in this list have some OS X
+specific tweaks (smooth scrolling, tabs, adapted keyboard shortcuts), which
+makes them perhaps more appealing out of the box but also less extensible, as
+some of the information out there about generic Emacs might not apply to them as
+straightforwardly or indeed at all.&lt;/p&gt;
+&lt;p&gt;With that in mind, if you want to tinker with your Emacs config, it's a good
+idea to stick with &lt;a href="http://brew.sh/"&gt;Homebrew's&lt;/a&gt; fairly conservative version of
+Emacs:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;$ brew update
+$ brew install emacs --with-cocoa
+&lt;span class="c1"&gt;# this step gets you a standard OS X launcher icon&lt;/span&gt;
+$ brew linkapps emacs
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But now that you've got Emacs, and especially if you're transferring some heavy
+customization over from say Linux, you might be unhappy that each time you start
+it from cold, it takes a while, typically a few seconds. That's what &lt;code&gt;emacs
+--daemon&lt;/code&gt; and &lt;code&gt;emacsclient&lt;/code&gt; are for: &lt;strong&gt;Emacs&lt;/strong&gt; is run as a &lt;strong&gt;daemon&lt;/strong&gt; in the
+&lt;strong&gt;backround&lt;/strong&gt; and you connect to it with &lt;strong&gt;client frames&lt;/strong&gt; that &lt;strong&gt;spawn almost
+instantly&lt;/strong&gt;. This also means that you can close all existing frames to keep your
+workspace clean if you won't be using Emacs for a while (hard to imagine, right,
+since you can even
+&lt;a href="https://github.com/vibhavp/emacs-xkcd"&gt;read xkcd from inside Emacs&lt;/a&gt;) and then
+whip up a frame at the speed of a thought when need arises.&lt;/p&gt;
+&lt;p&gt;Now this is all
+&lt;a href="http://stackoverflow.com/a/5578718/1826241"&gt;easy to achieve when using the terminal&lt;/a&gt;,
+but since you probably bought that Mac in great part for its shiny pretty
+elegant ergonomic GUI, you might want Emacs to use GUI frames instead of
+terminal ones and connect to the Emacs daemon (or start it if it's not running)
+by just clicking on an app icon in the launcher or finding it from Spotlight.
+That's where Automator comes in.&lt;/p&gt;
+&lt;h1&gt;An Automator script&lt;/h1&gt;
+&lt;p&gt;&lt;a href="http://www.macosxautomation.com/automator/"&gt;Automator&lt;/a&gt; is a built-in OS X app
+for creating custom automated user workflows for just about any installed app
+you might have or even OS functionality. Among other things, this means that it
+allows you to wrap the daemon auto-start functionality available from the
+terminal (as described in the previous paragraph) into an app launchable from
+the GUI. Let's get down to business:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Launch Automator and create a new document. Select &lt;em&gt;Application&lt;/em&gt; as its type.&lt;/li&gt;
+&lt;li&gt;Search the Actions palette on the left for the &lt;em&gt;Run Shell Script&lt;/em&gt; action and
+   add it to your Automator document.&lt;/li&gt;
+&lt;li&gt;In the &lt;em&gt;Run Shell Script&lt;/em&gt; building block, change the following:&lt;/li&gt;
+&lt;li&gt;set &lt;em&gt;Shell&lt;/em&gt; to the shell you're using and whose init files have thus the
+     &lt;code&gt;PATH&lt;/code&gt; correctly set to the &lt;code&gt;emacs&lt;/code&gt; and &lt;code&gt;emacsclient&lt;/code&gt; executables (if
+     you're using Homebrew, it probably told you how to properly set up your
+     &lt;code&gt;PATH&lt;/code&gt; as a post-install step)&lt;/li&gt;
+&lt;li&gt;set &lt;em&gt;Pass input&lt;/em&gt; to "as arguments" (if you then
+     &lt;a href="http://osxdaily.com/2013/08/08/change-default-application-open-files-mac-os-x/"&gt;set this Automator app as the default for opening a given type of file&lt;/a&gt;,
+     you'll be able to use &lt;code&gt;emacsclient&lt;/code&gt; to open files by double-clicking on
+     them in Finder)&lt;/li&gt;
+&lt;li&gt;Finally, paste in the following code snippet and save the app e.g. as
+   &lt;code&gt;EmacsClient.app&lt;/code&gt;, preferably in your Applications folder so that it is
+   easily accessible from the launcher.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;nohup emacsclient --no-wait -c -a emacs &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$@&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;At the end of the day, your Automator EmacsClient.app should look something like
+this:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="EmacsClient.app" src="images/emacsclientapp.png" style="max-width: 100%;"&gt;&lt;/p&gt;
+&lt;p&gt;The core of the command that you might want to tweak based on your particular
+Emacs setup is &lt;code&gt;emacsclient --no-wait -c -a emacs&lt;/code&gt;; mine is optimized to work
+with mostly stock Spacemacs config (see below). If it doesn't work, you might
+also want to try a simple &lt;code&gt;emacsclient -c -a ""&lt;/code&gt; and variations; a good
+debugging technique is to try these out in the terminal: as soon as you get the
+line working there, it'll start working in the Automator task as well.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;"$@"&lt;/code&gt; is just the list of files (if any) passed to Emacs to open (the
+aforementioned double-click in Finder use case). The rest is some black magic to
+ensure that the shell which spawns the Emacs process (because this Automator app
+is after all, at heart, only a shell script) totally and utterly disowns it, so
+that the shell script is allowed to return and the Automator task completes as
+soon as Emacs has started (or the client has spawned a new frame). Otherwise,
+you'd end up with an irritating spinning cog wheel in your notification area
+which would stay there until you completely quit Emacs. Which is probably not
+what you want, since you're undergoing all this hassle in the first place to get
+a zen, distraction-free Emacs experience.&lt;/p&gt;
+&lt;p&gt;The details of the various incantations are discussed in
+&lt;a href="https://discussions.apple.com/thread/6474971?start=0&amp;amp;tstart=0"&gt;this Apple forum thread&lt;/a&gt;,
+but let's have a whirlwind tour for the moderately interested (my knowledge of
+Unix processes is far from perfect, so feel free to correct me on these points!):&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;nohup&lt;/code&gt; makes the parent process (the shell) disown the child process
+   (Emacs), so that the shell can exit without killing Emacs as well&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;gt;/dev/null&lt;/code&gt; redirects standard output to oblivion and &lt;code&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; redirects
+   standard error to standard output (i.e. also to oblivion), which persuades
+   Automator that you're really not expecting to hear from the process via these
+   standard streams ever again, so there's no point in keeping the shell script
+   running.&lt;/li&gt;
+&lt;li&gt;the final &lt;code&gt;&amp;amp;&lt;/code&gt; runs the command in the background, which ensures control of
+   the shell is returned to the user as soon as the process is spawned; since
+   there are no additional commands in the shell script and all remaining ties
+   have been severed (see points 1 and 2 above), Automator finally agrees that
+   the task has probably done all it was expected to do and exits it.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1&gt;Wrapping up&lt;/h1&gt;
+&lt;p&gt;Whew! That's it. It's really not that complicated, it's just that my prose is
+verbose, so it makes it look like there's lots and lots to do. Trust me, there
+isn't. My first go at solving this usability problem -- the one I originally
+wanted to post way back in 2014 -- was a lengthy, godawful Applescript prone to
+subtle breakage. This is &lt;em&gt;much&lt;/em&gt; better.&lt;/p&gt;
+&lt;p&gt;And the ability to just use a single GUI app for transparently launching &lt;strong&gt;and&lt;/strong&gt;
+connecting to the Emacs daemon is pure bliss. While you're at it, for an even
+better Emacs experience, go fetch the excellent
+&lt;a href="http://spacemacs.org"&gt;Spacemacs Emacs config distribution&lt;/a&gt;, which pulls this
+venerable piece of software screaming into the 21st century. &lt;strong&gt;The best editor
+is neither Vim nor Emacs, its Vim + Emacs!&lt;/strong&gt; The addictive icing of Vim modal
+editing on the outside, a creamy Elisp core -- what more could you want from
+life? ;)&lt;/p&gt;
+&lt;p&gt;Oh and if, like me, you love
+&lt;a href="https://github.com/nashamri/spacemacs-logo"&gt;Spacemacs' snappy icon&lt;/a&gt; with the
+Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
+&lt;a href="http://www.macworld.co.uk/how-to/mac-software/how-change-os-x-yosemites-icons-3597494/"&gt;definitely want to switch your Emacs logo to the Spacemacs one&lt;/a&gt;!&lt;/p&gt;</summary><category term="osx"></category><category term="gui"></category><category term="emacs"></category><category term="daemon"></category><category term="emacsclient"></category><category term="spacemacs"></category><category term="automator"></category></entry><entry><title>Filling (hardwrapping) paragraphs in Airmail with `par`</title><link href="http://dlukes.github.io/fill-par-in-airmail.html" rel="alternate"></link><updated>2014-06-27T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-27:fill-par-in-airmail.html</id><summary type="html">&lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;Jump directly to &lt;a href="#solution"&gt;the proposed solution&lt;/a&gt;. Tested on OS X 10.9
 (Mavericks).&lt;/p&gt;
 &lt;h1&gt;Back story&lt;/h1&gt;
@@ -133,4 +277,4 @@ them, and are a pain to get working again (login, logout, reboot -- anything
 goes). If anyone knows why, please let me know!&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="osx"></category><category term="par"></category><category term="airmail"></category><category term="automator"></category><category term="services"></category><category term="fill"></category><category term="wrap"></category><category term="lines"></category></entry><entry><title>Configuring Emacs Daemon on Mac OS X</title><link href="http://dlukes.github.io/configuring-emacs-daemon-on-mac-os-x.html" rel="alternate"></link><updated>2014-06-24T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-24:configuring-emacs-daemon-on-mac-os-x.html</id><summary type="html">&lt;p&gt;Coming soon!&lt;/p&gt;</summary></entry></feed>
+&lt;/div&gt;</summary><category term="osx"></category><category term="par"></category><category term="airmail"></category><category term="automator"></category><category term="services"></category><category term="fill"></category><category term="wrap"></category><category term="lines"></category></entry></feed>

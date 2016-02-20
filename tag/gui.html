@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Filling (hardwrapping) paragraphs in Airmail with `par` - Little Umbrellas</title>
+    <title>gui - Little Umbrellas</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,28 +166,16 @@ init_mathjax();
 </script>
     <link href="http://dlukes.github.io/images/favicon.ico" rel="icon">
 
-<link rel="canonical" href="http://dlukes.github.io/fill-par-in-airmail.html">
 
-        <meta name="author" content="dlukes" />
-        <meta name="keywords" content="osx,par,airmail,automator,services,fill,wrap,lines" />
-        <meta name="description" content="How to use par for conveniently filling (hardwrapping) paragraphs in plain text e-mail in Airmail [Beta] on OS X." />
+    <meta name="author" content="dlukes" />
+    <meta name="keywords" content="gui" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Little Umbrellas" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Filling (hardwrapping) paragraphs in Airmail with `par`"/>
-        <meta property="og:url" content="http://dlukes.github.io/fill-par-in-airmail.html"/>
-        <meta property="og:description" content="How to use par for conveniently filling (hardwrapping) paragraphs in plain text e-mail in Airmail [Beta] on OS X."/>
-        <meta property="article:published_time" content="2014-06-27" />
-            <meta property="article:section" content="os x tips" />
-            <meta property="article:tag" content="osx" />
-            <meta property="article:tag" content="par" />
-            <meta property="article:tag" content="airmail" />
-            <meta property="article:tag" content="automator" />
-            <meta property="article:tag" content="services" />
-            <meta property="article:tag" content="fill" />
-            <meta property="article:tag" content="wrap" />
-            <meta property="article:tag" content="lines" />
-            <meta property="article:author" content="dlukes" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Little Umbrellas"/>
+        <meta property="og:url" content="http://dlukes.github.io"/>
+        <meta property="og:description" content="Little Umbrellas"/>
 
 
     <!-- Bootstrap -->
@@ -203,8 +191,6 @@ init_mathjax();
 
 
 
-        <link href="http://dlukes.github.io/feeds/os-x-tips.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Little Umbrellas os x tips ATOM Feed"/>
 
 </head>
 <body>
@@ -235,7 +221,7 @@ Little Umbrellas            </a>
                         <li >
                             <a href="http://dlukes.github.io/category/ling.html">ling</a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="http://dlukes.github.io/category/os-x-tips.html">os x tips</a>
                         </li>
             </ul>
@@ -256,218 +242,16 @@ Little Umbrellas            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="http://dlukes.github.io/fill-par-in-airmail.html"
-                       rel="bookmark"
-                       title="Permalink to Filling (hardwrapping) paragraphs in Airmail with `par`">
-                        Filling (hardwrapping) paragraphs in Airmail with `par`
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-06-27T00:00:00+02:00"> Fri 27 June 2014</time>
-    </span>
-
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="http://dlukes.github.io/tag/osx.html">osx</a>
-        /
-	<a href="http://dlukes.github.io/tag/par.html">par</a>
-        /
-	<a href="http://dlukes.github.io/tag/airmail.html">airmail</a>
-        /
-	<a href="http://dlukes.github.io/tag/automator.html">automator</a>
-        /
-	<a href="http://dlukes.github.io/tag/services.html">services</a>
-        /
-	<a href="http://dlukes.github.io/tag/fill.html">fill</a>
-        /
-	<a href="http://dlukes.github.io/tag/wrap.html">wrap</a>
-        /
-	<a href="http://dlukes.github.io/tag/lines.html">lines</a>
-    
-</footer><!-- /.post-info -->                    </div>
+            <article>
+                <h2><a href="http://dlukes.github.io/emacs-daemon-osx.html">Configuring Emacs Daemon on Mac OS X</a></h2>
+                <div class="summary"><p>I know I promised this article a loooong time ago (June 2014, when I first got a
+Mac, to judge by the previous timestamp in the header of this file), but since
+the historically attested readership of this blog is 2 + a bunch of my facebook
+friends who I nagged ...</p>
+                    <a class="btn btn-default btn-xs" href="http://dlukes.github.io/emacs-daemon-osx.html">more ...</a>
                 </div>
-                <h1>tl;dr</h1>
-<p>Jump directly to <a href="#solution">the proposed solution</a>. Tested on OS X 10.9
-(Mavericks).</p>
-<h1>Back story</h1>
-<p>Airmail is a great application -- being very happy with Gmail's in-browser UI,
-it's honestly the first e-mail desktop client that I ever felt even remotely
-tempted to use. It has:</p>
-<ul>
-<li>a sleek, functional design</li>
-<li>almost flawless integration with Gmail (except for categories -- but there's
-a
-<a href="http://airmail.tenderapp.com/help/discussions/suggestion-new-features/396-workaround-for-gmail-categories">not-too-hackish way</a>
-to deal with those)</li>
-<li>a Markdown compose mode (yay!) -- and tons of other good stuff.</li>
-</ul>
-<p>Especially that last feature almost got me sold -- you see, I like my e-mail
-hardwrapped (what Emacs calls "filling paragraphs"), because most of the time,
-I view it on monitors that are too wide for soft line wrapping to achieve a
-comfortable text width.</p>
-<p>(By the way, Airmail's layout deals with this issue very elegantly, but I know
-I won't be using only Airmail. Plus there are the obvious
-<a href="https://wiki.openstack.org/wiki/MailingListEtiquette#Line_Wrapping">netiquette issues</a>
--- lines "should be" wrapped at 72 characters etc.)</p>
-<p>In Gmail, I therefore use plain-text compose, which is fine for the purposes
-described above, but frustrating whenever you want to apply formatting
-(obviously, you can't -- it's plain text). I tried using the usual replacements
-for formatting like stars &amp; co., and I don't know about your grandma, but
-<em>mine</em> certainly doesn't take *...* to mean emphasis.</p>
-<p>I thought the Markdown compose mode in Airmail would solve my problems -- I
-could apply formatting if and when I wanted (using the frankly more streamlined
-process of <em>typing it in</em> rather than fumbling around for the right button in
-the GUI) <em>and</em> fill my paragraphs, because I somehow automatically assumed
-there'd by a hard-wrap feature like in any decent editor (read: emacs or
-vi). Markdown is plain text after all, isn't it?</p>
-<p>Long story short, as of yet, <strong>there isn't</strong>. There isn't even one for the
-plain-text compose mode, as far as I'm aware. So I added my two cents to
-<a href="http://feedback.airmailapp.com/forums/209001-airmail-mac-1-2/suggestions/4078595-add-line-wrap-for-plain-text-mails">this feature request thread</a>
-and went back to the Gmail in-browser UI.</p>
-<h1>Solution <a name="solution"></a></h1>
-<p>But then I realized (it took me a while, I'm still very much an OS X newbie):</p>
-<ol>
-<li>in OS X, you can define custom actions with shortcuts<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup> for any
-   application using Automator Services</li>
-<li>these actions can be easily set to receive text selected in the application
-   as input</li>
-<li>these actions can also involve shell scripts</li>
-<li>there already <em>is</em> a great (command line) program for filling paragraphs --
-   it's called <code>par</code>, and as much as I admire what Airmail's developers have
-   achieved, it's unlikely that they'd come up with a more sophisticated
-   hard-wrapping algorithm than <code>par</code>'s simply as a side project for Airmail
-   (see the EXAMPLES section in <code>man par</code>)</li>
-</ol>
-<p>With that in mind, you can have hard-wrapping in Markdown or plain-text Airmail
-compose at your fingertips in no time flat. If you don't have <code>homebrew</code>, start
-by installing that (or any other ports manager that will allow you to install
-<code>par</code>; I'll assume <code>homebrew</code> below) by pasting</p>
-<div class="highlight"><pre>    ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
-</pre></div>
-
-
-<p>at a Terminal prompt. Then:</p>
-<ol>
-<li>install <code>par</code> with <code>brew install par</code> at a Terminal prompt</li>
-<li>open Automator (e.g. by typing "Automator" into Spotlight) and create a new
-   Service</li>
-<li>select the applications for which you want the service to be active (for me,
-   that's just Airmail) and tick the "Output replaces selected text" box</li>
-<li>
-<p>drag the "Run Shell Script" action onto the workflow canvas, and as the
-   shell script, paste in</p>
-<div class="highlight"><pre><span class="nv">PARINIT</span><span class="o">=</span><span class="s2">&quot;rTbgqR B=.,?_A_a Q=_s&gt;|&quot;</span> /usr/local/bin/par 79
-</pre></div>
-
-
-<ul>
-<li>the $PARINIT environment variable contains the default recommended
-  settings for <code>par</code> (if you want to customize its behavior, you can -- good
-  luck wrapping your head around <code>par</code>'s manpage, though)</li>
-<li>you should set the full path to the <code>par</code> executable, the shell spawned by
-  the Service might not inherit your $PATH -- for <code>par</code> installed via
-  <code>homebrew</code>, it's <code>/usr/local/bin/par</code></li>
-<li>the parameter at the end is the max number of characters per
-  line -- mailing list etiquette stipulates 72, I personally prefer the
-  pythonesque 79, but it's your choice</li>
-</ul>
-</li>
-</ol>
-<p>At this point, your service should look something like in the screenshot
-below:</p>
-<p><img alt="Fill Paragraph Service in Automator" src="images/fill-par.png" /></p>
-<p>Save it, open Keyboard preferences (type "Keyboard" into Spotlight), navigate
-to Shortcuts → Services → Text and set a keyboard shortcut for your newly
-created Service, e.g. Cmd+Opt+P. Next time you compose an e-mail in Airmail,
-just select the entire text when you're done (Cmd+A), press Cmd+Opt+P, and
-voilà! Your lines have been hardwrapped, your paragraphs filled :) (Same thing,
-I know.)</p>
-<p>If the shortcut doesn't appear to work<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>, try fiddling around with it,
-resetting it (maybe the one you've chosen conflicts with a pre-existing one?),
-restarting Airmail, logging out and back in, rebooting... The custom shortcut
-part is unfortunately the least reliable aspect of this whole setup. Automator
-is a great idea, I was pleasantly surprised by it when I started using OS X a
-few days back, but it could seriously use some bug-squashing.</p>
-<p>If you fail miserably at getting the shortcut to work, you can <strong>still access
-your fill paragraph service via the menu</strong> (select the text you want to
-hard-wrap, then navigate to Airmail → Services → &lt;name of your fill paragraph
-service>). Clicking around in a GUI is tedious (though hey -- it's the Apple
-way after all, isn't it?), but it shouldn't be too much of a bother since you
-need to do it only once per e-mail.</p>
-<p><strong>Bottom line</strong>: I am now officially completely sold on Airmail (even bought
-the released version instead of using the free beta) and look forward to the
-joy of using it!</p>
-<p>EDIT: In order to have the <strong>least trouble possible getting the shell script up
-and running as a Service</strong>, two rules of thumb:</p>
-<ol>
-<li>Leave it completely up to OS X where it stores the Service (.workflow)
-   file. This will probably be in <code>~/Library/Services</code>, and I learnt the hard
-   way not to tinker with it -- if <code>Services</code> is a symlink instead of a real
-   directory, the OS won't discover new Service files (though old ones will
-   still be accessible).</li>
-<li>If the Service doesn't show up in the keyboard shortcuts menu after
-   creation, try refreshing the service list with
-   <code>/System/Library/CoreServices/pbs -update</code>.</li>
-</ol>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p>Those shortcuts are in fact quite buggy, especially those that you want
-to be global (not specific to a concrete app) -- at least on Mavericks (OS
-X 10.9). They tend to get disabled on a whim, especially if you tinker with
-them, and are a pain to get working again (login, logout, reboot -- anything
-goes). If anyone knows why, please let me know!&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>
-            </div>
-            <!-- /.entry-content -->
-    <hr/>
-    <section class="comments" id="comments">
-        <h2>Comments</h2>
-
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'littleumbrellas'; // required: replace example with your forum shortname
-
-                    var disqus_identifier = 'fill-par-in-airmail';
-                var disqus_url = 'http://dlukes.github.io/fill-par-in-airmail.html';
-
-            var disqus_config = function () {
-                this.language = "en";
-            };
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function () {
-                var dsq = document.createElement('script');
-                dsq.type = 'text/javascript';
-                dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-    </section>
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">
