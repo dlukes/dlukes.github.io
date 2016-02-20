@@ -72,15 +72,17 @@ the GUI. Let's get down to business:&lt;/p&gt;
 &lt;li&gt;Launch Automator and create a new document. Select &lt;em&gt;Application&lt;/em&gt; as its type.&lt;/li&gt;
 &lt;li&gt;Search the Actions palette on the left for the &lt;em&gt;Run Shell Script&lt;/em&gt; action and
    add it to your Automator document.&lt;/li&gt;
-&lt;li&gt;In the &lt;em&gt;Run Shell Script&lt;/em&gt; building block, change the following:&lt;/li&gt;
+&lt;li&gt;In the &lt;em&gt;Run Shell Script&lt;/em&gt; building block, change the following:&lt;ul&gt;
 &lt;li&gt;set &lt;em&gt;Shell&lt;/em&gt; to the shell you're using and whose init files have thus the
-     &lt;code&gt;PATH&lt;/code&gt; correctly set to the &lt;code&gt;emacs&lt;/code&gt; and &lt;code&gt;emacsclient&lt;/code&gt; executables (if
-     you're using Homebrew, it probably told you how to properly set up your
-     &lt;code&gt;PATH&lt;/code&gt; as a post-install step)&lt;/li&gt;
+  &lt;code&gt;PATH&lt;/code&gt; correctly set to the &lt;code&gt;emacs&lt;/code&gt; and &lt;code&gt;emacsclient&lt;/code&gt; executables (if
+  you're using Homebrew, it probably told you how to properly set up your
+  &lt;code&gt;PATH&lt;/code&gt; as a post-install step)&lt;/li&gt;
 &lt;li&gt;set &lt;em&gt;Pass input&lt;/em&gt; to "as arguments" (if you then
-     &lt;a href="http://osxdaily.com/2013/08/08/change-default-application-open-files-mac-os-x/"&gt;set this Automator app as the default for opening a given type of file&lt;/a&gt;,
-     you'll be able to use &lt;code&gt;emacsclient&lt;/code&gt; to open files by double-clicking on
-     them in Finder)&lt;/li&gt;
+  &lt;a href="http://osxdaily.com/2013/08/08/change-default-application-open-files-mac-os-x/"&gt;set this Automator app as the default for opening a given type of file&lt;/a&gt;,
+  you'll be able to use &lt;code&gt;emacsclient&lt;/code&gt; to open files by double-clicking on them
+  in Finder)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;li&gt;Finally, paste in the following code snippet and save the app e.g. as
    &lt;code&gt;EmacsClient.app&lt;/code&gt;, preferably in your Applications folder so that it is
    easily accessible from the launcher.&lt;/li&gt;
