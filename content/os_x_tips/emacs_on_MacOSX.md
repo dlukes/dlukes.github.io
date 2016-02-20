@@ -89,14 +89,14 @@ the GUI. Let's get down to business:
 2. Search the Actions palette on the left for the *Run Shell Script* action and
    add it to your Automator document.
 3. In the *Run Shell Script* building block, change the following:
-   - set *Shell* to the shell you're using and whose init files have thus the
-     `PATH` correctly set to the `emacs` and `emacsclient` executables (if
-     you're using Homebrew, it probably told you how to properly set up your
-     `PATH` as a post-install step)
-   - set *Pass input* to "as arguments" (if you then
-     [set this Automator app as the default for opening a given type of file](http://osxdaily.com/2013/08/08/change-default-application-open-files-mac-os-x/),
-     you'll be able to use `emacsclient` to open files by double-clicking on
-     them in Finder)
+    - set *Shell* to the shell you're using and whose init files have thus the
+      `PATH` correctly set to the `emacs` and `emacsclient` executables (if
+      you're using Homebrew, it probably told you how to properly set up your
+      `PATH` as a post-install step)
+    - set *Pass input* to "as arguments" (if you then
+      [set this Automator app as the default for opening a given type of file](http://osxdaily.com/2013/08/08/change-default-application-open-files-mac-os-x/),
+      you'll be able to use `emacsclient` to open files by double-clicking on them
+      in Finder)
 4. Finally, paste in the following code snippet and save the app e.g. as
    `EmacsClient.app`, preferably in your Applications folder so that it is
    easily accessible from the launcher.
