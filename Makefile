@@ -1,3 +1,5 @@
+SHELL=/bin/bash
+
 PY?=python3
 PELICAN?=pelican
 PELICANOPTS=
