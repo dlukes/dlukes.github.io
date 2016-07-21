@@ -1,0 +1,24 @@
+body {
+  font-size: 13pt !important;
+  line-height: 1.6 !important;
+}
+
+pre {
+  font-size: 13pt !important;
+}
+
+.tag-1 {
+  font-size: 14pt !important;
+}
+
+.tag-2 {
+  font-size: 12pt !important;
+}
+
+.tag-3 {
+  font-size: 10pt !important;
+}
+
+.tag-4 {
+  font-size: 8pt !important;
+}
