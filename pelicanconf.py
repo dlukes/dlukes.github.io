@@ -46,7 +46,8 @@ PUBLICATIONS_SRC = "bib.tmp"
 RELATIVE_URLS = True
 
 # Redirection for URLs with former output/ doc root
-STATIC_PATHS = ["images", "output"]
+STATIC_PATHS = ["images", "static", "output"]
+CUSTOM_CSS = "static/custom.css"
 
 # Plugins
 MARKUP = ("md")
