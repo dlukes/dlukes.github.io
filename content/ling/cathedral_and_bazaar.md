@@ -541,12 +541,14 @@ model that successfully simulates not only language emergence, but also
 transmission: if virgin agents are added into an existing population,
 they gradually acquire its language (see Fig. 1).
 
-Communicative success in a population of agents with a steady influx of
-virgin agents and outflux of old ones (overall population size remains
-the same). The game starts in phase 1 with 20 virgin agents; phases 2
-and 4 show the behavior of the model at an agent renewal rate of 1/1000
-games, whereas phase 3 corresponds to a heavier rate of 1/100. (Figure
-from Steels 2015, 121.)
+> ![communicative success plot](images/communicative_success.png)
+
+> **Figure 1.** Communicative success in a population of agents with a steady
+> influx of virgin agents and outflux of old ones (overall population size
+> remains the same). The game starts in phase 1 with 20 virgin agents; phases 2
+> and 4 show the behavior of the model at an agent renewal rate of 1/1000 games,
+> whereas phase 3 corresponds to a heavier rate of 1/100. (Figure from Steels
+> 2015, 121.)
 
 Crucially, the drive to communicate, to interact, is built into the
 agents, they just keep playing games as long as they can. But if it was
