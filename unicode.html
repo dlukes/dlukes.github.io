@@ -325,7 +325,7 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">2</span><span class="o">**</span><span class="mi">7</span>
+<div class=" highlight hl-ipython3"><pre><span class="mi">2</span><span class="o">**</span><span class="mi">7</span>
 </pre></div>
 
 </div>
@@ -367,7 +367,7 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">2</span><span class="o">**</span><span class="mi">8</span>
+<div class=" highlight hl-ipython3"><pre><span class="mi">2</span><span class="o">**</span><span class="mi">8</span>
 </pre></div>
 
 </div>
@@ -396,8 +396,8 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># how to find out the binary representation of a decimal number?</span>
-<span class="s2">&quot;</span><span class="si">{:b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># how to find out the binary representation of a decimal number?</span>
+<span class="s">&quot;{:b}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -426,11 +426,11 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Digression/explanation: the format() method</span>
-<span class="c1">#</span>
-<span class="c1"># the format() string method inserts its arguments into the string</span>
-<span class="c1"># wherever there is a &quot;{}&quot;</span>
-<span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Digression/explanation: the format() method</span>
+<span class="c">#</span>
+<span class="c"># the format() string method inserts its arguments into the string</span>
+<span class="c"># wherever there is a &quot;{}&quot;</span>
+<span class="s">&quot;{} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="s">&quot;bar&quot;</span><span class="p">,</span> <span class="s">&quot;baz&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -459,9 +459,9 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># you can also specify a different order by using (zero-based) </span>
-<span class="c1"># positional indices -- or even repeating them</span>
-<span class="s2">&quot;</span><span class="si">{1}</span><span class="s2"> </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># you can also specify a different order by using (zero-based) </span>
+<span class="c"># positional indices -- or even repeating them</span>
+<span class="s">&quot;{1} {0} {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -490,9 +490,9 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># for long strings with many insertions, where you might mess up the</span>
-<span class="c1"># order of arguments, keyword arguments are also available</span>
-<span class="s2">&quot;</span><span class="si">{foo_arg}</span><span class="s2"> </span><span class="si">{bar_arg}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bar_arg</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">foo_arg</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># for long strings with many insertions, where you might mess up the</span>
+<span class="c"># order of arguments, keyword arguments are also available</span>
+<span class="s">&quot;{foo_arg} {bar_arg}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bar_arg</span><span class="o">=</span><span class="s">&quot;bar&quot;</span><span class="p">,</span> <span class="n">foo_arg</span><span class="o">=</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -521,10 +521,10 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># and you can also request various formatting adjustments or conversions</span>
-<span class="c1"># to be made by specifying them after a &quot;:&quot; -- e.g. &quot;b&quot; prints a given</span>
-<span class="c1"># number in its binary representation</span>
-<span class="s2">&quot;</span><span class="si">{:b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># and you can also request various formatting adjustments or conversions</span>
+<span class="c"># to be made by specifying them after a &quot;:&quot; -- e.g. &quot;b&quot; prints a given</span>
+<span class="c"># number in its binary representation</span>
+<span class="s">&quot;{:b}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -553,10 +553,10 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># or simply</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># or simply</span>
 <span class="nb">bin</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
-<span class="c1"># but that has an ugly &quot;0b&quot; in front, and we would&#39;ve missed out on</span>
-<span class="c1"># format() if we&#39;d used that directly!</span>
+<span class="c"># but that has an ugly &quot;0b&quot; in front, and we would&#39;ve missed out on</span>
+<span class="c"># format() if we&#39;d used that directly!</span>
 </pre></div>
 
 </div>
@@ -587,10 +587,10 @@ Little Umbrellas            </a>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What happens in the range [128; 256) is not covered by the <code>ASCII</code> standard. In the 1990s, many encodings were standardized which used this range for their own purposes, usually representing additional accented characters used in a particular region. E.g. Czech (and Slovak, Polish...) alphabets can be represented using the ISO <code>latin-2</code> encoding, or Microsoft's <code>cp-1250</code>. Encodings which stick with the same character mappings as <code>ASCII</code> in the range [0; 128) <strong>and represent them physically in the same way (as 1 byte)</strong>, while potentially adding more character mappings beyond that, are called <strong><code>ASCII</code>-compatible</strong>.</p>
 <p><code>ASCII</code> compatibility is a good thing&trade;, because when you start reading a character stream in a computer, there's <strong>no way to know in advance what encoding it is in</strong> (unless it's a file you've encoded yourself). So in practice, a heuristic has been established to start reading the stream assuming it is <code>ASCII</code> by default, and switch to a different encoding if evidence becomes available that motivates it. For instance, HTML files should all start something like this:</p>
-<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">/&gt;</span>
   ...
 </pre></div>
 <p>This way, whenever a program wants to read a file like this, it can start off with <code>ASCII</code>, waiting to see if it reaches the <code>charset</code> (i.e. encoding) attribute, and once it does, it can switch from <code>ASCII</code> to that encoding (<code>UTF-8</code> here) and restart reading the file, now fairly sure that it's using the correct encoding. This trick works only if we can assume that whatever encoding the rest of the file is in, the first few lines can be considered as <code>ASCII</code> for all practical intents and purposes.</p>
@@ -604,15 +604,15 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Let&#39;s take a look at printable characters in the latin-2 character</span>
-<span class="c1"># set. Each mapping is called a &quot;codepoint&quot;: it is a correspondence</span>
-<span class="c1"># between an integer and a character.</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># Let&#39;s take a look at printable characters in the latin-2 character</span>
+<span class="c"># set. Each mapping is called a &quot;codepoint&quot;: it is a correspondence</span>
+<span class="c"># between an integer and a character.</span>
 <span class="kn">import</span> <span class="nn">codecs</span>
 
 <span class="n">latin2</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">codepoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
     <span class="n">byte</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">codepoint</span><span class="p">])</span>
-    <span class="n">character</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">byte</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin2&quot;</span><span class="p">)</span>
+    <span class="n">character</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">byte</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&quot;latin2&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">character</span><span class="o">.</span><span class="n">isprintable</span><span class="p">():</span>
         <span class="n">latin2</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">codepoint</span><span class="p">,</span> <span class="n">character</span><span class="p">))</span>
 
@@ -848,7 +848,7 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span>
+<div class=" highlight hl-ipython3"><pre><span class="mi">2</span><span class="o">**</span><span class="mi">16</span>
 </pre></div>
 
 </div>
@@ -895,26 +895,26 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">print_as_binary_utf8</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">print_as_binary_utf8</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prints binary representation of string as encoded by UTF-8.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># encode the string as UTF-8</span>
-    <span class="n">byte</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-    <span class="c1"># get the hexadecimal representation of the bytes</span>
+    <span class="c"># encode the string as UTF-8</span>
+    <span class="n">byte</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="c"># get the hexadecimal representation of the bytes</span>
     <span class="n">hexa</span> <span class="o">=</span> <span class="n">byte</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
-    <span class="c1"># convert the hexadecimal representation to a decimal integer</span>
+    <span class="c"># convert the hexadecimal representation to a decimal integer</span>
     <span class="n">inte</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hexa</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="c1"># create a string containing the integer, formatted as binary</span>
-    <span class="n">binary_str</span> <span class="o">=</span> <span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; encoded in UTF-8 is: </span><span class="si">{:b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">inte</span><span class="p">)</span>
-    <span class="c1"># print that binary representation. whew! if there&#39;s an easier</span>
-    <span class="c1"># way (e.g. at least skipping the intermediate hexadecimal</span>
-    <span class="c1"># representation), please let me know!</span>
+    <span class="c"># create a string containing the integer, formatted as binary</span>
+    <span class="n">binary_str</span> <span class="o">=</span> <span class="s">&quot;&#39;{}&#39; encoded in UTF-8 is: {:b}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">inte</span><span class="p">)</span>
+    <span class="c"># print that binary representation. whew! if there&#39;s an easier</span>
+    <span class="c"># way (e.g. at least skipping the intermediate hexadecimal</span>
+    <span class="c"># representation), please let me know!</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">binary_str</span><span class="p">)</span>
 
-<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>   <span class="c1"># the representations...</span>
-<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;č&quot;</span><span class="p">)</span>   <span class="c1"># ... keep...</span>
-<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;字&quot;</span><span class="p">)</span>  <span class="c1"># ... getting longer.</span>
+<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">)</span>   <span class="c"># the representations...</span>
+<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s">&quot;č&quot;</span><span class="p">)</span>   <span class="c"># ... keep...</span>
+<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s">&quot;字&quot;</span><span class="p">)</span>  <span class="c"># ... getting longer.</span>
 </pre></div>
 
 </div>
@@ -954,9 +954,9 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># &quot;č&quot; as LATIN SMALL LETTER C WITH CARON, codepoint 010D</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># &quot;č&quot; as LATIN SMALL LETTER C WITH CARON, codepoint 010D</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mh">0x010D</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u010D</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\u010D</span><span class="s">&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -984,10 +984,10 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># &quot;č&quot; as a sequence of LATIN SMALL LETTER C, codepoint 0063, and</span>
-<span class="c1"># COMBINING CARON, codepoint 030c</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># &quot;č&quot; as a sequence of LATIN SMALL LETTER C, codepoint 0063, and</span>
+<span class="c"># COMBINING CARON, codepoint 030c</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mh">0x0063</span><span class="p">)</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="mh">0x030c</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u0063\u030c</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\u0063\u030c</span><span class="s">&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1027,8 +1027,8 @@ č
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use hex() to find out the hexadecimal representation of a decimal</span>
-<span class="c1"># integer...</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># use hex() to find out the hexadecimal representation of a decimal</span>
+<span class="c"># integer...</span>
 <span class="nb">hex</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
 </pre></div>
 
@@ -1058,7 +1058,7 @@ č
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... and int() to go back</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># ... and int() to go back</span>
 <span class="nb">int</span><span class="p">(</span><span class="mh">0x63</span><span class="p">)</span>
 </pre></div>
 
@@ -1098,9 +1098,9 @@ č
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\u010D</span><span class="s2">&quot;</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\u0063\u030c</span><span class="s2">&quot;</span>
-<span class="c1"># s1 and s2 look the same to the naked eye...</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">s1</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\u010D</span><span class="s">&quot;</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\u0063\u030c</span><span class="s">&quot;</span>
+<span class="c"># s1 and s2 look the same to the naked eye...</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 </pre></div>
 
@@ -1128,7 +1128,7 @@ č
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... but in the eternal realm of Plato&#39;s Ideas, they&#39;re not</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># ... but in the eternal realm of Plato&#39;s Ideas, they&#39;re not</span>
 <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span>
 </pre></div>
 
@@ -1168,8 +1168,8 @@ č
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;s1 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="s2">&quot;character(s) long.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;s2 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">),</span> <span class="s2">&quot;character(s) long.&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;s1 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="s">&quot;character(s) long.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s">&quot;s2 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">),</span> <span class="s">&quot;character(s) long.&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1207,13 +1207,13 @@ s2 is 2 character(s) long.
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="k">import</span> <span class="n">normalize</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="k">import</span> <span class="n">normalize</span>
 
-<span class="c1"># NFC stands for Normal Form C; this normalization applies a canonical</span>
-<span class="c1"># decomposition (into a multi-codepoint representation) followed by a</span>
-<span class="c1"># canonical composition (into a single-codepoint representation)</span>
-<span class="n">s1</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+<span class="c"># NFC stands for Normal Form C; this normalization applies a canonical</span>
+<span class="c"># decomposition (into a multi-codepoint representation) followed by a</span>
+<span class="c"># canonical composition (into a single-codepoint representation)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 
 <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span>
 </pre></div>
@@ -1254,9 +1254,9 @@ s2 is 2 character(s) long.
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a good idea when dealing with Unicode text from an unknown and</span>
-<span class="c1"># unreliable source is to look at the set of codepoints contained</span>
-<span class="c1"># in it and eliminate or replace those that shouldn&#39;t be there</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># a good idea when dealing with Unicode text from an unknown and</span>
+<span class="c"># unreliable source is to look at the set of codepoints contained</span>
+<span class="c"># in it and eliminate or replace those that shouldn&#39;t be there</span>
 <span class="kn">import</span> <span class="nn">unicodedata</span>
 
 
@@ -1265,17 +1265,17 @@ s2 is 2 character(s) long.
     <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
         <span class="n">charset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">charset</span><span class="p">):</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="s2">r&quot;</span><span class="si">{}</span><span class="s2"> (\u</span><span class="si">{:04x}</span><span class="s2">): </span><span class="si">{}</span><span class="s2"> (category: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="s">r&quot;{} (\u{:04x}): {} (category: {})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">char</span><span class="p">),</span>
             <span class="n">unicodedata</span><span class="o">.</span><span class="n">category</span><span class="p">(</span><span class="n">char</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
         
 
-<span class="c1"># depending on your font configuration, it may be very hard to spot</span>
-<span class="c1"># the two intruders in the sentence below that look like regular</span>
-<span class="c1"># letters but really are specialized variants; you might want</span>
-<span class="c1"># to replace them before doing further text processing...</span>
-<span class="n">inspect_codepoints</span><span class="p">(</span><span class="s2">&quot;Intruders here, good 𝗍hinɡ I checked.&quot;</span><span class="p">)</span>
+<span class="c"># depending on your font configuration, it may be very hard to spot</span>
+<span class="c"># the two intruders in the sentence below that look like regular</span>
+<span class="c"># letters but really are specialized variants; you might want</span>
+<span class="c"># to replace them before doing further text processing...</span>
+<span class="n">inspect_codepoints</span><span class="p">(</span><span class="s">&quot;Intruders here, good 𝗍hinɡ I checked.&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1320,10 +1320,10 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... because of course, for a computer, the word &quot;thing&quot; written with</span>
-<span class="c1"># two different variants of &quot;g&quot; is really just two different words, which</span>
-<span class="c1"># is probably not what you want</span>
-<span class="s2">&quot;thing&quot;</span> <span class="o">==</span> <span class="s2">&quot;thinɡ&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span class="c"># ... because of course, for a computer, the word &quot;thing&quot; written with</span>
+<span class="c"># two different variants of &quot;g&quot; is really just two different words, which</span>
+<span class="c"># is probably not what you want</span>
+<span class="s">&quot;thing&quot;</span> <span class="o">==</span> <span class="s">&quot;thinɡ&quot;</span>
 </pre></div>
 
 </div>
@@ -1427,8 +1427,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
             <li class="list-group-item"><a href="http://dlukes.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/bonito.html">
-                            Bonito
+                        <a href="http://dlukes.github.io/tag/osx.html">
+                            osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/korpus.html">
+                            korpus
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -1437,23 +1442,18 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/automator.html">
-                            automator
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/konkordance.html">
-                            konkordance
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="http://dlukes.github.io/tag/noske.html">
                             NoSke
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/osx.html">
-                            osx
+                        <a href="http://dlukes.github.io/tag/automator.html">
+                            automator
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/bonito.html">
+                            Bonito
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -1462,23 +1462,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/korpus.html">
-                            korpus
+                        <a href="http://dlukes.github.io/tag/konkordance.html">
+                            konkordance
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/encoding.html">
-                            encoding
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/airmail.html">
-                            airmail
+                        <a href="http://dlukes.github.io/tag/python.html">
+                            python
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1487,13 +1477,28 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/daemon.html">
                             daemon
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/unicode.html">
-                            unicode
+                        <a href="http://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacs.html">
+                            emacs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1507,33 +1512,8 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/charset.html">
-                            charset
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
+                        <a href="http://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1542,23 +1522,28 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
+                        <a href="http://dlukes.github.io/tag/semver.html">
+                            semver
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacs.html">
-                            emacs
+                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/services.html">
-                            services
+                        <a href="http://dlukes.github.io/tag/encoding.html">
+                            encoding
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/versioning.html">
-                            versioning
+                        <a href="http://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/charset.html">
+                            charset
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1567,8 +1552,23 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/floss.html">
-                            floss
+                        <a href="http://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/unicode.html">
+                            unicode
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1577,13 +1577,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/python.html">
-                            python
+                        <a href="http://dlukes.github.io/tag/airmail.html">
+                            airmail
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
+                        <a href="http://dlukes.github.io/tag/floss.html">
+                            floss
                         </a>
                     </li>
                     <li class="list-group-item tag-4">

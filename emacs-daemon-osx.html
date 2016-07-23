@@ -335,10 +335,10 @@ straightforwardly or indeed at all.</p>
 <p>With that in mind, if you want to tinker with your Emacs config, it's a good
 idea to stick with <a href="http://brew.sh/">Homebrew's</a> fairly conservative version of
 Emacs:</p>
-<div class="highlight"><pre><span></span>$ brew update
-$ brew install emacs --with-cocoa
-<span class="c1"># this step gets you a standard OS X launcher icon</span>
-$ brew linkapps emacs
+<div class="highlight"><pre><span class="nv">$ </span>brew update
+<span class="nv">$ </span>brew install emacs --with-cocoa
+<span class="c"># this step gets you a standard OS X launcher icon</span>
+<span class="nv">$ </span>brew linkapps emacs
 </pre></div>
 
 
@@ -385,7 +385,7 @@ the GUI. Let's get down to business:</p>
    <code>EmacsClient.app</code>, preferably in your Applications folder so that it is
    easily accessible from the launcher.</li>
 </ol>
-<div class="highlight"><pre><span></span>nohup emacsclient --no-wait -c -a emacs <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt;/dev/null 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
+<div class="highlight"><pre>nohup emacsclient --no-wait -c -a emacs <span class="s2">&quot;$@&quot;</span> &gt;/dev/null 2&gt;&amp;1 &amp;
 </pre></div>
 
 
@@ -507,8 +507,13 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
             <li class="list-group-item"><a href="http://dlukes.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/bonito.html">
-                            Bonito
+                        <a href="http://dlukes.github.io/tag/osx.html">
+                            osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/korpus.html">
+                            korpus
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -517,23 +522,18 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/automator.html">
-                            automator
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/konkordance.html">
-                            konkordance
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="http://dlukes.github.io/tag/noske.html">
                             NoSke
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/osx.html">
-                            osx
+                        <a href="http://dlukes.github.io/tag/automator.html">
+                            automator
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/bonito.html">
+                            Bonito
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -542,23 +542,13 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/korpus.html">
-                            korpus
+                        <a href="http://dlukes.github.io/tag/konkordance.html">
+                            konkordance
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/encoding.html">
-                            encoding
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/airmail.html">
-                            airmail
+                        <a href="http://dlukes.github.io/tag/python.html">
+                            python
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -567,13 +557,28 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/daemon.html">
                             daemon
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/unicode.html">
-                            unicode
+                        <a href="http://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacs.html">
+                            emacs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -587,33 +592,8 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/charset.html">
-                            charset
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
+                        <a href="http://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -622,23 +602,28 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
+                        <a href="http://dlukes.github.io/tag/semver.html">
+                            semver
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacs.html">
-                            emacs
+                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/services.html">
-                            services
+                        <a href="http://dlukes.github.io/tag/encoding.html">
+                            encoding
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/versioning.html">
-                            versioning
+                        <a href="http://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/charset.html">
+                            charset
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -647,8 +632,23 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/floss.html">
-                            floss
+                        <a href="http://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/unicode.html">
+                            unicode
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -657,13 +657,13 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/python.html">
-                            python
+                        <a href="http://dlukes.github.io/tag/airmail.html">
+                            airmail
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
+                        <a href="http://dlukes.github.io/tag/floss.html">
+                            floss
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
