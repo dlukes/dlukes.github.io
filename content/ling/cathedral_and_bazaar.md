@@ -4,6 +4,11 @@ Tags: linguistics, Wittgenstein, Chomsky
 Slug: cathedral-and-bazaar
 Summary: Why Noam Chomsky's approach to linguistics is broken, and why you should take a look at agent-based models of language evolution.
 
+If you like the essay, then you'll definitely want to take a look at Luc
+Steels's *The Talking Heads Experiment: Origins of Words and Meanings*. It's
+published as an open-access book by Language Science Press, so
+[go grab the free download](http://langsci-press.org//catalog/book/49)!
+
 Abstract
 ========
 
