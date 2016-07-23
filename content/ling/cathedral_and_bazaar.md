@@ -209,13 +209,12 @@ underlying, more regular deep structure to be uncovered. The deep
 structure is purportedly closer to the universal properties of language;
 both layers are linked by a system of transformations:
 
-We can greatly simplify the description of English and gain new and
-important insight into its formal structure if we limit the direct
-description in terms of phrase structure to a kernel of basic sentences
-(simple, declarative, active, with no complex verb or noun phrases),
-deriving all other sentences from these (more properly, from the strings
-that underlie them) by transformation, possibly repeated. (Chomsky 2002,
-106–7)
+> We can greatly simplify the description of English and gain new and important
+> insight into its formal structure if we limit the direct description in terms
+> of phrase structure to a kernel of basic sentences (simple, declarative,
+> active, with no complex verb or noun phrases), deriving all other sentences
+> from these (more properly, from the strings that underlie them) by
+> transformation, possibly repeated. (Chomsky 2002, 106–7)
 
 Constructing a formal framework for grammar modeling with cognitively
 unmotivated levels of abstraction might have been a valid goal (though
@@ -387,14 +386,13 @@ We have repeatedly encountered Chomsky’s emphasis on how communication,
 actual interactions between speakers, are just an afterthought in the
 system of language:
 
-evolutionary biologist Salvador Luria was the most forceful advocate of
-the view that communicative needs would not have provided “any great
-selective pressure to produce a system such as language,” with its
-crucial relation to “development of abstract or productive thinking.”
-His fellow Nobel laureate François Jacob (1977) added later that “the
-role of language as a communication system between individuals would
-have come about only secondarily, as many linguists believe,” (Chomsky
-2007, 23)
+> evolutionary biologist Salvador Luria was the most forceful advocate of the
+> view that communicative needs would not have provided “any great selective
+> pressure to produce a system such as language,” with its crucial relation to
+> “development of abstract or productive thinking.” His fellow Nobel laureate
+> François Jacob (1977) added later that “the role of language as a
+> communication system between individuals would have come about only
+> secondarily, as many linguists believe,” (Chomsky 2007, 23)
 
 Part of this vehemence dovetails with the single individual mutation
 hypothesis of the origins of language – it helps if the significance of
@@ -413,14 +411,14 @@ strategy is to trivialize the function of the stimulus, casually
 implying both that it might not be needed at all, and if it is, then
 details of the role it plays are of little interest:
 
-it would not be at all surprising to find that normal language learning
-requires use of language in real-life situations, in some way. But this,
-if true \[sic!\], would not be sufficient to show that information
-regarding situational context (in particular, a pairing of signals with
-structural descriptions that is at least in part prior to assumptions
-about syntactic structure) plays any role in determining how language is
-acquired, once the mechanism is put to work and the task of language
-learning is undertaken by the child. (Chomsky 1965, 33)
+> it would not be at all surprising to find that normal language learning
+> requires use of language in real-life situations, in some way. But this, if
+> true \[sic!\], would not be sufficient to show that information regarding
+> situational context (in particular, a pairing of signals with structural
+> descriptions that is at least in part prior to assumptions about syntactic
+> structure) plays any role in determining how language is acquired, once the
+> mechanism is put to work and the task of language learning is undertaken by
+> the child. (Chomsky 1965, 33)
 
 In retrospect, Skinner’s account may be simplistic in many ways, but the
 basic notion that one has to pay attention to stimuli and responses in
