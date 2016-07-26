@@ -747,10 +747,13 @@ the GUI. Let's get down to business:&lt;/p&gt;
    &lt;code&gt;EmacsClient.app&lt;/code&gt;, preferably in your Applications folder so that it is
    easily accessible from the launcher.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;nohup emacsclient --no-wait -c -a emacs &lt;span class="s2"&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
+&lt;div class="highlight"&gt;&lt;pre&gt;emacsclient --no-wait -c -a emacs &lt;span class="s2"&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;&lt;strong&gt;EDIT&lt;/strong&gt;: An earlier version of this article had &lt;code&gt;nohup&lt;/code&gt; prepended to the
+command above; as pointed out in the comments by &lt;strong&gt;MaTres&lt;/strong&gt; (thanks!), this is
+&lt;a href="https://developer.apple.com/library/mac/technotes/tn2065/_index.html"&gt;unnecessary&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;At the end of the day, your Automator EmacsClient.app should look something like
 this:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="EmacsClient.app" src="images/emacsclientapp.png" style="max-width: 100%;"&gt;&lt;/p&gt;
@@ -775,18 +778,16 @@ a zen, distraction-free Emacs experience.&lt;/p&gt;
 but let's have a whirlwind tour for the moderately interested (my knowledge of
 Unix processes is far from perfect, so feel free to correct me on these points!):&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;code&gt;nohup&lt;/code&gt; makes the parent process (the shell) disown the child process
-   (Emacs), so that the shell can exit without killing Emacs as well&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;&amp;gt;/dev/null&lt;/code&gt; redirects standard output to oblivion and &lt;code&gt;2&amp;gt;&amp;amp;1&lt;/code&gt; redirects
    standard error to standard output (i.e. also to oblivion), which persuades
    Automator that you're really not expecting to hear from the process via these
    standard streams ever again, so there's no point in keeping the shell script
-   running.&lt;/li&gt;
+   running. These can be shortened to &lt;code&gt;&amp;amp;&amp;gt;/dev/null&lt;/code&gt;.&lt;/li&gt;
 &lt;li&gt;the final &lt;code&gt;&amp;amp;&lt;/code&gt; runs the command in the background, which ensures control of
    the shell is returned to the user as soon as the process is spawned; since
    there are no additional commands in the shell script and all remaining ties
-   have been severed (see points 1 and 2 above), Automator finally agrees that
-   the task has probably done all it was expected to do and exits it.&lt;/li&gt;
+   have been severed, Automator finally agrees that the task has probably done
+   all it was expected to do and exits it.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h1&gt;Wrapping up&lt;/h1&gt;
 &lt;p&gt;Whew! That's it. It's really not that complicated, it's just that my prose is

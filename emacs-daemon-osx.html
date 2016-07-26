@@ -385,10 +385,13 @@ the GUI. Let's get down to business:</p>
    <code>EmacsClient.app</code>, preferably in your Applications folder so that it is
    easily accessible from the launcher.</li>
 </ol>
-<div class="highlight"><pre>nohup emacsclient --no-wait -c -a emacs <span class="s2">&quot;$@&quot;</span> &gt;/dev/null 2&gt;&amp;1 &amp;
+<div class="highlight"><pre>emacsclient --no-wait -c -a emacs <span class="s2">&quot;$@&quot;</span> &gt;/dev/null 2&gt;&amp;1 &amp;
 </pre></div>
 
 
+<p><strong>EDIT</strong>: An earlier version of this article had <code>nohup</code> prepended to the
+command above; as pointed out in the comments by <strong>MaTres</strong> (thanks!), this is
+<a href="https://developer.apple.com/library/mac/technotes/tn2065/_index.html">unnecessary</a>.</p>
 <p>At the end of the day, your Automator EmacsClient.app should look something like
 this:</p>
 <p><img alt="EmacsClient.app" src="images/emacsclientapp.png" style="max-width: 100%;"></p>
@@ -413,18 +416,16 @@ a zen, distraction-free Emacs experience.</p>
 but let's have a whirlwind tour for the moderately interested (my knowledge of
 Unix processes is far from perfect, so feel free to correct me on these points!):</p>
 <ol>
-<li><code>nohup</code> makes the parent process (the shell) disown the child process
-   (Emacs), so that the shell can exit without killing Emacs as well</li>
 <li><code>&gt;/dev/null</code> redirects standard output to oblivion and <code>2&gt;&amp;1</code> redirects
    standard error to standard output (i.e. also to oblivion), which persuades
    Automator that you're really not expecting to hear from the process via these
    standard streams ever again, so there's no point in keeping the shell script
-   running.</li>
+   running. These can be shortened to <code>&amp;&gt;/dev/null</code>.</li>
 <li>the final <code>&amp;</code> runs the command in the background, which ensures control of
    the shell is returned to the user as soon as the process is spawned; since
    there are no additional commands in the shell script and all remaining ties
-   have been severed (see points 1 and 2 above), Automator finally agrees that
-   the task has probably done all it was expected to do and exits it.</li>
+   have been severed, Automator finally agrees that the task has probably done
+   all it was expected to do and exits it.</li>
 </ol>
 <h1>Wrapping up</h1>
 <p>Whew! That's it. It's really not that complicated, it's just that my prose is
@@ -507,6 +508,36 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
             <li class="list-group-item"><a href="http://dlukes.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/kontext.html">
+                            KonText
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/linguistics.html">
+                            linguistics
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/korpus.html">
+                            korpus
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/bonito.html">
+                            Bonito
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/osx.html">
+                            osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/noske.html">
+                            NoSke
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
                         <a href="http://dlukes.github.io/tag/konkordance.html">
                             konkordance
                         </a>
@@ -516,59 +547,9 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                             automator
                         </a>
                     </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/korpus.html">
-                            korpus
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/noske.html">
-                            NoSke
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/linguistics.html">
-                            linguistics
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/osx.html">
-                            osx
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/bonito.html">
-                            Bonito
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/kontext.html">
-                            KonText
-                        </a>
-                    </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/services.html">
-                            services
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/unicode.html">
-                            unicode
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/gui.html">
-                            gui
+                        <a href="http://dlukes.github.io/tag/library.html">
+                            library
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -577,13 +558,13 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/encoding.html">
-                            encoding
+                        <a href="http://dlukes.github.io/tag/unicode.html">
+                            unicode
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/development.html">
-                            development
+                        <a href="http://dlukes.github.io/tag/semver.html">
+                            semver
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -597,48 +578,8 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/daemon.html">
                             daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/python.html">
-                            python
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/charset.html">
-                            charset
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/spacemacs.html">
-                            spacemacs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -647,18 +588,8 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/fill.html">
-                            fill
+                        <a href="http://dlukes.github.io/tag/spacemacs.html">
+                            spacemacs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -667,8 +598,78 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/programming.html">
                             programming
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/charset.html">
+                            charset
                         </a>
                     </li>
                 </ul>
