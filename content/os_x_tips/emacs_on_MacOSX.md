@@ -102,8 +102,12 @@ the GUI. Let's get down to business:
    easily accessible from the launcher.
 
 ```sh
-nohup emacsclient --no-wait -c -a emacs "$@" >/dev/null 2>&1 &
+emacsclient --no-wait -c -a emacs "$@" >/dev/null 2>&1 &
 ```
+
+**EDIT**: An earlier version of this article had `nohup` prepended to the
+command above; as pointed out in the comments by **MaTres** (thanks!), this is
+[unnecessary](https://developer.apple.com/library/mac/technotes/tn2065/_index.html).
 
 At the end of the day, your Automator EmacsClient.app should look something like
 this:
@@ -133,18 +137,16 @@ The details of the various incantations are discussed in
 but let's have a whirlwind tour for the moderately interested (my knowledge of
 Unix processes is far from perfect, so feel free to correct me on these points!):
 
-1. `nohup` makes the parent process (the shell) disown the child process
-   (Emacs), so that the shell can exit without killing Emacs as well
-2. `>/dev/null` redirects standard output to oblivion and `2>&1` redirects
+1. `>/dev/null` redirects standard output to oblivion and `2>&1` redirects
    standard error to standard output (i.e. also to oblivion), which persuades
    Automator that you're really not expecting to hear from the process via these
    standard streams ever again, so there's no point in keeping the shell script
-   running.
-3. the final `&` runs the command in the background, which ensures control of
+   running. These can be shortened to `&>/dev/null`.
+2. the final `&` runs the command in the background, which ensures control of
    the shell is returned to the user as soon as the process is spawned; since
    there are no additional commands in the shell script and all remaining ties
-   have been severed (see points 1 and 2 above), Automator finally agrees that
-   the task has probably done all it was expected to do and exits it.
+   have been severed, Automator finally agrees that the task has probably done
+   all it was expected to do and exits it.
 
 # Wrapping up
 
