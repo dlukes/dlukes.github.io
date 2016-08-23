@@ -37,10 +37,10 @@ straightforwardly or indeed at all.&lt;/p&gt;
 &lt;p&gt;With that in mind, if you want to tinker with your Emacs config, it's a good
 idea to stick with &lt;a href="http://brew.sh/"&gt;Homebrew's&lt;/a&gt; fairly conservative version of
 Emacs:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;brew update
-&lt;span class="nv"&gt;$ &lt;/span&gt;brew install emacs --with-cocoa
-&lt;span class="c"&gt;# this step gets you a standard OS X launcher icon&lt;/span&gt;
-&lt;span class="nv"&gt;$ &lt;/span&gt;brew linkapps emacs
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ brew update
+$ brew install emacs --with-cocoa
+&lt;span class="c1"&gt;# this step gets you a standard OS X launcher icon&lt;/span&gt;
+$ brew linkapps emacs
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -87,7 +87,7 @@ the GUI. Let's get down to business:&lt;/p&gt;
    &lt;code&gt;EmacsClient.app&lt;/code&gt;, preferably in your Applications folder so that it is
    easily accessible from the launcher.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;emacsclient --no-wait -c -a emacs &lt;span class="s2"&gt;&amp;quot;$@&amp;quot;&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&amp;amp;1 &amp;amp;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;emacsclient --no-wait -c -a emacs &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$@&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &amp;gt;/dev/null 2&amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="p"&gt;&amp;amp;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -202,7 +202,7 @@ and went back to the Gmail in-browser UI.&lt;/p&gt;
 compose at your fingertips in no time flat. If you don't have &lt;code&gt;homebrew&lt;/code&gt;, start
 by installing that (or any other ports manager that will allow you to install
 &lt;code&gt;par&lt;/code&gt;; I'll assume &lt;code&gt;homebrew&lt;/code&gt; below) by pasting&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;ruby&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -216,7 +216,7 @@ by installing that (or any other ports manager that will allow you to install
 &lt;li&gt;
 &lt;p&gt;drag the "Run Shell Script" action onto the workflow canvas, and as the
    shell script, paste in&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;PARINIT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;rTbgqR B=.,?_A_a Q=_s&amp;gt;|&amp;quot;&lt;/span&gt; /usr/local/bin/par 79
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;PARINIT&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;rTbgqR B=.,?_A_a Q=_s&amp;gt;|&amp;quot;&lt;/span&gt; /usr/local/bin/par 79
 &lt;/pre&gt;&lt;/div&gt;
 
 

@@ -325,7 +325,7 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="mi">2</span><span class="o">**</span><span class="mi">7</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">2</span><span class="o">**</span><span class="mi">7</span>
 </pre></div>
 
 </div>
@@ -367,7 +367,7 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="mi">2</span><span class="o">**</span><span class="mi">8</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">2</span><span class="o">**</span><span class="mi">8</span>
 </pre></div>
 
 </div>
@@ -396,8 +396,8 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># how to find out the binary representation of a decimal number?</span>
-<span class="s">&quot;{:b}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># how to find out the binary representation of a decimal number?</span>
+<span class="s2">&quot;</span><span class="si">{:b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">65</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -412,7 +412,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&apos;1000001&apos;</pre>
+<pre>&#39;1000001&#39;</pre>
 </div>
 
 </div>
@@ -426,11 +426,11 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Digression/explanation: the format() method</span>
-<span class="c">#</span>
-<span class="c"># the format() string method inserts its arguments into the string</span>
-<span class="c"># wherever there is a &quot;{}&quot;</span>
-<span class="s">&quot;{} {} {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="s">&quot;bar&quot;</span><span class="p">,</span> <span class="s">&quot;baz&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Digression/explanation: the format() method</span>
+<span class="c1">#</span>
+<span class="c1"># the format() string method inserts its arguments into the string</span>
+<span class="c1"># wherever there is a &quot;{}&quot;</span>
+<span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -445,7 +445,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&apos;foo bar baz&apos;</pre>
+<pre>&#39;foo bar baz&#39;</pre>
 </div>
 
 </div>
@@ -459,9 +459,9 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># you can also specify a different order by using (zero-based) </span>
-<span class="c"># positional indices -- or even repeating them</span>
-<span class="s">&quot;{1} {0} {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;foo&quot;</span><span class="p">,</span> <span class="s">&quot;bar&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># you can also specify a different order by using (zero-based) </span>
+<span class="c1"># positional indices -- or even repeating them</span>
+<span class="s2">&quot;</span><span class="si">{1}</span><span class="s2"> </span><span class="si">{0}</span><span class="s2"> </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -476,7 +476,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&apos;bar foo bar&apos;</pre>
+<pre>&#39;bar foo bar&#39;</pre>
 </div>
 
 </div>
@@ -490,9 +490,9 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># for long strings with many insertions, where you might mess up the</span>
-<span class="c"># order of arguments, keyword arguments are also available</span>
-<span class="s">&quot;{foo_arg} {bar_arg}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bar_arg</span><span class="o">=</span><span class="s">&quot;bar&quot;</span><span class="p">,</span> <span class="n">foo_arg</span><span class="o">=</span><span class="s">&quot;foo&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># for long strings with many insertions, where you might mess up the</span>
+<span class="c1"># order of arguments, keyword arguments are also available</span>
+<span class="s2">&quot;</span><span class="si">{foo_arg}</span><span class="s2"> </span><span class="si">{bar_arg}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bar_arg</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">foo_arg</span><span class="o">=</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -507,7 +507,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&apos;foo bar&apos;</pre>
+<pre>&#39;foo bar&#39;</pre>
 </div>
 
 </div>
@@ -521,10 +521,10 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># and you can also request various formatting adjustments or conversions</span>
-<span class="c"># to be made by specifying them after a &quot;:&quot; -- e.g. &quot;b&quot; prints a given</span>
-<span class="c"># number in its binary representation</span>
-<span class="s">&quot;{:b}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># and you can also request various formatting adjustments or conversions</span>
+<span class="c1"># to be made by specifying them after a &quot;:&quot; -- e.g. &quot;b&quot; prints a given</span>
+<span class="c1"># number in its binary representation</span>
+<span class="s2">&quot;</span><span class="si">{:b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -539,7 +539,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&apos;101101&apos;</pre>
+<pre>&#39;101101&#39;</pre>
 </div>
 
 </div>
@@ -553,10 +553,10 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># or simply</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># or simply</span>
 <span class="nb">bin</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
-<span class="c"># but that has an ugly &quot;0b&quot; in front, and we would&#39;ve missed out on</span>
-<span class="c"># format() if we&#39;d used that directly!</span>
+<span class="c1"># but that has an ugly &quot;0b&quot; in front, and we would&#39;ve missed out on</span>
+<span class="c1"># format() if we&#39;d used that directly!</span>
 </pre></div>
 
 </div>
@@ -571,7 +571,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&apos;0b101101&apos;</pre>
+<pre>&#39;0b101101&#39;</pre>
 </div>
 
 </div>
@@ -587,10 +587,10 @@ Little Umbrellas            </a>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What happens in the range [128; 256) is not covered by the <code>ASCII</code> standard. In the 1990s, many encodings were standardized which used this range for their own purposes, usually representing additional accented characters used in a particular region. E.g. Czech (and Slovak, Polish...) alphabets can be represented using the ISO <code>latin-2</code> encoding, or Microsoft's <code>cp-1250</code>. Encodings which stick with the same character mappings as <code>ASCII</code> in the range [0; 128) <strong>and represent them physically in the same way (as 1 byte)</strong>, while potentially adding more character mappings beyond that, are called <strong><code>ASCII</code>-compatible</strong>.</p>
 <p><code>ASCII</code> compatibility is a good thing&trade;, because when you start reading a character stream in a computer, there's <strong>no way to know in advance what encoding it is in</strong> (unless it's a file you've encoded yourself). So in practice, a heuristic has been established to start reading the stream assuming it is <code>ASCII</code> by default, and switch to a different encoding if evidence becomes available that motivates it. For instance, HTML files should all start something like this:</p>
-<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">/&gt;</span>
+<div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">/&gt;</span>
   ...
 </pre></div>
 <p>This way, whenever a program wants to read a file like this, it can start off with <code>ASCII</code>, waiting to see if it reaches the <code>charset</code> (i.e. encoding) attribute, and once it does, it can switch from <code>ASCII</code> to that encoding (<code>UTF-8</code> here) and restart reading the file, now fairly sure that it's using the correct encoding. This trick works only if we can assume that whatever encoding the rest of the file is in, the first few lines can be considered as <code>ASCII</code> for all practical intents and purposes.</p>
@@ -604,15 +604,15 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Let&#39;s take a look at printable characters in the latin-2 character</span>
-<span class="c"># set. Each mapping is called a &quot;codepoint&quot;: it is a correspondence</span>
-<span class="c"># between an integer and a character.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Let&#39;s take a look at printable characters in the latin-2 character</span>
+<span class="c1"># set. Each mapping is called a &quot;codepoint&quot;: it is a correspondence</span>
+<span class="c1"># between an integer and a character.</span>
 <span class="kn">import</span> <span class="nn">codecs</span>
 
 <span class="n">latin2</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">codepoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
     <span class="n">byte</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">codepoint</span><span class="p">])</span>
-    <span class="n">character</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">byte</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">&quot;latin2&quot;</span><span class="p">)</span>
+    <span class="n">character</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">byte</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin2&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">character</span><span class="o">.</span><span class="n">isprintable</span><span class="p">():</span>
         <span class="n">latin2</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">codepoint</span><span class="p">,</span> <span class="n">character</span><span class="p">))</span>
 
@@ -631,195 +631,195 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[(32, &apos; &apos;),
- (33, &apos;!&apos;),
- (34, &apos;&quot;&apos;),
- (35, &apos;#&apos;),
- (36, &apos;$&apos;),
- (37, &apos;%&apos;),
- (38, &apos;&amp;&apos;),
- (39, &quot;&apos;&quot;),
- (40, &apos;(&apos;),
- (41, &apos;)&apos;),
- (42, &apos;*&apos;),
- (43, &apos;+&apos;),
- (44, &apos;,&apos;),
- (45, &apos;-&apos;),
- (46, &apos;.&apos;),
- (47, &apos;/&apos;),
- (48, &apos;0&apos;),
- (49, &apos;1&apos;),
- (50, &apos;2&apos;),
- (51, &apos;3&apos;),
- (52, &apos;4&apos;),
- (53, &apos;5&apos;),
- (54, &apos;6&apos;),
- (55, &apos;7&apos;),
- (56, &apos;8&apos;),
- (57, &apos;9&apos;),
- (58, &apos;:&apos;),
- (59, &apos;;&apos;),
- (60, &apos;&lt;&apos;),
- (61, &apos;=&apos;),
- (62, &apos;&gt;&apos;),
- (63, &apos;?&apos;),
- (64, &apos;@&apos;),
- (65, &apos;A&apos;),
- (66, &apos;B&apos;),
- (67, &apos;C&apos;),
- (68, &apos;D&apos;),
- (69, &apos;E&apos;),
- (70, &apos;F&apos;),
- (71, &apos;G&apos;),
- (72, &apos;H&apos;),
- (73, &apos;I&apos;),
- (74, &apos;J&apos;),
- (75, &apos;K&apos;),
- (76, &apos;L&apos;),
- (77, &apos;M&apos;),
- (78, &apos;N&apos;),
- (79, &apos;O&apos;),
- (80, &apos;P&apos;),
- (81, &apos;Q&apos;),
- (82, &apos;R&apos;),
- (83, &apos;S&apos;),
- (84, &apos;T&apos;),
- (85, &apos;U&apos;),
- (86, &apos;V&apos;),
- (87, &apos;W&apos;),
- (88, &apos;X&apos;),
- (89, &apos;Y&apos;),
- (90, &apos;Z&apos;),
- (91, &apos;[&apos;),
- (92, &apos;\\&apos;),
- (93, &apos;]&apos;),
- (94, &apos;^&apos;),
- (95, &apos;_&apos;),
- (96, &apos;&#96;&apos;),
- (97, &apos;a&apos;),
- (98, &apos;b&apos;),
- (99, &apos;c&apos;),
- (100, &apos;d&apos;),
- (101, &apos;e&apos;),
- (102, &apos;f&apos;),
- (103, &apos;g&apos;),
- (104, &apos;h&apos;),
- (105, &apos;i&apos;),
- (106, &apos;j&apos;),
- (107, &apos;k&apos;),
- (108, &apos;l&apos;),
- (109, &apos;m&apos;),
- (110, &apos;n&apos;),
- (111, &apos;o&apos;),
- (112, &apos;p&apos;),
- (113, &apos;q&apos;),
- (114, &apos;r&apos;),
- (115, &apos;s&apos;),
- (116, &apos;t&apos;),
- (117, &apos;u&apos;),
- (118, &apos;v&apos;),
- (119, &apos;w&apos;),
- (120, &apos;x&apos;),
- (121, &apos;y&apos;),
- (122, &apos;z&apos;),
- (123, &apos;{&apos;),
- (124, &apos;|&apos;),
- (125, &apos;}&apos;),
- (126, &apos;~&apos;),
- (161, &apos;Ą&apos;),
- (162, &apos;˘&apos;),
- (163, &apos;Ł&apos;),
- (164, &apos;¤&apos;),
- (165, &apos;Ľ&apos;),
- (166, &apos;Ś&apos;),
- (167, &apos;§&apos;),
- (168, &apos;¨&apos;),
- (169, &apos;Š&apos;),
- (170, &apos;Ş&apos;),
- (171, &apos;Ť&apos;),
- (172, &apos;Ź&apos;),
- (174, &apos;Ž&apos;),
- (175, &apos;Ż&apos;),
- (176, &apos;°&apos;),
- (177, &apos;ą&apos;),
- (178, &apos;˛&apos;),
- (179, &apos;ł&apos;),
- (180, &apos;´&apos;),
- (181, &apos;ľ&apos;),
- (182, &apos;ś&apos;),
- (183, &apos;ˇ&apos;),
- (184, &apos;¸&apos;),
- (185, &apos;š&apos;),
- (186, &apos;ş&apos;),
- (187, &apos;ť&apos;),
- (188, &apos;ź&apos;),
- (189, &apos;˝&apos;),
- (190, &apos;ž&apos;),
- (191, &apos;ż&apos;),
- (192, &apos;Ŕ&apos;),
- (193, &apos;Á&apos;),
- (194, &apos;Â&apos;),
- (195, &apos;Ă&apos;),
- (196, &apos;Ä&apos;),
- (197, &apos;Ĺ&apos;),
- (198, &apos;Ć&apos;),
- (199, &apos;Ç&apos;),
- (200, &apos;Č&apos;),
- (201, &apos;É&apos;),
- (202, &apos;Ę&apos;),
- (203, &apos;Ë&apos;),
- (204, &apos;Ě&apos;),
- (205, &apos;Í&apos;),
- (206, &apos;Î&apos;),
- (207, &apos;Ď&apos;),
- (208, &apos;Đ&apos;),
- (209, &apos;Ń&apos;),
- (210, &apos;Ň&apos;),
- (211, &apos;Ó&apos;),
- (212, &apos;Ô&apos;),
- (213, &apos;Ő&apos;),
- (214, &apos;Ö&apos;),
- (215, &apos;×&apos;),
- (216, &apos;Ř&apos;),
- (217, &apos;Ů&apos;),
- (218, &apos;Ú&apos;),
- (219, &apos;Ű&apos;),
- (220, &apos;Ü&apos;),
- (221, &apos;Ý&apos;),
- (222, &apos;Ţ&apos;),
- (223, &apos;ß&apos;),
- (224, &apos;ŕ&apos;),
- (225, &apos;á&apos;),
- (226, &apos;â&apos;),
- (227, &apos;ă&apos;),
- (228, &apos;ä&apos;),
- (229, &apos;ĺ&apos;),
- (230, &apos;ć&apos;),
- (231, &apos;ç&apos;),
- (232, &apos;č&apos;),
- (233, &apos;é&apos;),
- (234, &apos;ę&apos;),
- (235, &apos;ë&apos;),
- (236, &apos;ě&apos;),
- (237, &apos;í&apos;),
- (238, &apos;î&apos;),
- (239, &apos;ď&apos;),
- (240, &apos;đ&apos;),
- (241, &apos;ń&apos;),
- (242, &apos;ň&apos;),
- (243, &apos;ó&apos;),
- (244, &apos;ô&apos;),
- (245, &apos;ő&apos;),
- (246, &apos;ö&apos;),
- (247, &apos;÷&apos;),
- (248, &apos;ř&apos;),
- (249, &apos;ů&apos;),
- (250, &apos;ú&apos;),
- (251, &apos;ű&apos;),
- (252, &apos;ü&apos;),
- (253, &apos;ý&apos;),
- (254, &apos;ţ&apos;),
- (255, &apos;˙&apos;)]</pre>
+<pre>[(32, &#39; &#39;),
+ (33, &#39;!&#39;),
+ (34, &#39;&#34;&#39;),
+ (35, &#39;#&#39;),
+ (36, &#39;$&#39;),
+ (37, &#39;%&#39;),
+ (38, &#39;&amp;&#39;),
+ (39, &#34;&#39;&#34;),
+ (40, &#39;(&#39;),
+ (41, &#39;)&#39;),
+ (42, &#39;*&#39;),
+ (43, &#39;+&#39;),
+ (44, &#39;,&#39;),
+ (45, &#39;-&#39;),
+ (46, &#39;.&#39;),
+ (47, &#39;/&#39;),
+ (48, &#39;0&#39;),
+ (49, &#39;1&#39;),
+ (50, &#39;2&#39;),
+ (51, &#39;3&#39;),
+ (52, &#39;4&#39;),
+ (53, &#39;5&#39;),
+ (54, &#39;6&#39;),
+ (55, &#39;7&#39;),
+ (56, &#39;8&#39;),
+ (57, &#39;9&#39;),
+ (58, &#39;:&#39;),
+ (59, &#39;;&#39;),
+ (60, &#39;&lt;&#39;),
+ (61, &#39;=&#39;),
+ (62, &#39;&gt;&#39;),
+ (63, &#39;?&#39;),
+ (64, &#39;@&#39;),
+ (65, &#39;A&#39;),
+ (66, &#39;B&#39;),
+ (67, &#39;C&#39;),
+ (68, &#39;D&#39;),
+ (69, &#39;E&#39;),
+ (70, &#39;F&#39;),
+ (71, &#39;G&#39;),
+ (72, &#39;H&#39;),
+ (73, &#39;I&#39;),
+ (74, &#39;J&#39;),
+ (75, &#39;K&#39;),
+ (76, &#39;L&#39;),
+ (77, &#39;M&#39;),
+ (78, &#39;N&#39;),
+ (79, &#39;O&#39;),
+ (80, &#39;P&#39;),
+ (81, &#39;Q&#39;),
+ (82, &#39;R&#39;),
+ (83, &#39;S&#39;),
+ (84, &#39;T&#39;),
+ (85, &#39;U&#39;),
+ (86, &#39;V&#39;),
+ (87, &#39;W&#39;),
+ (88, &#39;X&#39;),
+ (89, &#39;Y&#39;),
+ (90, &#39;Z&#39;),
+ (91, &#39;[&#39;),
+ (92, &#39;\\&#39;),
+ (93, &#39;]&#39;),
+ (94, &#39;^&#39;),
+ (95, &#39;_&#39;),
+ (96, &#39;`&#39;),
+ (97, &#39;a&#39;),
+ (98, &#39;b&#39;),
+ (99, &#39;c&#39;),
+ (100, &#39;d&#39;),
+ (101, &#39;e&#39;),
+ (102, &#39;f&#39;),
+ (103, &#39;g&#39;),
+ (104, &#39;h&#39;),
+ (105, &#39;i&#39;),
+ (106, &#39;j&#39;),
+ (107, &#39;k&#39;),
+ (108, &#39;l&#39;),
+ (109, &#39;m&#39;),
+ (110, &#39;n&#39;),
+ (111, &#39;o&#39;),
+ (112, &#39;p&#39;),
+ (113, &#39;q&#39;),
+ (114, &#39;r&#39;),
+ (115, &#39;s&#39;),
+ (116, &#39;t&#39;),
+ (117, &#39;u&#39;),
+ (118, &#39;v&#39;),
+ (119, &#39;w&#39;),
+ (120, &#39;x&#39;),
+ (121, &#39;y&#39;),
+ (122, &#39;z&#39;),
+ (123, &#39;{&#39;),
+ (124, &#39;|&#39;),
+ (125, &#39;}&#39;),
+ (126, &#39;~&#39;),
+ (161, &#39;Ą&#39;),
+ (162, &#39;˘&#39;),
+ (163, &#39;Ł&#39;),
+ (164, &#39;¤&#39;),
+ (165, &#39;Ľ&#39;),
+ (166, &#39;Ś&#39;),
+ (167, &#39;§&#39;),
+ (168, &#39;¨&#39;),
+ (169, &#39;Š&#39;),
+ (170, &#39;Ş&#39;),
+ (171, &#39;Ť&#39;),
+ (172, &#39;Ź&#39;),
+ (174, &#39;Ž&#39;),
+ (175, &#39;Ż&#39;),
+ (176, &#39;°&#39;),
+ (177, &#39;ą&#39;),
+ (178, &#39;˛&#39;),
+ (179, &#39;ł&#39;),
+ (180, &#39;´&#39;),
+ (181, &#39;ľ&#39;),
+ (182, &#39;ś&#39;),
+ (183, &#39;ˇ&#39;),
+ (184, &#39;¸&#39;),
+ (185, &#39;š&#39;),
+ (186, &#39;ş&#39;),
+ (187, &#39;ť&#39;),
+ (188, &#39;ź&#39;),
+ (189, &#39;˝&#39;),
+ (190, &#39;ž&#39;),
+ (191, &#39;ż&#39;),
+ (192, &#39;Ŕ&#39;),
+ (193, &#39;Á&#39;),
+ (194, &#39;Â&#39;),
+ (195, &#39;Ă&#39;),
+ (196, &#39;Ä&#39;),
+ (197, &#39;Ĺ&#39;),
+ (198, &#39;Ć&#39;),
+ (199, &#39;Ç&#39;),
+ (200, &#39;Č&#39;),
+ (201, &#39;É&#39;),
+ (202, &#39;Ę&#39;),
+ (203, &#39;Ë&#39;),
+ (204, &#39;Ě&#39;),
+ (205, &#39;Í&#39;),
+ (206, &#39;Î&#39;),
+ (207, &#39;Ď&#39;),
+ (208, &#39;Đ&#39;),
+ (209, &#39;Ń&#39;),
+ (210, &#39;Ň&#39;),
+ (211, &#39;Ó&#39;),
+ (212, &#39;Ô&#39;),
+ (213, &#39;Ő&#39;),
+ (214, &#39;Ö&#39;),
+ (215, &#39;×&#39;),
+ (216, &#39;Ř&#39;),
+ (217, &#39;Ů&#39;),
+ (218, &#39;Ú&#39;),
+ (219, &#39;Ű&#39;),
+ (220, &#39;Ü&#39;),
+ (221, &#39;Ý&#39;),
+ (222, &#39;Ţ&#39;),
+ (223, &#39;ß&#39;),
+ (224, &#39;ŕ&#39;),
+ (225, &#39;á&#39;),
+ (226, &#39;â&#39;),
+ (227, &#39;ă&#39;),
+ (228, &#39;ä&#39;),
+ (229, &#39;ĺ&#39;),
+ (230, &#39;ć&#39;),
+ (231, &#39;ç&#39;),
+ (232, &#39;č&#39;),
+ (233, &#39;é&#39;),
+ (234, &#39;ę&#39;),
+ (235, &#39;ë&#39;),
+ (236, &#39;ě&#39;),
+ (237, &#39;í&#39;),
+ (238, &#39;î&#39;),
+ (239, &#39;ď&#39;),
+ (240, &#39;đ&#39;),
+ (241, &#39;ń&#39;),
+ (242, &#39;ň&#39;),
+ (243, &#39;ó&#39;),
+ (244, &#39;ô&#39;),
+ (245, &#39;ő&#39;),
+ (246, &#39;ö&#39;),
+ (247, &#39;÷&#39;),
+ (248, &#39;ř&#39;),
+ (249, &#39;ů&#39;),
+ (250, &#39;ú&#39;),
+ (251, &#39;ű&#39;),
+ (252, &#39;ü&#39;),
+ (253, &#39;ý&#39;),
+ (254, &#39;ţ&#39;),
+ (255, &#39;˙&#39;)]</pre>
 </div>
 
 </div>
@@ -848,7 +848,7 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="mi">2</span><span class="o">**</span><span class="mi">16</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">2</span><span class="o">**</span><span class="mi">16</span>
 </pre></div>
 
 </div>
@@ -895,26 +895,27 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">print_as_binary_utf8</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">print_as_binary_utf8</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Prints binary representation of string as encoded by UTF-8.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># encode the string as UTF-8</span>
-    <span class="n">byte</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&quot;utf-8&quot;</span><span class="p">)</span>
-    <span class="c"># get the hexadecimal representation of the bytes</span>
-    <span class="n">hexa</span> <span class="o">=</span> <span class="n">byte</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span>
-    <span class="c"># convert the hexadecimal representation to a decimal integer</span>
-    <span class="n">inte</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">hexa</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-    <span class="c"># create a string containing the integer, formatted as binary</span>
-    <span class="n">binary_str</span> <span class="o">=</span> <span class="s">&quot;&#39;{}&#39; encoded in UTF-8 is: {:b}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">inte</span><span class="p">)</span>
-    <span class="c"># print that binary representation. whew! if there&#39;s an easier</span>
-    <span class="c"># way (e.g. at least skipping the intermediate hexadecimal</span>
-    <span class="c"># representation), please let me know!</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">binary_str</span><span class="p">)</span>
+    <span class="n">binary_bytes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># encode the string as UTF-8 and iterate over the bytes</span>
+    <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
+        <span class="c1"># generate a string of general format &quot;0b101...&quot;, which</span>
+        <span class="c1"># is the binary representation of the byte</span>
+        <span class="n">binary</span> <span class="o">=</span> <span class="nb">bin</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
+        <span class="c1"># remove the leading &quot;0b&quot;</span>
+        <span class="n">binary</span> <span class="o">=</span> <span class="n">binary</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="c1"># pad the representation with leading zeros to the size of</span>
+        <span class="c1"># a full byte (= a sequence of 8 1&#39;s and 0&#39;s) if necessary</span>
+        <span class="n">binary_byte</span> <span class="o">=</span> <span class="n">binary</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+        <span class="n">binary_bytes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">binary_byte</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; encoded in UTF-8 is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">binary_bytes</span><span class="p">))</span>
 
-<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">)</span>   <span class="c"># the representations...</span>
-<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s">&quot;č&quot;</span><span class="p">)</span>   <span class="c"># ... keep...</span>
-<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s">&quot;字&quot;</span><span class="p">)</span>  <span class="c"># ... getting longer.</span>
+<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>   <span class="c1"># the representations...</span>
+<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;č&quot;</span><span class="p">)</span>   <span class="c1"># ... keep...</span>
+<span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;字&quot;</span><span class="p">)</span>  <span class="c1"># ... getting longer.</span>
 </pre></div>
 
 </div>
@@ -927,9 +928,9 @@ Little Umbrellas            </a>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&apos;A&apos; encoded in UTF-8 is: 1000001
-&apos;č&apos; encoded in UTF-8 is: 1100010010001101
-&apos;字&apos; encoded in UTF-8 is: 111001011010110110010111
+<pre>&#39;A&#39; encoded in UTF-8 is: [&#39;01000001&#39;]
+&#39;č&#39; encoded in UTF-8 is: [&#39;11000100&#39;, &#39;10001101&#39;]
+&#39;字&#39; encoded in UTF-8 is: [&#39;11100101&#39;, &#39;10101101&#39;, &#39;10010111&#39;]
 </pre>
 </div>
 </div>
@@ -954,9 +955,9 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># &quot;č&quot; as LATIN SMALL LETTER C WITH CARON, codepoint 010D</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># &quot;č&quot; as LATIN SMALL LETTER C WITH CARON, codepoint 010D</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mh">0x010D</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\u010D</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u010D</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -984,10 +985,10 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># &quot;č&quot; as a sequence of LATIN SMALL LETTER C, codepoint 0063, and</span>
-<span class="c"># COMBINING CARON, codepoint 030c</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># &quot;č&quot; as a sequence of LATIN SMALL LETTER C, codepoint 0063, and</span>
+<span class="c1"># COMBINING CARON, codepoint 030c</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="mh">0x0063</span><span class="p">)</span> <span class="o">+</span> <span class="nb">chr</span><span class="p">(</span><span class="mh">0x030c</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\u0063\u030c</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\u0063\u030c</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1027,8 +1028,8 @@ č
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># use hex() to find out the hexadecimal representation of a decimal</span>
-<span class="c"># integer...</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># use hex() to find out the hexadecimal representation of a decimal</span>
+<span class="c1"># integer...</span>
 <span class="nb">hex</span><span class="p">(</span><span class="mi">99</span><span class="p">)</span>
 </pre></div>
 
@@ -1044,7 +1045,7 @@ č
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&apos;0x63&apos;</pre>
+<pre>&#39;0x63&#39;</pre>
 </div>
 
 </div>
@@ -1058,7 +1059,7 @@ č
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># ... and int() to go back</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... and int() to go back</span>
 <span class="nb">int</span><span class="p">(</span><span class="mh">0x63</span><span class="p">)</span>
 </pre></div>
 
@@ -1098,9 +1099,9 @@ č
 <div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">s1</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\u010D</span><span class="s">&quot;</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\u0063\u030c</span><span class="s">&quot;</span>
-<span class="c"># s1 and s2 look the same to the naked eye...</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">s1</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\u010D</span><span class="s2">&quot;</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\u0063\u030c</span><span class="s2">&quot;</span>
+<span class="c1"># s1 and s2 look the same to the naked eye...</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 </pre></div>
 
@@ -1128,7 +1129,7 @@ č
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># ... but in the eternal realm of Plato&#39;s Ideas, they&#39;re not</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... but in the eternal realm of Plato&#39;s Ideas, they&#39;re not</span>
 <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span>
 </pre></div>
 
@@ -1168,8 +1169,8 @@ č
 <div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="nb">print</span><span class="p">(</span><span class="s">&quot;s1 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="s">&quot;character(s) long.&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;s2 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">),</span> <span class="s">&quot;character(s) long.&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;s1 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s1</span><span class="p">),</span> <span class="s2">&quot;character(s) long.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;s2 is&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">s2</span><span class="p">),</span> <span class="s2">&quot;character(s) long.&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1207,13 +1208,13 @@ s2 is 2 character(s) long.
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="k">import</span> <span class="n">normalize</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="k">import</span> <span class="n">normalize</span>
 
-<span class="c"># NFC stands for Normal Form C; this normalization applies a canonical</span>
-<span class="c"># decomposition (into a multi-codepoint representation) followed by a</span>
-<span class="c"># canonical composition (into a single-codepoint representation)</span>
-<span class="n">s1</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+<span class="c1"># NFC stands for Normal Form C; this normalization applies a canonical</span>
+<span class="c1"># decomposition (into a multi-codepoint representation) followed by a</span>
+<span class="c1"># canonical composition (into a single-codepoint representation)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">normalize</span><span class="p">(</span><span class="s2">&quot;NFC&quot;</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 
 <span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span>
 </pre></div>
@@ -1254,9 +1255,9 @@ s2 is 2 character(s) long.
 <div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># a good idea when dealing with Unicode text from an unknown and</span>
-<span class="c"># unreliable source is to look at the set of codepoints contained</span>
-<span class="c"># in it and eliminate or replace those that shouldn&#39;t be there</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># a good idea when dealing with Unicode text from an unknown and</span>
+<span class="c1"># unreliable source is to look at the set of codepoints contained</span>
+<span class="c1"># in it and eliminate or replace those that shouldn&#39;t be there</span>
 <span class="kn">import</span> <span class="nn">unicodedata</span>
 
 
@@ -1265,17 +1266,17 @@ s2 is 2 character(s) long.
     <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
         <span class="n">charset</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">charset</span><span class="p">):</span>
-        <span class="n">info</span> <span class="o">=</span> <span class="s">r&quot;{} (\u{:04x}): {} (category: {})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="s2">r&quot;</span><span class="si">{}</span><span class="s2"> (\u</span><span class="si">{:04x}</span><span class="s2">): </span><span class="si">{}</span><span class="s2"> (category: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="n">char</span><span class="p">,</span> <span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">char</span><span class="p">),</span>
             <span class="n">unicodedata</span><span class="o">.</span><span class="n">category</span><span class="p">(</span><span class="n">char</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
         
 
-<span class="c"># depending on your font configuration, it may be very hard to spot</span>
-<span class="c"># the two intruders in the sentence below that look like regular</span>
-<span class="c"># letters but really are specialized variants; you might want</span>
-<span class="c"># to replace them before doing further text processing...</span>
-<span class="n">inspect_codepoints</span><span class="p">(</span><span class="s">&quot;Intruders here, good 𝗍hinɡ I checked.&quot;</span><span class="p">)</span>
+<span class="c1"># depending on your font configuration, it may be very hard to spot</span>
+<span class="c1"># the two intruders in the sentence below that look like regular</span>
+<span class="c1"># letters but really are specialized variants; you might want</span>
+<span class="c1"># to replace them before doing further text processing...</span>
+<span class="n">inspect_codepoints</span><span class="p">(</span><span class="s2">&quot;Intruders here, good 𝗍hinɡ I checked.&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1320,10 +1321,10 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># ... because of course, for a computer, the word &quot;thing&quot; written with</span>
-<span class="c"># two different variants of &quot;g&quot; is really just two different words, which</span>
-<span class="c"># is probably not what you want</span>
-<span class="s">&quot;thing&quot;</span> <span class="o">==</span> <span class="s">&quot;thinɡ&quot;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># ... because of course, for a computer, the word &quot;thing&quot; written with</span>
+<span class="c1"># two different variants of &quot;g&quot; is really just two different words, which</span>
+<span class="c1"># is probably not what you want</span>
+<span class="s2">&quot;thing&quot;</span> <span class="o">==</span> <span class="s2">&quot;thinɡ&quot;</span>
 </pre></div>
 
 </div>
@@ -1427,23 +1428,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
             <li class="list-group-item"><a href="http://dlukes.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/kontext.html">
-                            KonText
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/linguistics.html">
-                            linguistics
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="http://dlukes.github.io/tag/korpus.html">
                             korpus
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/bonito.html">
-                            Bonito
+                        <a href="http://dlukes.github.io/tag/automator.html">
+                            automator
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -1452,8 +1443,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/noske.html">
-                            NoSke
+                        <a href="http://dlukes.github.io/tag/bonito.html">
+                            Bonito
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/linguistics.html">
+                            linguistics
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -1462,83 +1458,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/automator.html">
-                            automator
+                        <a href="http://dlukes.github.io/tag/kontext.html">
+                            KonText
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/dependency.html">
-                            dependency
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/unicode.html">
-                            unicode
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/lines.html">
-                            lines
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/floss.html">
-                            floss
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/spacemacs.html">
-                            spacemacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/versioning.html">
-                            versioning
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/fill.html">
-                            fill
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/encoding.html">
-                            encoding
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/noske.html">
+                            NoSke
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1547,8 +1473,18 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/development.html">
-                            development
+                        <a href="http://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/daemon.html">
+                            daemon
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/wrap.html">
+                            wrap
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1557,8 +1493,53 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/floss.html">
+                            floss
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/unicode.html">
+                            unicode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/airmail.html">
                             airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/versioning.html">
+                            versioning
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1572,23 +1553,43 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/services.html">
-                            services
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wrap.html">
-                            wrap
+                        <a href="http://dlukes.github.io/tag/lines.html">
+                            lines
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/charset.html">
                             charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/spacemacs.html">
+                            spacemacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/gui.html">
+                            gui
                         </a>
                     </li>
                 </ul>
