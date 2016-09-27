@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/dlukes.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2016-07-21T00:00:00+02:00</updated><entry><title>The Cathedral and the Bazaar: What is a Useful Notion of “Language”?</title><link href="http://dlukes.github.io/cathedral-and-bazaar.html" rel="alternate"></link><updated>2016-07-21T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-07-21:cathedral-and-bazaar.html</id><summary type="html">&lt;p&gt;If you like the essay, then you'll definitely want to take a look at Luc
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/dlukes.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2016-07-21T00:00:00+02:00</updated><entry><title>The Cathedral and the Bazaar: What is a Useful Notion of “Language”?</title><link href="http://dlukes.github.io/cathedral-and-bazaar.html" rel="alternate"></link><published>2016-07-21T00:00:00+02:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-07-21:cathedral-and-bazaar.html</id><summary type="html">&lt;p&gt;If you like the essay, then you'll definitely want to take a look at Luc
 Steels's &lt;em&gt;The Talking Heads Experiment: Origins of Words and Meanings&lt;/em&gt;. It's
 published as an open-access book by Language Science Press, so
 &lt;a href="http://langsci-press.org//catalog/book/49"&gt;go grab the free download&lt;/a&gt;!&lt;/p&gt;
@@ -659,7 +659,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 27e).&amp;#160;&lt;a class="footnote-backref" href="#fnref:6" rev="footnote" title="Jump back to footnote 6 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="linguistics"></category><category term="Wittgenstein"></category><category term="Chomsky"></category></entry><entry><title>Configuring Emacs Daemon on Mac OS X</title><link href="http://dlukes.github.io/emacs-daemon-osx.html" rel="alternate"></link><updated>2016-02-20T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-02-20:emacs-daemon-osx.html</id><summary type="html">&lt;p&gt;I know I promised this article a loooong time ago (June 2014, when I first got a
+&lt;/div&gt;</summary><category term="linguistics"></category><category term="Wittgenstein"></category><category term="Chomsky"></category></entry><entry><title>Configuring Emacs Daemon on Mac OS X</title><link href="http://dlukes.github.io/emacs-daemon-osx.html" rel="alternate"></link><published>2016-02-20T00:00:00+01:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-02-20:emacs-daemon-osx.html</id><summary type="html">&lt;p&gt;I know I promised this article a loooong time ago (June 2014, when I first got a
 Mac, to judge by the previous timestamp in the header of this file), but since
 the historically attested readership of this blog is 2 + a bunch of my facebook
 friends who I nagged to read
@@ -806,7 +806,7 @@ life? ;)&lt;/p&gt;
 &lt;p&gt;Oh and if, like me, you love
 &lt;a href="https://github.com/nashamri/spacemacs-logo"&gt;Spacemacs' snappy icon&lt;/a&gt; with the
 Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
-&lt;a href="http://www.macworld.co.uk/how-to/mac-software/how-change-os-x-yosemites-icons-3597494/"&gt;definitely want to switch your Emacs logo to the Spacemacs one&lt;/a&gt;!&lt;/p&gt;</summary><category term="osx"></category><category term="gui"></category><category term="emacs"></category><category term="daemon"></category><category term="emacsclient"></category><category term="spacemacs"></category><category term="automator"></category></entry><entry><title>How computers handle text: a gentle but thorough introduction to Unicode</title><link href="http://dlukes.github.io/unicode.html" rel="alternate"></link><updated>2016-01-27T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-01-27:unicode.html</id><summary type="html">&lt;p&gt;
+&lt;a href="http://www.macworld.co.uk/how-to/mac-software/how-change-os-x-yosemites-icons-3597494/"&gt;definitely want to switch your Emacs logo to the Spacemacs one&lt;/a&gt;!&lt;/p&gt;</summary><category term="osx"></category><category term="gui"></category><category term="emacs"></category><category term="daemon"></category><category term="emacsclient"></category><category term="spacemacs"></category><category term="automator"></category></entry><entry><title>How computers handle text: a gentle but thorough introduction to Unicode</title><link href="http://dlukes.github.io/unicode.html" rel="alternate"></link><published>2016-01-27T00:00:00+01:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-01-27:unicode.html</id><summary type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;
 &lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
@@ -924,7 +924,7 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;1000001&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;&amp;apos;1000001&amp;apos;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -957,7 +957,7 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;foo bar baz&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;&amp;apos;foo bar baz&amp;apos;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -988,7 +988,7 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;bar foo bar&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;&amp;apos;bar foo bar&amp;apos;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1019,7 +1019,7 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;foo bar&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;&amp;apos;foo bar&amp;apos;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1051,7 +1051,7 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;101101&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;&amp;apos;101101&amp;apos;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1083,7 +1083,7 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;0b101101&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;&amp;apos;0b101101&amp;apos;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1143,195 +1143,195 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;[(32, &amp;#39; &amp;#39;),
- (33, &amp;#39;!&amp;#39;),
- (34, &amp;#39;&amp;#34;&amp;#39;),
- (35, &amp;#39;#&amp;#39;),
- (36, &amp;#39;$&amp;#39;),
- (37, &amp;#39;%&amp;#39;),
- (38, &amp;#39;&amp;amp;&amp;#39;),
- (39, &amp;#34;&amp;#39;&amp;#34;),
- (40, &amp;#39;(&amp;#39;),
- (41, &amp;#39;)&amp;#39;),
- (42, &amp;#39;*&amp;#39;),
- (43, &amp;#39;+&amp;#39;),
- (44, &amp;#39;,&amp;#39;),
- (45, &amp;#39;-&amp;#39;),
- (46, &amp;#39;.&amp;#39;),
- (47, &amp;#39;/&amp;#39;),
- (48, &amp;#39;0&amp;#39;),
- (49, &amp;#39;1&amp;#39;),
- (50, &amp;#39;2&amp;#39;),
- (51, &amp;#39;3&amp;#39;),
- (52, &amp;#39;4&amp;#39;),
- (53, &amp;#39;5&amp;#39;),
- (54, &amp;#39;6&amp;#39;),
- (55, &amp;#39;7&amp;#39;),
- (56, &amp;#39;8&amp;#39;),
- (57, &amp;#39;9&amp;#39;),
- (58, &amp;#39;:&amp;#39;),
- (59, &amp;#39;;&amp;#39;),
- (60, &amp;#39;&amp;lt;&amp;#39;),
- (61, &amp;#39;=&amp;#39;),
- (62, &amp;#39;&amp;gt;&amp;#39;),
- (63, &amp;#39;?&amp;#39;),
- (64, &amp;#39;@&amp;#39;),
- (65, &amp;#39;A&amp;#39;),
- (66, &amp;#39;B&amp;#39;),
- (67, &amp;#39;C&amp;#39;),
- (68, &amp;#39;D&amp;#39;),
- (69, &amp;#39;E&amp;#39;),
- (70, &amp;#39;F&amp;#39;),
- (71, &amp;#39;G&amp;#39;),
- (72, &amp;#39;H&amp;#39;),
- (73, &amp;#39;I&amp;#39;),
- (74, &amp;#39;J&amp;#39;),
- (75, &amp;#39;K&amp;#39;),
- (76, &amp;#39;L&amp;#39;),
- (77, &amp;#39;M&amp;#39;),
- (78, &amp;#39;N&amp;#39;),
- (79, &amp;#39;O&amp;#39;),
- (80, &amp;#39;P&amp;#39;),
- (81, &amp;#39;Q&amp;#39;),
- (82, &amp;#39;R&amp;#39;),
- (83, &amp;#39;S&amp;#39;),
- (84, &amp;#39;T&amp;#39;),
- (85, &amp;#39;U&amp;#39;),
- (86, &amp;#39;V&amp;#39;),
- (87, &amp;#39;W&amp;#39;),
- (88, &amp;#39;X&amp;#39;),
- (89, &amp;#39;Y&amp;#39;),
- (90, &amp;#39;Z&amp;#39;),
- (91, &amp;#39;[&amp;#39;),
- (92, &amp;#39;\\&amp;#39;),
- (93, &amp;#39;]&amp;#39;),
- (94, &amp;#39;^&amp;#39;),
- (95, &amp;#39;_&amp;#39;),
- (96, &amp;#39;`&amp;#39;),
- (97, &amp;#39;a&amp;#39;),
- (98, &amp;#39;b&amp;#39;),
- (99, &amp;#39;c&amp;#39;),
- (100, &amp;#39;d&amp;#39;),
- (101, &amp;#39;e&amp;#39;),
- (102, &amp;#39;f&amp;#39;),
- (103, &amp;#39;g&amp;#39;),
- (104, &amp;#39;h&amp;#39;),
- (105, &amp;#39;i&amp;#39;),
- (106, &amp;#39;j&amp;#39;),
- (107, &amp;#39;k&amp;#39;),
- (108, &amp;#39;l&amp;#39;),
- (109, &amp;#39;m&amp;#39;),
- (110, &amp;#39;n&amp;#39;),
- (111, &amp;#39;o&amp;#39;),
- (112, &amp;#39;p&amp;#39;),
- (113, &amp;#39;q&amp;#39;),
- (114, &amp;#39;r&amp;#39;),
- (115, &amp;#39;s&amp;#39;),
- (116, &amp;#39;t&amp;#39;),
- (117, &amp;#39;u&amp;#39;),
- (118, &amp;#39;v&amp;#39;),
- (119, &amp;#39;w&amp;#39;),
- (120, &amp;#39;x&amp;#39;),
- (121, &amp;#39;y&amp;#39;),
- (122, &amp;#39;z&amp;#39;),
- (123, &amp;#39;{&amp;#39;),
- (124, &amp;#39;|&amp;#39;),
- (125, &amp;#39;}&amp;#39;),
- (126, &amp;#39;~&amp;#39;),
- (161, &amp;#39;Ą&amp;#39;),
- (162, &amp;#39;˘&amp;#39;),
- (163, &amp;#39;Ł&amp;#39;),
- (164, &amp;#39;¤&amp;#39;),
- (165, &amp;#39;Ľ&amp;#39;),
- (166, &amp;#39;Ś&amp;#39;),
- (167, &amp;#39;§&amp;#39;),
- (168, &amp;#39;¨&amp;#39;),
- (169, &amp;#39;Š&amp;#39;),
- (170, &amp;#39;Ş&amp;#39;),
- (171, &amp;#39;Ť&amp;#39;),
- (172, &amp;#39;Ź&amp;#39;),
- (174, &amp;#39;Ž&amp;#39;),
- (175, &amp;#39;Ż&amp;#39;),
- (176, &amp;#39;°&amp;#39;),
- (177, &amp;#39;ą&amp;#39;),
- (178, &amp;#39;˛&amp;#39;),
- (179, &amp;#39;ł&amp;#39;),
- (180, &amp;#39;´&amp;#39;),
- (181, &amp;#39;ľ&amp;#39;),
- (182, &amp;#39;ś&amp;#39;),
- (183, &amp;#39;ˇ&amp;#39;),
- (184, &amp;#39;¸&amp;#39;),
- (185, &amp;#39;š&amp;#39;),
- (186, &amp;#39;ş&amp;#39;),
- (187, &amp;#39;ť&amp;#39;),
- (188, &amp;#39;ź&amp;#39;),
- (189, &amp;#39;˝&amp;#39;),
- (190, &amp;#39;ž&amp;#39;),
- (191, &amp;#39;ż&amp;#39;),
- (192, &amp;#39;Ŕ&amp;#39;),
- (193, &amp;#39;Á&amp;#39;),
- (194, &amp;#39;Â&amp;#39;),
- (195, &amp;#39;Ă&amp;#39;),
- (196, &amp;#39;Ä&amp;#39;),
- (197, &amp;#39;Ĺ&amp;#39;),
- (198, &amp;#39;Ć&amp;#39;),
- (199, &amp;#39;Ç&amp;#39;),
- (200, &amp;#39;Č&amp;#39;),
- (201, &amp;#39;É&amp;#39;),
- (202, &amp;#39;Ę&amp;#39;),
- (203, &amp;#39;Ë&amp;#39;),
- (204, &amp;#39;Ě&amp;#39;),
- (205, &amp;#39;Í&amp;#39;),
- (206, &amp;#39;Î&amp;#39;),
- (207, &amp;#39;Ď&amp;#39;),
- (208, &amp;#39;Đ&amp;#39;),
- (209, &amp;#39;Ń&amp;#39;),
- (210, &amp;#39;Ň&amp;#39;),
- (211, &amp;#39;Ó&amp;#39;),
- (212, &amp;#39;Ô&amp;#39;),
- (213, &amp;#39;Ő&amp;#39;),
- (214, &amp;#39;Ö&amp;#39;),
- (215, &amp;#39;×&amp;#39;),
- (216, &amp;#39;Ř&amp;#39;),
- (217, &amp;#39;Ů&amp;#39;),
- (218, &amp;#39;Ú&amp;#39;),
- (219, &amp;#39;Ű&amp;#39;),
- (220, &amp;#39;Ü&amp;#39;),
- (221, &amp;#39;Ý&amp;#39;),
- (222, &amp;#39;Ţ&amp;#39;),
- (223, &amp;#39;ß&amp;#39;),
- (224, &amp;#39;ŕ&amp;#39;),
- (225, &amp;#39;á&amp;#39;),
- (226, &amp;#39;â&amp;#39;),
- (227, &amp;#39;ă&amp;#39;),
- (228, &amp;#39;ä&amp;#39;),
- (229, &amp;#39;ĺ&amp;#39;),
- (230, &amp;#39;ć&amp;#39;),
- (231, &amp;#39;ç&amp;#39;),
- (232, &amp;#39;č&amp;#39;),
- (233, &amp;#39;é&amp;#39;),
- (234, &amp;#39;ę&amp;#39;),
- (235, &amp;#39;ë&amp;#39;),
- (236, &amp;#39;ě&amp;#39;),
- (237, &amp;#39;í&amp;#39;),
- (238, &amp;#39;î&amp;#39;),
- (239, &amp;#39;ď&amp;#39;),
- (240, &amp;#39;đ&amp;#39;),
- (241, &amp;#39;ń&amp;#39;),
- (242, &amp;#39;ň&amp;#39;),
- (243, &amp;#39;ó&amp;#39;),
- (244, &amp;#39;ô&amp;#39;),
- (245, &amp;#39;ő&amp;#39;),
- (246, &amp;#39;ö&amp;#39;),
- (247, &amp;#39;÷&amp;#39;),
- (248, &amp;#39;ř&amp;#39;),
- (249, &amp;#39;ů&amp;#39;),
- (250, &amp;#39;ú&amp;#39;),
- (251, &amp;#39;ű&amp;#39;),
- (252, &amp;#39;ü&amp;#39;),
- (253, &amp;#39;ý&amp;#39;),
- (254, &amp;#39;ţ&amp;#39;),
- (255, &amp;#39;˙&amp;#39;)]&lt;/pre&gt;
+&lt;pre&gt;[(32, &amp;apos; &amp;apos;),
+ (33, &amp;apos;!&amp;apos;),
+ (34, &amp;apos;&amp;quot;&amp;apos;),
+ (35, &amp;apos;#&amp;apos;),
+ (36, &amp;apos;$&amp;apos;),
+ (37, &amp;apos;%&amp;apos;),
+ (38, &amp;apos;&amp;amp;&amp;apos;),
+ (39, &amp;quot;&amp;apos;&amp;quot;),
+ (40, &amp;apos;(&amp;apos;),
+ (41, &amp;apos;)&amp;apos;),
+ (42, &amp;apos;*&amp;apos;),
+ (43, &amp;apos;+&amp;apos;),
+ (44, &amp;apos;,&amp;apos;),
+ (45, &amp;apos;-&amp;apos;),
+ (46, &amp;apos;.&amp;apos;),
+ (47, &amp;apos;/&amp;apos;),
+ (48, &amp;apos;0&amp;apos;),
+ (49, &amp;apos;1&amp;apos;),
+ (50, &amp;apos;2&amp;apos;),
+ (51, &amp;apos;3&amp;apos;),
+ (52, &amp;apos;4&amp;apos;),
+ (53, &amp;apos;5&amp;apos;),
+ (54, &amp;apos;6&amp;apos;),
+ (55, &amp;apos;7&amp;apos;),
+ (56, &amp;apos;8&amp;apos;),
+ (57, &amp;apos;9&amp;apos;),
+ (58, &amp;apos;:&amp;apos;),
+ (59, &amp;apos;;&amp;apos;),
+ (60, &amp;apos;&amp;lt;&amp;apos;),
+ (61, &amp;apos;=&amp;apos;),
+ (62, &amp;apos;&amp;gt;&amp;apos;),
+ (63, &amp;apos;?&amp;apos;),
+ (64, &amp;apos;@&amp;apos;),
+ (65, &amp;apos;A&amp;apos;),
+ (66, &amp;apos;B&amp;apos;),
+ (67, &amp;apos;C&amp;apos;),
+ (68, &amp;apos;D&amp;apos;),
+ (69, &amp;apos;E&amp;apos;),
+ (70, &amp;apos;F&amp;apos;),
+ (71, &amp;apos;G&amp;apos;),
+ (72, &amp;apos;H&amp;apos;),
+ (73, &amp;apos;I&amp;apos;),
+ (74, &amp;apos;J&amp;apos;),
+ (75, &amp;apos;K&amp;apos;),
+ (76, &amp;apos;L&amp;apos;),
+ (77, &amp;apos;M&amp;apos;),
+ (78, &amp;apos;N&amp;apos;),
+ (79, &amp;apos;O&amp;apos;),
+ (80, &amp;apos;P&amp;apos;),
+ (81, &amp;apos;Q&amp;apos;),
+ (82, &amp;apos;R&amp;apos;),
+ (83, &amp;apos;S&amp;apos;),
+ (84, &amp;apos;T&amp;apos;),
+ (85, &amp;apos;U&amp;apos;),
+ (86, &amp;apos;V&amp;apos;),
+ (87, &amp;apos;W&amp;apos;),
+ (88, &amp;apos;X&amp;apos;),
+ (89, &amp;apos;Y&amp;apos;),
+ (90, &amp;apos;Z&amp;apos;),
+ (91, &amp;apos;[&amp;apos;),
+ (92, &amp;apos;\\&amp;apos;),
+ (93, &amp;apos;]&amp;apos;),
+ (94, &amp;apos;^&amp;apos;),
+ (95, &amp;apos;_&amp;apos;),
+ (96, &amp;apos;&amp;#96;&amp;apos;),
+ (97, &amp;apos;a&amp;apos;),
+ (98, &amp;apos;b&amp;apos;),
+ (99, &amp;apos;c&amp;apos;),
+ (100, &amp;apos;d&amp;apos;),
+ (101, &amp;apos;e&amp;apos;),
+ (102, &amp;apos;f&amp;apos;),
+ (103, &amp;apos;g&amp;apos;),
+ (104, &amp;apos;h&amp;apos;),
+ (105, &amp;apos;i&amp;apos;),
+ (106, &amp;apos;j&amp;apos;),
+ (107, &amp;apos;k&amp;apos;),
+ (108, &amp;apos;l&amp;apos;),
+ (109, &amp;apos;m&amp;apos;),
+ (110, &amp;apos;n&amp;apos;),
+ (111, &amp;apos;o&amp;apos;),
+ (112, &amp;apos;p&amp;apos;),
+ (113, &amp;apos;q&amp;apos;),
+ (114, &amp;apos;r&amp;apos;),
+ (115, &amp;apos;s&amp;apos;),
+ (116, &amp;apos;t&amp;apos;),
+ (117, &amp;apos;u&amp;apos;),
+ (118, &amp;apos;v&amp;apos;),
+ (119, &amp;apos;w&amp;apos;),
+ (120, &amp;apos;x&amp;apos;),
+ (121, &amp;apos;y&amp;apos;),
+ (122, &amp;apos;z&amp;apos;),
+ (123, &amp;apos;{&amp;apos;),
+ (124, &amp;apos;|&amp;apos;),
+ (125, &amp;apos;}&amp;apos;),
+ (126, &amp;apos;~&amp;apos;),
+ (161, &amp;apos;Ą&amp;apos;),
+ (162, &amp;apos;˘&amp;apos;),
+ (163, &amp;apos;Ł&amp;apos;),
+ (164, &amp;apos;¤&amp;apos;),
+ (165, &amp;apos;Ľ&amp;apos;),
+ (166, &amp;apos;Ś&amp;apos;),
+ (167, &amp;apos;§&amp;apos;),
+ (168, &amp;apos;¨&amp;apos;),
+ (169, &amp;apos;Š&amp;apos;),
+ (170, &amp;apos;Ş&amp;apos;),
+ (171, &amp;apos;Ť&amp;apos;),
+ (172, &amp;apos;Ź&amp;apos;),
+ (174, &amp;apos;Ž&amp;apos;),
+ (175, &amp;apos;Ż&amp;apos;),
+ (176, &amp;apos;°&amp;apos;),
+ (177, &amp;apos;ą&amp;apos;),
+ (178, &amp;apos;˛&amp;apos;),
+ (179, &amp;apos;ł&amp;apos;),
+ (180, &amp;apos;´&amp;apos;),
+ (181, &amp;apos;ľ&amp;apos;),
+ (182, &amp;apos;ś&amp;apos;),
+ (183, &amp;apos;ˇ&amp;apos;),
+ (184, &amp;apos;¸&amp;apos;),
+ (185, &amp;apos;š&amp;apos;),
+ (186, &amp;apos;ş&amp;apos;),
+ (187, &amp;apos;ť&amp;apos;),
+ (188, &amp;apos;ź&amp;apos;),
+ (189, &amp;apos;˝&amp;apos;),
+ (190, &amp;apos;ž&amp;apos;),
+ (191, &amp;apos;ż&amp;apos;),
+ (192, &amp;apos;Ŕ&amp;apos;),
+ (193, &amp;apos;Á&amp;apos;),
+ (194, &amp;apos;Â&amp;apos;),
+ (195, &amp;apos;Ă&amp;apos;),
+ (196, &amp;apos;Ä&amp;apos;),
+ (197, &amp;apos;Ĺ&amp;apos;),
+ (198, &amp;apos;Ć&amp;apos;),
+ (199, &amp;apos;Ç&amp;apos;),
+ (200, &amp;apos;Č&amp;apos;),
+ (201, &amp;apos;É&amp;apos;),
+ (202, &amp;apos;Ę&amp;apos;),
+ (203, &amp;apos;Ë&amp;apos;),
+ (204, &amp;apos;Ě&amp;apos;),
+ (205, &amp;apos;Í&amp;apos;),
+ (206, &amp;apos;Î&amp;apos;),
+ (207, &amp;apos;Ď&amp;apos;),
+ (208, &amp;apos;Đ&amp;apos;),
+ (209, &amp;apos;Ń&amp;apos;),
+ (210, &amp;apos;Ň&amp;apos;),
+ (211, &amp;apos;Ó&amp;apos;),
+ (212, &amp;apos;Ô&amp;apos;),
+ (213, &amp;apos;Ő&amp;apos;),
+ (214, &amp;apos;Ö&amp;apos;),
+ (215, &amp;apos;×&amp;apos;),
+ (216, &amp;apos;Ř&amp;apos;),
+ (217, &amp;apos;Ů&amp;apos;),
+ (218, &amp;apos;Ú&amp;apos;),
+ (219, &amp;apos;Ű&amp;apos;),
+ (220, &amp;apos;Ü&amp;apos;),
+ (221, &amp;apos;Ý&amp;apos;),
+ (222, &amp;apos;Ţ&amp;apos;),
+ (223, &amp;apos;ß&amp;apos;),
+ (224, &amp;apos;ŕ&amp;apos;),
+ (225, &amp;apos;á&amp;apos;),
+ (226, &amp;apos;â&amp;apos;),
+ (227, &amp;apos;ă&amp;apos;),
+ (228, &amp;apos;ä&amp;apos;),
+ (229, &amp;apos;ĺ&amp;apos;),
+ (230, &amp;apos;ć&amp;apos;),
+ (231, &amp;apos;ç&amp;apos;),
+ (232, &amp;apos;č&amp;apos;),
+ (233, &amp;apos;é&amp;apos;),
+ (234, &amp;apos;ę&amp;apos;),
+ (235, &amp;apos;ë&amp;apos;),
+ (236, &amp;apos;ě&amp;apos;),
+ (237, &amp;apos;í&amp;apos;),
+ (238, &amp;apos;î&amp;apos;),
+ (239, &amp;apos;ď&amp;apos;),
+ (240, &amp;apos;đ&amp;apos;),
+ (241, &amp;apos;ń&amp;apos;),
+ (242, &amp;apos;ň&amp;apos;),
+ (243, &amp;apos;ó&amp;apos;),
+ (244, &amp;apos;ô&amp;apos;),
+ (245, &amp;apos;ő&amp;apos;),
+ (246, &amp;apos;ö&amp;apos;),
+ (247, &amp;apos;÷&amp;apos;),
+ (248, &amp;apos;ř&amp;apos;),
+ (249, &amp;apos;ů&amp;apos;),
+ (250, &amp;apos;ú&amp;apos;),
+ (251, &amp;apos;ű&amp;apos;),
+ (252, &amp;apos;ü&amp;apos;),
+ (253, &amp;apos;ý&amp;apos;),
+ (254, &amp;apos;ţ&amp;apos;),
+ (255, &amp;apos;˙&amp;apos;)]&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1440,9 +1440,9 @@ Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
 
 &lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
-&lt;pre&gt;&amp;#39;A&amp;#39; encoded in UTF-8 is: [&amp;#39;01000001&amp;#39;]
-&amp;#39;č&amp;#39; encoded in UTF-8 is: [&amp;#39;11000100&amp;#39;, &amp;#39;10001101&amp;#39;]
-&amp;#39;字&amp;#39; encoded in UTF-8 is: [&amp;#39;11100101&amp;#39;, &amp;#39;10101101&amp;#39;, &amp;#39;10010111&amp;#39;]
+&lt;pre&gt;&amp;apos;A&amp;apos; encoded in UTF-8 is: [&amp;apos;01000001&amp;apos;]
+&amp;apos;č&amp;apos; encoded in UTF-8 is: [&amp;apos;11000100&amp;apos;, &amp;apos;10001101&amp;apos;]
+&amp;apos;字&amp;apos; encoded in UTF-8 is: [&amp;apos;11100101&amp;apos;, &amp;apos;10101101&amp;apos;, &amp;apos;10010111&amp;apos;]
 &lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1557,7 +1557,7 @@ č
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;0x63&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;&amp;apos;0x63&amp;apos;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1876,7 +1876,7 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
 
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;/p&gt;</summary><category term="unicode"></category><category term="encoding"></category><category term="charset"></category><category term="programming"></category><category term="linguistics"></category><category term="python"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText -- vylepšená verze</title><link href="http://dlukes.github.io/kontext-interface-tweak-update.html" rel="alternate"></link><updated>2015-05-14T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-05-14:kontext-interface-tweak-update.html</id><summary type="html">&lt;p&gt;Před nějakou dobou jsem zde vyvěsil
+&lt;/div&gt;&lt;/p&gt;</summary><category term="unicode"></category><category term="encoding"></category><category term="charset"></category><category term="programming"></category><category term="linguistics"></category><category term="python"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText -- vylepšená verze</title><link href="http://dlukes.github.io/kontext-interface-tweak-update.html" rel="alternate"></link><published>2015-05-14T00:00:00+02:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-05-14:kontext-interface-tweak-update.html</id><summary type="html">&lt;p&gt;Před nějakou dobou jsem zde vyvěsil
 &lt;a href="http://dlukes.github.io/kontext-interface-tweak.html"&gt;skript&lt;/a&gt;, jehož pomocí lze lehce
 "přeskládat" a upravit rozhraní korpusového konkordanceru
 &lt;a href="https://kontext.korpus.cz"&gt;KonText&lt;/a&gt;:&lt;/p&gt;
@@ -1941,7 +1941,7 @@ takže opětovné vyhledávání se nově spouští stiskem kombinace kláves
 hledacího boxu na parametry filtrování.&amp;#160;&lt;a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText</title><link href="http://dlukes.github.io/kontext-interface-tweak.html" rel="alternate"></link><updated>2015-02-17T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-02-17:kontext-interface-tweak.html</id><summary type="html">&lt;h1&gt;!POZOR!&lt;/h1&gt;
+&lt;/div&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Úprava rozhraní konkordanceru KonText</title><link href="http://dlukes.github.io/kontext-interface-tweak.html" rel="alternate"></link><published>2015-02-17T00:00:00+01:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2015-02-17:kontext-interface-tweak.html</id><summary type="html">&lt;h1&gt;!POZOR!&lt;/h1&gt;
 &lt;p&gt;K dispozici je nyní
 &lt;a href="http://dlukes.github.io/kontext-interface-tweak-update.html"&gt;vylepšená verze níže popsaného skriptu&lt;/a&gt;.&lt;/p&gt;
 &lt;h1&gt;Hledání v korpusech ČNK&lt;/h1&gt;
@@ -2069,7 +2069,7 @@ přidán přímo do KonTextu, takovými nedostatky samozřejmě trpět nebude.&l
 &lt;p&gt;Skript je volně šiřitelný pod licencí
 &lt;a href="http://www.gnu.org/copyleft/gpl.html"&gt;GNU GPL v3&lt;/a&gt;, takže se na něj neváže
 žádná záruka. Když se vám ale nebude dařit jej zprovoznit, rád se pokusím
-pomoct! Stačí se ozvat na adresu uvedenou &lt;a href="pages/about.html"&gt;zde&lt;/a&gt;.&lt;/p&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="http://dlukes.github.io/beyond-semver.html" rel="alternate"></link><updated>2014-12-14T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:beyond-semver.html</id><summary type="html">&lt;h1&gt;Background&lt;/h1&gt;
+pomoct! Stačí se ozvat na adresu uvedenou &lt;a href="pages/about.html"&gt;zde&lt;/a&gt;.&lt;/p&gt;</summary><category term="KonText"></category><category term="korpus"></category><category term="konkordance"></category><category term="NoSke"></category><category term="Bonito"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="http://dlukes.github.io/beyond-semver.html" rel="alternate"></link><published>2014-12-14T00:00:00+01:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:beyond-semver.html</id><summary type="html">&lt;h1&gt;Background&lt;/h1&gt;
 &lt;p&gt;Ever since I first read about &lt;a href="http://semver.org/"&gt;semantic versioning&lt;/a&gt;, I've
 thought of it as a neat idea. But only recently did it occur to me that what
 I liked about the idea was its goal, much less its execution (more on that
@@ -2165,7 +2165,7 @@ compatible manner by the update.&lt;/p&gt;
 &lt;p&gt;anyways, just a few ideas :) I am not primarily a coder, so there may be obvious
 drawbacks to this scheme that I can't see or which have already been discussed
 by the community on multiple occasions which have escaped my attention. in which
-case, please bear with me and excuse my lack of sophistication.&lt;/p&gt;</summary><category term="floss"></category><category term="semver"></category><category term="versioning"></category><category term="underscore.js"></category><category term="library"></category><category term="development"></category><category term="dependency"></category></entry><entry><title>Filling (hardwrapping) paragraphs in Airmail with `par`</title><link href="http://dlukes.github.io/fill-par-in-airmail.html" rel="alternate"></link><updated>2014-06-27T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-27:fill-par-in-airmail.html</id><summary type="html">&lt;h1&gt;tl;dr&lt;/h1&gt;
+case, please bear with me and excuse my lack of sophistication.&lt;/p&gt;</summary><category term="floss"></category><category term="semver"></category><category term="versioning"></category><category term="underscore.js"></category><category term="library"></category><category term="development"></category><category term="dependency"></category></entry><entry><title>Filling (hardwrapping) paragraphs in Airmail with `par`</title><link href="http://dlukes.github.io/fill-par-in-airmail.html" rel="alternate"></link><published>2014-06-27T00:00:00+02:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-06-27:fill-par-in-airmail.html</id><summary type="html">&lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;Jump directly to &lt;a href="#solution"&gt;the proposed solution&lt;/a&gt;. Tested on OS X 10.9
 (Mavericks).&lt;/p&gt;
 &lt;h1&gt;Back story&lt;/h1&gt;
