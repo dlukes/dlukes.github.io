@@ -21,11 +21,12 @@ for all your Czech-related queries ;)
 I hail from Prague, Czech Republic, the most beautiful city in the world, and
 work and live there, though I've lived in France and Belgium for a while when I
 was a kid. I play badminton and football (of the soccer persuasion -- but it's
-still football) and enjoy American Jewish literature (to the point of writing
-my BA thesis on Philip Roth), as well as Jon Stewart, Ricky Gervais, Stephen
-Fry and several other smart people who can make me laugh. I used to play the
-saxophone reasonably well, but nowadays mostly enjoy playing the guitar
-atrociously bad and singing along.
+still football) and enjoy American Jewish literature (to the point of writing my
+BA thesis on Philip Roth), as well as Bill Bailey, Jon Stewart, Ricky Gervais,
+Stephen Fry and several other smart people who can make me laugh (and who, along
+with Frank Zappa and The Beatles, are collectively responsible for my lifelong
+crush on the English language). I used to play the saxophone reasonably well,
+but nowadays mostly enjoy playing the guitar atrociously bad and singing along.
 
 As you can tell from the title of this blog (if you're a fellow aficionado), I
 spent most of my teen years listening to the great music of one **Frank
