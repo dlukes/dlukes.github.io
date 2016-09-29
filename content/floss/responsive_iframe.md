@@ -109,7 +109,7 @@ the following ones, which should be generic enough to cover most situations:
    affect the size of the rendered component
 
 On the parent (DokuWiki) side, you then need to handle the incoming size update
-messages from the child frame, and sending resize messages when the window is
+messages from the child frame, and send resize messages when the window is
 resized. This can be achieved with the following DokuWiki markup:
 
 ```html
@@ -170,5 +170,5 @@ change:
 ![responsive iframe rearranged](images/responsive_rearranged.png)
 
 Cue bittersweet feeling after having figured out a workaround for such a
-specific use case that you're [not quite sure](https://xkcd.com/1205/) it was
+specific use case that you're [not quite sure](http://www.xkcd.com/1691/) it was
 worth putting all that effort into it in the first place...
