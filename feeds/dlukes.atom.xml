@@ -98,7 +98,7 @@ the following ones, which should be generic enough to cover most situations:&lt;
    affect the size of the rendered component&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;On the parent (DokuWiki) side, you then need to handle the incoming size update
-messages from the child frame, and sending resize messages when the window is
+messages from the child frame, and send resize messages when the window is
 resized. This can be achieved with the following DokuWiki markup:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;iframe&lt;/span&gt; &lt;span class="na"&gt;id&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;embedded-app&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;https://your.shiny.app/url&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;frameborder&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;width&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;100%&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;iframe&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
@@ -154,7 +154,7 @@ resized. This can be achieved with the following DokuWiki markup:&lt;/p&gt;
 change:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="responsive iframe rearranged" src="images/responsive_rearranged.png" /&gt;&lt;/p&gt;
 &lt;p&gt;Cue bittersweet feeling after having figured out a workaround for such a
-specific use case that you're &lt;a href="https://xkcd.com/1205/"&gt;not quite sure&lt;/a&gt; it was
+specific use case that you're &lt;a href="http://www.xkcd.com/1691/"&gt;not quite sure&lt;/a&gt; it was
 worth putting all that effort into it in the first place...&lt;/p&gt;</summary><category term="floss"></category><category term="javascript"></category><category term="html"></category><category term="iframe"></category><category term="dokuwiki"></category><category term="shiny"></category></entry><entry><title>The Cathedral and the Bazaar: What is a Useful Notion of “Language”?</title><link href="http://dlukes.github.io/cathedral-and-bazaar.html" rel="alternate"></link><published>2016-07-21T00:00:00+02:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-07-21:cathedral-and-bazaar.html</id><summary type="html">&lt;p&gt;If you like the essay, then you'll definitely want to take a look at Luc
 Steels's &lt;em&gt;The Talking Heads Experiment: Origins of Words and Meanings&lt;/em&gt;. It's
 published as an open-access book by Language Science Press, so
