@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>korpus - Little Umbrellas</title>
+    <title>"Responsive" iframes, e.g. for DokuWiki and Shiny - Little Umbrellas</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,16 +166,26 @@ init_mathjax();
 </script>
     <link href="http://dlukes.github.io/images/favicon.ico" rel="icon">
 
+<link rel="canonical" href="http://dlukes.github.io/responsive-iframe.html">
 
-    <meta name="author" content="dlukes" />
-    <meta name="keywords" content="korpus" />
+        <meta name="author" content="dlukes" />
+        <meta name="keywords" content="floss,javascript,html,iframe,dokuwiki,shiny" />
+        <meta name="description" content="How to embed a &#34;responsive&#34; (i.e. vertically resizing) iframe in a web page." />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Little Umbrellas" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Little Umbrellas"/>
-        <meta property="og:url" content="http://dlukes.github.io"/>
-        <meta property="og:description" content="Little Umbrellas"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="&#34;Responsive&#34; iframes, e.g. for DokuWiki and Shiny"/>
+        <meta property="og:url" content="http://dlukes.github.io/responsive-iframe.html"/>
+        <meta property="og:description" content="How to embed a &#34;responsive&#34; (i.e. vertically resizing) iframe in a web page."/>
+        <meta property="article:published_time" content="2016-09-29" />
+            <meta property="article:section" content="floss" />
+            <meta property="article:tag" content="floss" />
+            <meta property="article:tag" content="javascript" />
+            <meta property="article:tag" content="html" />
+            <meta property="article:tag" content="iframe" />
+            <meta property="article:tag" content="dokuwiki" />
+            <meta property="article:tag" content="shiny" />
+            <meta property="article:author" content="dlukes" />
 
 
     <!-- Bootstrap -->
@@ -192,6 +202,8 @@ init_mathjax();
 
 
 
+        <link href="http://dlukes.github.io/feeds/floss.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Little Umbrellas floss ATOM Feed"/>
 
 </head>
 <body>
@@ -216,7 +228,7 @@ Little Umbrellas            </a>
                          <li><a href="http://dlukes.github.io/pages/work.html">
                              work
                           </a></li>
-                        <li >
+                        <li class="active">
                             <a href="http://dlukes.github.io/category/floss.html">floss</a>
                         </li>
                         <li >
@@ -243,20 +255,236 @@ Little Umbrellas            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <article>
-                <h2><a href="http://dlukes.github.io/kontext-interface-tweak-update.html">Úprava rozhraní konkordanceru KonText -- vylepšená verze</a></h2>
-                <div class="summary"><p>Vylepšená verze skriptu, kterým si uživatel Českého národního korpusu může upravit rozhraní konkordanceru KonText.</p>
-                    <a class="btn btn-default btn-xs" href="http://dlukes.github.io/kontext-interface-tweak-update.html">more ...</a>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://dlukes.github.io/responsive-iframe.html"
+                       rel="bookmark"
+                       title="Permalink to "Responsive" iframes, e.g. for DokuWiki and Shiny">
+                        "Responsive" iframes, e.g. for DokuWiki and Shiny
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-09-29T00:00:00+02:00"> Thu 29 September 2016</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://dlukes.github.io/tag/floss.html">floss</a>
+        /
+	<a href="http://dlukes.github.io/tag/javascript.html">javascript</a>
+        /
+	<a href="http://dlukes.github.io/tag/html.html">html</a>
+        /
+	<a href="http://dlukes.github.io/tag/iframe.html">iframe</a>
+        /
+	<a href="http://dlukes.github.io/tag/dokuwiki.html">dokuwiki</a>
+        /
+	<a href="http://dlukes.github.io/tag/shiny.html">shiny</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="http://dlukes.github.io/kontext-interface-tweak.html">Úprava rozhraní konkordanceru KonText</a></h2>
-                <div class="summary"><p>Skript, kterým si uživatel Českého národního korpusu může upravit rozhraní konkordanceru KonText.</p>
-                    <a class="btn btn-default btn-xs" href="http://dlukes.github.io/kontext-interface-tweak.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
+                <p>Sometimes, the best way to embed an interactive element into a website is to use
+an iframe. Obviously, not when your website is a webapp and that element
+represents the main functionality it's supposed to provide -- that would be
+gross. But when your website is mostly textual / graphical content, typically
+authored within a wiki or blogging platform, and you just want to include this
+one element to liven it up, iframes are actually a decent (and perhaps the
+only?) solution.</p>
+<p>Trouble is, you probably want this Frankenstein monster to actually look good,
+i.e. seamless if at all possible. But iframes don't have automatic vertical
+resizing according to their content, which means you'll need to take care of
+that manually. How? By using the JavaScript messaging API for communication
+between parent and child frames to send information about window resize events
+(from parent to child) and height updates (from child to parent).</p>
+<p>Let's imagine you have a <a href="https://www.dokuwiki.org/dokuwiki#">DokuWiki</a> article
+in which you want to embed a small <a href="http://shiny.rstudio.com/">Shiny</a> app. If
+you just embed it in your dokuwiki code using an iframe, taking care to remove
+the border and stretch it horizontally...</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;embedded-app&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://your.shiny.app/url&quot;</span> <span class="na">frameborder</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;100%&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>... this will happen:</p>
+<p><img alt="non-responsive iframe" src="images/non_responsive.png" /></p>
+<p>Eww, scrollbar. Messaging to the rescue! First of all, you need to teach your
+embedded web page to send information about its height to the parent at
+appropriate times. This can be achieved by adding this piece of JavaScript to
+it:</p>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">////////////////////////////////////////////</span>
+  <span class="c1">// CONFIGURE THESE TO MATCH YOUR USE CASE //</span>
+  <span class="c1">////////////////////////////////////////////</span>
+
+  <span class="c1">// set this to a selector for the element that contains the entire UI</span>
+  <span class="c1">// you want to access via the iframe -- for a Shiny app, it might be</span>
+  <span class="c1">// a div with Bootstrap&#39;s container-fluid class</span>
+  <span class="kd">var</span> <span class="nx">containerSelector</span> <span class="o">=</span> <span class="s2">&quot;.container-fluid&quot;</span><span class="p">;</span>
+
+  <span class="c1">// this should be the root URL of the parent frame (DokuWiki) which you want</span>
+  <span class="c1">// to allow to send messages to the child</span>
+  <span class="kd">var</span> <span class="nx">allowedOrigin</span> <span class="o">=</span> <span class="s2">&quot;https://dokuwiki.example.com&quot;</span>
+
+  <span class="c1">///////////////////////</span>
+  <span class="c1">// END CONFIGURATION //</span>
+  <span class="c1">///////////////////////</span>
+
+  <span class="kd">function</span> <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">querySelector</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="nx">querySelector</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">scrollHeight</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">;</span>
+      <span class="nx">parent</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">h</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No element corresponding to querySelector &quot;</span> <span class="o">+</span> <span class="nx">querySelector</span> <span class="o">+</span>
+                  <span class="s2">&quot; found, or element did not have property scrollHeight.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// cross-browser compatible infrastructure</span>
+  <span class="kd">var</span> <span class="nx">eventMethod</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="o">?</span> <span class="s2">&quot;addEventListener&quot;</span> <span class="o">:</span> <span class="s2">&quot;attachEvent&quot;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">eventer</span> <span class="o">=</span> <span class="nb">window</span><span class="p">[</span><span class="nx">eventMethod</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">messageEvent</span> <span class="o">=</span> <span class="nx">eventMethod</span> <span class="o">==</span> <span class="s2">&quot;attachEvent&quot;</span> <span class="o">?</span> <span class="s2">&quot;onmessage&quot;</span> <span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">;</span>
+
+  <span class="c1">// listen for resize message from parent window (see point ② below)</span>
+  <span class="nx">eventer</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">==</span> <span class="nx">allowedOrigin</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Was expecting a message from &quot;</span> <span class="o">+</span> <span class="nx">allowedOrigin</span> <span class="o">+</span> <span class="s2">&quot;, got &quot;</span>
+                  <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="s2">&quot; instead.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// inform parent at least once after load (see point ① below)</span>
+    <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span>
+
+    <span class="c1">// monitor self-initiated changes in size (see point ③ below)</span>
+    <span class="kd">var</span> <span class="nx">mo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="nx">mo</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nb">document</span><span class="p">,</span> <span class="p">{</span><span class="nx">subtree</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">characterData</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+  <span class="p">};</span>
+<span class="p">})();</span>
+</pre></div>
+
+
+<p>What are these "appropriate times" mentioned above? The code above implements
+the following ones, which should be generic enough to cover most situations:</p>
+<ol>
+<li>on initial page load</li>
+<li>on window resize (see below, the parent frame has to send a message to the
+   child frame that it has been resized, to which the child responds with a size
+   update message)</li>
+<li>on any kind of mutation of the DOM inside the child frame (not a full reload
+   of the entire page, that would be handled by point ① above), which might
+   affect the size of the rendered component</li>
+</ol>
+<p>On the parent (DokuWiki) side, you then need to handle the incoming size update
+messages from the child frame, and sending resize messages when the window is
+resized. This can be achieved with the following DokuWiki markup:</p>
+<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;embedded-app&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://your.shiny.app/url&quot;</span> <span class="na">frameborder</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;100%&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">////////////////////////////////////////////</span>
+  <span class="c1">// CONFIGURE THESE TO MATCH YOUR USE CASE //</span>
+  <span class="c1">////////////////////////////////////////////</span>
+
+  <span class="c1">// this should be the root URL of the child frame (Shiny app) which you want</span>
+  <span class="c1">// to allow to send messages to the parent</span>
+  <span class="kd">var</span> <span class="nx">allowedOrigin</span> <span class="o">=</span> <span class="s2">&quot;https://your.shiny.app&quot;</span>
+
+  <span class="c1">///////////////////////</span>
+  <span class="c1">// END CONFIGURATION //</span>
+  <span class="c1">///////////////////////</span>
+
+  <span class="kd">var</span> <span class="nx">embeddedApp</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;embedded-app&quot;</span><span class="p">);</span>
+
+  <span class="kd">function</span> <span class="nx">resizeIframe</span><span class="p">(</span><span class="nx">pixels</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">embeddedApp</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">pixels</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// cross-browser compatible infrastructure</span>
+  <span class="kd">var</span> <span class="nx">eventMethod</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="o">?</span> <span class="s2">&quot;addEventListener&quot;</span> <span class="o">:</span> <span class="s2">&quot;attachEvent&quot;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">eventer</span> <span class="o">=</span> <span class="nb">window</span><span class="p">[</span><span class="nx">eventMethod</span><span class="p">];</span>
+  <span class="kd">var</span> <span class="nx">messageEvent</span> <span class="o">=</span> <span class="nx">eventMethod</span> <span class="o">==</span> <span class="s2">&quot;attachEvent&quot;</span> <span class="o">?</span> <span class="s2">&quot;onmessage&quot;</span> <span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">;</span>
+
+  <span class="c1">// listen to message from iframe</span>
+  <span class="nx">eventer</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">===</span> <span class="nx">allowedOrigin</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span> <span class="o">?</span> <span class="s2">&quot;message&quot;</span> <span class="o">:</span> <span class="s2">&quot;data&quot;</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+      <span class="nx">resizeIframe</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Was expecting a message from &quot;</span> <span class="o">+</span> <span class="nx">allowedOrigin</span> <span class="o">+</span> <span class="s2">&quot;, got &quot;</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="s2">&quot; instead.&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+  <span class="c1">// send message to iframe on window resize</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">onresize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">embeddedApp</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;parentWindowResized&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">);</span>
+  <span class="p">};</span>
+<span class="p">})();</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</pre></div>
+
+
+<p>And the result?</p>
+<p><img alt="responsive iframe" src="images/responsive.png" /></p>
+<p>Yay! And of course, the iframe gets resized as needed when display conditions
+change:</p>
+<p><img alt="responsive iframe rearranged" src="images/responsive_rearranged.png" /></p>
+<p>Cue bittersweet feeling after having figured out a workaround for such a
+specific use case that you're <a href="https://xkcd.com/1205/">not quite sure</a> it was
+worth putting all that effort into it in the first place...</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'littleumbrellas'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'responsive-iframe';
+                var disqus_url = 'http://dlukes.github.io/responsive-iframe.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -518,7 +746,7 @@ Little Umbrellas            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2015 dlukes
+         <div class="col-xs-10">&copy; 2016 dlukes
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
