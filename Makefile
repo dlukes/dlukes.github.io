@@ -65,7 +65,7 @@ help:
 	@echo '                                                                          '
 
 bibtex:
-	cat ~/texmf/bibtex/bib/local/{2013,2014,2015}.bib >bib.tmp
+	cat ~/texmf/bibtex/bib/local/20??.bib >bib.tmp
 
 html: bibtex
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
