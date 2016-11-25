@@ -51,5 +51,5 @@ For more, check out
 
 # CV
 
-[pdf](https://trnka.korpus.cz/~lukes/files/dvl_cv.pdf) (in czech; update:
-september 2014)
+[pdf](https://trnka.korpus.cz/~lukes/files/dvl_cv.pdf) (in Czech; update:
+November 2016)
