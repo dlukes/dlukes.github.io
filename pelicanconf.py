@@ -36,7 +36,7 @@ AVATAR = "/images/avatar.jpeg"
 ABOUT_ME = "Language tourist, Python enthusiast & Frank Zappa aficionado"
 FAVICON = "images/favicon.ico"
 PYGMENTS_STYLE = "zenburn"
-THEME="pelican-bootstrap3"
+THEME = "pelican-bootstrap3"
 DEFAULT_PAGINATION = 10
 
 # Bib file for publications list
@@ -50,7 +50,7 @@ STATIC_PATHS = ["images", "static", "output"]
 CUSTOM_CSS = "static/custom.css"
 
 # Plugins
-MARKUP = ("md")
+MARKUP = "md"
 PLUGIN_PATHS = ["pelican-plugins", "pelican-bibtex"]
 PLUGINS = ["liquid_tags.notebook", "tag_cloud", "tipue_search",
            "pelican_alias", "pelican-bibtex"]
