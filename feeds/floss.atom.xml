@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/floss.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2016-09-29T00:00:00+02:00</updated><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="http://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:responsive-iframe.html</id><summary type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas - floss</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/floss.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2016-09-29T00:00:00+02:00</updated><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="http://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><updated>2016-09-29T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:/responsive-iframe.html</id><summary type="html">&lt;p&gt;How to embed a "responsive" (i.e. vertically resizing) iframe in a web page.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
 an iframe. Obviously, not when your website is a webapp and that element
 represents the main functionality it's supposed to provide -- that would be
 gross. But when your website is mostly textual / graphical content, typically
@@ -23,7 +23,7 @@ the border and stretch it horizontally...&lt;/p&gt;
 
 
 &lt;p&gt;... this will happen:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="non-responsive iframe" src="images/non_responsive.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="non-responsive iframe" src="images/non_responsive.png"&gt;&lt;/p&gt;
 &lt;p&gt;Eww, scrollbar. Messaging to the rescue! First of all, you need to teach your
 embedded web page to send information about its height to the parent at
 appropriate times. This can be achieved by adding this piece of JavaScript to
@@ -149,13 +149,13 @@ resized. This can be achieved with the following DokuWiki markup:&lt;/p&gt;
 
 
 &lt;p&gt;And the result?&lt;/p&gt;
-&lt;p&gt;&lt;img alt="responsive iframe" src="images/responsive.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="responsive iframe" src="images/responsive.png"&gt;&lt;/p&gt;
 &lt;p&gt;Yay! And of course, the iframe gets resized as needed when display conditions
 change:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="responsive iframe rearranged" src="images/responsive_rearranged.png" /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="responsive iframe rearranged" src="images/responsive_rearranged.png"&gt;&lt;/p&gt;
 &lt;p&gt;Cue bittersweet feeling after having figured out a workaround for such a
 specific use case that you're &lt;a href="http://www.xkcd.com/1691/"&gt;not quite sure&lt;/a&gt; it was
-worth putting all that effort into it in the first place...&lt;/p&gt;</summary><category term="floss"></category><category term="javascript"></category><category term="html"></category><category term="iframe"></category><category term="dokuwiki"></category><category term="shiny"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="http://dlukes.github.io/beyond-semver.html" rel="alternate"></link><published>2014-12-14T00:00:00+01:00</published><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:beyond-semver.html</id><summary type="html">&lt;h1&gt;Background&lt;/h1&gt;
+worth putting all that effort into it in the first place...&lt;/p&gt;</content><category term="floss"></category><category term="javascript"></category><category term="html"></category><category term="iframe"></category><category term="dokuwiki"></category><category term="shiny"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="http://dlukes.github.io/beyond-semver.html" rel="alternate"></link><published>2014-12-14T00:00:00+01:00</published><updated>2014-12-14T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:/beyond-semver.html</id><summary type="html">&lt;p&gt;Semantic versioning is a good idea, but it would be better to use an explicit keyword system to signal (non-)breaking changes in library versions.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Background&lt;/h1&gt;
 &lt;p&gt;Ever since I first read about &lt;a href="http://semver.org/"&gt;semantic versioning&lt;/a&gt;, I've
 thought of it as a neat idea. But only recently did it occur to me that what
 I liked about the idea was its goal, much less its execution (more on that
@@ -251,4 +251,4 @@ compatible manner by the update.&lt;/p&gt;
 &lt;p&gt;anyways, just a few ideas :) I am not primarily a coder, so there may be obvious
 drawbacks to this scheme that I can't see or which have already been discussed
 by the community on multiple occasions which have escaped my attention. in which
-case, please bear with me and excuse my lack of sophistication.&lt;/p&gt;</summary><category term="floss"></category><category term="semver"></category><category term="versioning"></category><category term="underscore.js"></category><category term="library"></category><category term="development"></category><category term="dependency"></category></entry></feed>
+case, please bear with me and excuse my lack of sophistication.&lt;/p&gt;</content><category term="floss"></category><category term="semver"></category><category term="versioning"></category><category term="underscore.js"></category><category term="library"></category><category term="development"></category><category term="dependency"></category></entry></feed>
