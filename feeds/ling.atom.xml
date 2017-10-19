@@ -1347,8 +1347,8 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;How does it achieve that? The obvious problem here is that with a fixed-width encoding, you just chop up the string at regular intervals (7, 8, 16 bits) and you know that each interval represents one character. So &lt;strong&gt;how do you know where to chop up a variable width-encoded string, if each character can take up a different number of bits?&lt;/strong&gt; We won't go into the details, but essentially, the trick is to &lt;strong&gt;use some of the bits&lt;/strong&gt; in the representation of a codepoint &lt;strong&gt;to store information&lt;/strong&gt; not about which character it is (whether it's an "A" or a "字"), but &lt;strong&gt;how many bits it occupies&lt;/strong&gt;. In other words, if you want to skip ahead 10 characters in a string encoded with a variable width-encoding, you can't just skip 10 * 7 or 8 or 16 bits; you have to read all the intervening characters to figure out how much space they take up.&lt;/p&gt;
-&lt;p&gt;There's much more to Unicode than this simple introduction, for instance the various ways diacritics are handled: "č" can be represented either as a single codepoint (&lt;a href="http://www.fileformat.info/info/unicode/char/010D/index.htm"&gt;&lt;code&gt;LATIN SMALL LETTER C WITH CARON&lt;/code&gt;&lt;/a&gt; -- all Unicode codepoints have cute names like this) or a sequence of two codepoints, the character "c" and a combining diacritic mark (&lt;code&gt;COMBINING CARON&lt;/code&gt;). You can search for the codepoints corresponding to Unicode characters e.g. &lt;a href="http://www.fileformat.info/info/unicode/char/search.htm"&gt;here&lt;/a&gt; and play with them in Python using the &lt;code&gt;chr(0xXXXX)&lt;/code&gt; built-in function or with the special string escape sequence &lt;code&gt;\uXXXX&lt;/code&gt; (where &lt;code&gt;XXXX&lt;/code&gt; is the hexadecimal representation of the codepoint) -- both are ways to get the character corresponding to the given codepoint:&lt;/p&gt;
+&lt;p&gt;How does it achieve that? The obvious problem here is that with a fixed-width encoding, you just chop up the string at regular intervals (7, 8, 16 bits) and you know that each interval represents one character. So &lt;strong&gt;how do you know where to chop up a variable width-encoded string, if each character can take up a different number of bits?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Essentially, the trick is to &lt;strong&gt;use some of the bits&lt;/strong&gt; in the representation of a codepoint &lt;strong&gt;to store information&lt;/strong&gt; not about which character it is (whether it's an "A" or a "字"), but &lt;strong&gt;how many bits it occupies&lt;/strong&gt;. In other words, if you want to skip ahead 10 characters in a string encoded with a variable width-encoding, you can't just skip 10 * 7 or 8 or 16 bits; you have to read all the intervening characters to figure out how much space they take up. Take the following example:&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1358,9 +1358,66 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[12]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# &amp;quot;č&amp;quot; as LATIN SMALL LETTER C WITH CARON, codepoint 010D&lt;/span&gt;
-&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x010D&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
-&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u010D&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Básník 李白&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;print_as_binary_utf8&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;&amp;#39;B&amp;#39; encoded in UTF-8 is: [&amp;#39;01000010&amp;#39;]
+&amp;#39;á&amp;#39; encoded in UTF-8 is: [&amp;#39;11000011&amp;#39;, &amp;#39;10100001&amp;#39;]
+&amp;#39;s&amp;#39; encoded in UTF-8 is: [&amp;#39;01110011&amp;#39;]
+&amp;#39;n&amp;#39; encoded in UTF-8 is: [&amp;#39;01101110&amp;#39;]
+&amp;#39;í&amp;#39; encoded in UTF-8 is: [&amp;#39;11000011&amp;#39;, &amp;#39;10101101&amp;#39;]
+&amp;#39;k&amp;#39; encoded in UTF-8 is: [&amp;#39;01101011&amp;#39;]
+&amp;#39; &amp;#39; encoded in UTF-8 is: [&amp;#39;00100000&amp;#39;]
+&amp;#39;李&amp;#39; encoded in UTF-8 is: [&amp;#39;11100110&amp;#39;, &amp;#39;10011101&amp;#39;, &amp;#39;10001110&amp;#39;]
+&amp;#39;白&amp;#39; encoded in UTF-8 is: [&amp;#39;11100111&amp;#39;, &amp;#39;10011001&amp;#39;, &amp;#39;10111101&amp;#39;]
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Notice the initial bits in each byte of a character follow a pattern depending on how many bytes in total that character has:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if it's a 1-byte character, that byte starts with 0&lt;/li&gt;
+&lt;li&gt;if it's a 2-byte character, the first byte starts with 11 and the following one with 10&lt;/li&gt;
+&lt;li&gt;if it's a 3-byte character, the first byte starts with 111 and the following ones with 10&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This makes it possible to find out which bytes belong to which characters, and also to spot invalid strings, as the &lt;strong&gt;leading&lt;/strong&gt; byte in a &lt;strong&gt;‹multi-byte sequence&lt;/strong&gt; always "announces" how many &lt;strong&gt;continuation&lt;/strong&gt; bytes (= starting with 10) should follow.&lt;/p&gt;
+&lt;p&gt;So much for a quick introduction to &lt;code&gt;UTF-8&lt;/code&gt; (= the encoding), but there's much more to Unicode (= the character set). While &lt;code&gt;UTF-8&lt;/code&gt; defines just how codepoints (numbers) are to be represented as 1's and 0's in a computer's memory, Unicode specifies how those numbers are to be interpreted as characters, what their properties and mutual relationships are, what conversions (i.e. mappings between (sequences of) codepoints) they can undergo, etc.&lt;/p&gt;
+&lt;p&gt;Consider for instance the various ways diacritics are handled: "č" can be represented either as a single codepoint (&lt;a href="http://www.fileformat.info/info/unicode/char/010D/index.htm"&gt;&lt;code&gt;LATIN SMALL LETTER C WITH CARON&lt;/code&gt;&lt;/a&gt; -- all Unicode codepoints have cute names like this) or a sequence of two codepoints, the character "c" and a combining diacritic mark (&lt;code&gt;COMBINING CARON&lt;/code&gt;). You can search for the codepoints corresponding to Unicode characters e.g. &lt;a href="http://www.fileformat.info/info/unicode/char/search.htm"&gt;here&lt;/a&gt; and play with them in Python using the &lt;code&gt;chr(0xXXXX)&lt;/code&gt; built-in function or with the special string escape sequence &lt;code&gt;\uXXXX&lt;/code&gt; (where &lt;code&gt;XXXX&lt;/code&gt; is the hexadecimal representation of the codepoint) -- both are ways to get the character corresponding to the given codepoint:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[13]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# &amp;quot;č&amp;quot; as LATIN SMALL LETTER C WITH CARON, codepoint 010d&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x010d&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u010d&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;/div&gt;
@@ -1389,7 +1446,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[13]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[14]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# &amp;quot;č&amp;quot; as a sequence of LATIN SMALL LETTER C, codepoint 0063, and&lt;/span&gt;
@@ -1426,7 +1483,7 @@ č
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;blockquote&gt;&lt;p&gt;Hexadecimal is just a more convenient way of representing sequences of bits, where each of the &lt;code&gt;X&lt;/code&gt;'s can be a number between 0 and 15 (10--15 are represented by the letters A--F). Each hexadecimal number can thus represent 16 different values, and therefore it can stand in for a sequence of 4 bits (2^4 == 16). Without worrying too much about the details right now, our old friend &lt;code&gt;ASCII&lt;/code&gt; uppercase "A" can be thought of equivalently either as decimal 65, binary &lt;code&gt;1000001&lt;/code&gt;, or hexadecimal &lt;code&gt;0x41&lt;/code&gt; (the "0x" prefix is there just to say "this is a hexadecimal number"). &amp;gt;&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;Hexadecimal is just a more convenient way of representing sequences of bits, where each of the &lt;code&gt;X&lt;/code&gt;'s can be a number between 0 and 15 (10--15 are represented by the letters A--F). Each hexadecimal number can thus represent 16 different values, and therefore it can stand in for a sequence of 4 bits (2^4 == 16). Without worrying too much about the details right now, our old friend &lt;code&gt;ASCII&lt;/code&gt; uppercase "A" can be thought of equivalently either as decimal 65, binary &lt;code&gt;0b1000001&lt;/code&gt;, or hexadecimal &lt;code&gt;0x41&lt;/code&gt; (the "0b" / "0x" prefixes are there just to say "this is a binary / hexadecimal number").&lt;/p&gt;
 &lt;p&gt;Binary and hexadecimal numbers are often written padded with leading zeros to some number of bytes, but these have no effect on the value, much like decimal 42 and 00000042 are effectively the same numbers.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1435,46 +1492,12 @@ č
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[14]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[15]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# use hex() to find out the hexadecimal representation of a decimal&lt;/span&gt;
 &lt;span class="c1"&gt;# integer...&lt;/span&gt;
 &lt;span class="nb"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;99&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class="output_wrapper"&gt;
-&lt;div class="output"&gt;
-
-
-&lt;div class="output_area"&gt;
-
-&lt;div class="prompt output_prompt"&gt;Out[14]:&lt;/div&gt;
-
-
-
-
-&lt;div class="output_text output_subarea output_execute_result"&gt;
-&lt;pre&gt;&amp;#39;0x63&amp;#39;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;div class="cell border-box-sizing code_cell rendered"&gt;
-&lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[15]:&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
-    &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# ... and int() to go back&lt;/span&gt;
-&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x63&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 &lt;/div&gt;
@@ -1493,7 +1516,109 @@ č
 
 
 &lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;#39;0x63&amp;#39;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[16]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# ... and int() to go back...&lt;/span&gt;
+&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mh"&gt;0x63&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[16]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
 &lt;pre&gt;99&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[17]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# ... or just evaluate the hexadecimal number&lt;/span&gt;
+&lt;span class="mh"&gt;0x63&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[17]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;99&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[18]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# of course, chr() also works with decimal numbers&lt;/span&gt;
+&lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;269&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[18]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;&amp;#39;č&amp;#39;&lt;/pre&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
@@ -1513,10 +1638,10 @@ č
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[16]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[19]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
-&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u010D&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u010d&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
 &lt;span class="n"&gt;s2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u0063\u030c&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
 &lt;span class="c1"&gt;# s1 and s2 look the same to the naked eye...&lt;/span&gt;
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1547,7 +1672,7 @@ č
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[17]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[20]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# ... but in the eternal realm of Plato&amp;#39;s Ideas, they&amp;#39;re not&lt;/span&gt;
@@ -1564,7 +1689,7 @@ č
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[17]:&lt;/div&gt;
+&lt;div class="prompt output_prompt"&gt;Out[20]:&lt;/div&gt;
 
 
 
@@ -1590,7 +1715,7 @@ č
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[18]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[21]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;s1 is&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;character(s) long.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -1625,6 +1750,7 @@ s2 is 2 character(s) long.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;For this reason, even though we've been informally calling these Unicode entities "characters", it is more accurate and less confusing to use the technical term "codepoints".&lt;/p&gt;
 &lt;p&gt;Generally, most text out there will use the first, single-codepoint approach whenever possible, and pre-packaged linguistic corpora will try to be consistent about this (unless they come from the web, which always warrants being suspicious and defensive about your material). If you're worried about inconsistencies in your data, you can perform a &lt;a href="https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization"&gt;normalization&lt;/a&gt;:&lt;/p&gt;
 
 &lt;/div&gt;
@@ -1632,7 +1758,7 @@ s2 is 2 character(s) long.
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[19]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[22]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;unicodedata&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;normalize&lt;/span&gt;
@@ -1656,7 +1782,7 @@ s2 is 2 character(s) long.
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[19]:&lt;/div&gt;
+&lt;div class="prompt output_prompt"&gt;Out[22]:&lt;/div&gt;
 
 
 
@@ -1675,14 +1801,28 @@ s2 is 2 character(s) long.
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Let's wrap things up by saying that Python itself uses Unicode internally and (mostly?) assumes &lt;code&gt;UTF-8&lt;/code&gt; when reading files. So if you're using &lt;code&gt;UTF-8&lt;/code&gt; as is increasingly the case (and you should be), you won't have to worry too much about encodings, except perhaps for normalization.&lt;/p&gt;
+&lt;p&gt;Let's wrap things up by saying that Python itself uses Unicode internally, but the encoding it defaults to when opening an external file depends on the &lt;em&gt;locale&lt;/em&gt; of the system (broadly speaking, the set of region, language and character-encoding related settings of the operating system). On most modern Linux and macOS systems, this will probably be a &lt;code&gt;UTF-8&lt;/code&gt; locale and Python will therefore assume &lt;code&gt;UTF-8&lt;/code&gt; as the encoding by default. Unfortunately, Windows is different. To be on the safe side, whenever opening files in Python, you can specify the encoding explicitly:&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[20]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[23]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="nb"&gt;open&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;unicode.ipynb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;encoding&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;pass&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[24]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# a good idea when dealing with Unicode text from an unknown and&lt;/span&gt;
@@ -1692,9 +1832,7 @@ s2 is 2 character(s) long.
 
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;inspect_codepoints&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;charset&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
-        &lt;span class="n"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;charset&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;char&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;charset&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
         &lt;span class="n"&gt;info&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="sa"&gt;r&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt; (\u&lt;/span&gt;&lt;span class="si"&gt;{:04x}&lt;/span&gt;&lt;span class="s2"&gt;): &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt; (category: &lt;/span&gt;&lt;span class="si"&gt;{}&lt;/span&gt;&lt;span class="s2"&gt;)&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;format&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
             &lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;ord&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;unicodedata&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
@@ -1752,7 +1890,7 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
-&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[21]:&lt;/div&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[25]:&lt;/div&gt;
 &lt;div class="inner_cell"&gt;
     &lt;div class="input_area"&gt;
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# ... because of course, for a computer, the word &amp;quot;thing&amp;quot; written with&lt;/span&gt;
@@ -1771,7 +1909,7 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[21]:&lt;/div&gt;
+&lt;div class="prompt output_prompt"&gt;Out[25]:&lt;/div&gt;
 
 
 
