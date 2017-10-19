@@ -14,6 +14,7 @@ ipython = "*"
 pelican-alias = "*"
 pybtex = "*"
 nbconvert = "*"
+ghp-import = "*"
 
 
 [dev-packages]
