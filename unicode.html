@@ -1038,8 +1038,8 @@ Little Umbrellas            </a>
 <li>if it's a 2-byte character, the first byte starts with 11 and the following one with 10</li>
 <li>if it's a 3-byte character, the first byte starts with 111 and the following ones with 10</li>
 </ul>
-<p>This makes it possible to find out which bytes belong to which characters, and also to spot invalid strings, as the <strong>leading</strong> byte in a <strong>‹multi-byte sequence</strong> always "announces" how many <strong>continuation</strong> bytes (= starting with 10) should follow.</p>
-<p>So much for a quick introduction to <code>UTF-8</code> (= the encoding), but there's much more to Unicode (= the character set). While <code>UTF-8</code> defines just how codepoints (numbers) are to be represented as 1's and 0's in a computer's memory, Unicode specifies how those numbers are to be interpreted as characters, what their properties and mutual relationships are, what conversions (i.e. mappings between (sequences of) codepoints) they can undergo, etc.</p>
+<p>This makes it possible to find out which bytes belong to which characters, and also to spot invalid strings, as the <strong>leading</strong> byte in a <strong>multi-byte sequence</strong> always "announces" how many <strong>continuation</strong> bytes (= starting with 10) should follow.</p>
+<p>So much for a quick introduction to <code>UTF-8</code> (= the encoding), but there's much more to Unicode (= the character set). While <code>UTF-8</code> defines only how integer numbers corresponding to codepoints are to be represented as 1's and 0's in a computer's memory, Unicode specifies how those numbers are to be interpreted as characters, what their properties and mutual relationships are, what conversions (i.e. mappings between (sequences of) codepoints) they can undergo, etc.</p>
 <p>Consider for instance the various ways diacritics are handled: "č" can be represented either as a single codepoint (<a href="http://www.fileformat.info/info/unicode/char/010D/index.htm"><code>LATIN SMALL LETTER C WITH CARON</code></a> -- all Unicode codepoints have cute names like this) or a sequence of two codepoints, the character "c" and a combining diacritic mark (<code>COMBINING CARON</code>). You can search for the codepoints corresponding to Unicode characters e.g. <a href="http://www.fileformat.info/info/unicode/char/search.htm">here</a> and play with them in Python using the <code>chr(0xXXXX)</code> built-in function or with the special string escape sequence <code>\uXXXX</code> (where <code>XXXX</code> is the hexadecimal representation of the codepoint) -- both are ways to get the character corresponding to the given codepoint:</p>
 
 </div>
@@ -1641,13 +1641,18 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
             <li class="list-group-item"><a href="http://dlukes.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/linguistics.html">
-                            linguistics
+                        <a href="http://dlukes.github.io/tag/bonito.html">
+                            Bonito
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/konkordance.html">
-                            konkordance
+                        <a href="http://dlukes.github.io/tag/osx.html">
+                            osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/korpus.html">
+                            korpus
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -1661,13 +1666,18 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
+                        <a href="http://dlukes.github.io/tag/linguistics.html">
+                            linguistics
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-1">
                         <a href="http://dlukes.github.io/tag/kontext.html">
                             KonText
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/bonito.html">
-                            Bonito
+                        <a href="http://dlukes.github.io/tag/konkordance.html">
+                            konkordance
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
@@ -1675,19 +1685,19 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                             NoSke
                         </a>
                     </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/korpus.html">
-                            korpus
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
-                        <a href="http://dlukes.github.io/tag/osx.html">
-                            osx
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/spacemacs.html">
+                            spacemacs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/unicode.html">
-                            unicode
+                        <a href="http://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacs.html">
+                            emacs
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1696,13 +1706,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
+                        <a href="http://dlukes.github.io/tag/html.html">
+                            html
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/encoding.html">
-                            encoding
+                        <a href="http://dlukes.github.io/tag/programming.html">
+                            programming
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1716,48 +1726,8 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/fill.html">
-                            fill
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/dependency.html">
-                            dependency
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/shiny.html">
-                            shiny
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/services.html">
-                            services
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/semver.html">
-                            semver
+                        <a href="http://dlukes.github.io/tag/gui.html">
+                            gui
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1766,23 +1736,18 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/versioning.html">
-                            versioning
+                        <a href="http://dlukes.github.io/tag/python.html">
+                            python
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wrap.html">
-                            wrap
+                        <a href="http://dlukes.github.io/tag/unicode.html">
+                            unicode
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/lines.html">
-                            lines
+                        <a href="http://dlukes.github.io/tag/development.html">
+                            development
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1791,23 +1756,8 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/javascript.html">
-                            javascript
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/charset.html">
-                            charset
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/programming.html">
-                            programming
+                        <a href="http://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1816,18 +1766,68 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/spacemacs.html">
-                            spacemacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/emacsclient.html">
                             emacsclient
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/python.html">
-                            python
+                        <a href="http://dlukes.github.io/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/javascript.html">
+                            javascript
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/shiny.html">
+                            shiny
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/charset.html">
+                            charset
                         </a>
                     </li>
                 </ul>
