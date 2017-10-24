@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>airmail - Little Umbrellas</title>
+    <title>Monkey-patching in R - Little Umbrellas</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,16 +166,24 @@ init_mathjax();
 </script>
     <link href="http://dlukes.github.io/images/favicon.ico" rel="icon">
 
+<link rel="canonical" href="http://dlukes.github.io/monkey-patching-in-r.html">
 
-    <meta name="author" content="dlukes" />
-    <meta name="keywords" content="airmail" />
+        <meta name="author" content="dlukes" />
+        <meta name="keywords" content="floss,hack,r,monkey-patching" />
+        <meta name="description" content="How to monkey-patch functions in imported libraries in R." />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Little Umbrellas" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Little Umbrellas"/>
-        <meta property="og:url" content="http://dlukes.github.io"/>
-        <meta property="og:description" content="Little Umbrellas"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Monkey-patching in R"/>
+        <meta property="og:url" content="http://dlukes.github.io/monkey-patching-in-r.html"/>
+        <meta property="og:description" content="How to monkey-patch functions in imported libraries in R."/>
+        <meta property="article:published_time" content="2017-10-24" />
+            <meta property="article:section" content="floss" />
+            <meta property="article:tag" content="floss" />
+            <meta property="article:tag" content="hack" />
+            <meta property="article:tag" content="r" />
+            <meta property="article:tag" content="monkey-patching" />
+            <meta property="article:author" content="dlukes" />
 
 
     <!-- Bootstrap -->
@@ -192,6 +200,8 @@ init_mathjax();
 
 
 
+        <link href="http://dlukes.github.io/feeds/floss.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Little Umbrellas floss ATOM Feed"/>
 
 </head>
 <body>
@@ -216,7 +226,7 @@ Little Umbrellas            </a>
                          <li><a href="http://dlukes.github.io/pages/work.html">
                              work
                           </a></li>
-                        <li >
+                        <li class="active">
                             <a href="http://dlukes.github.io/category/floss.html">floss</a>
                         </li>
                         <li >
@@ -243,13 +253,177 @@ Little Umbrellas            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <article>
-                <h2><a href="http://dlukes.github.io/fill-par-in-airmail.html">Filling (hardwrapping) paragraphs in Airmail with `par`</a></h2>
-                <div class="summary"><p>How to use <code>par</code> for conveniently filling (hardwrapping) paragraphs in plain text e-mail in Airmail [Beta] on OS X.</p>
-                    <a class="btn btn-default btn-xs" href="http://dlukes.github.io/fill-par-in-airmail.html">more ...</a>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://dlukes.github.io/monkey-patching-in-r.html"
+                       rel="bookmark"
+                       title="Permalink to Monkey-patching in R">
+                        Monkey-patching in R
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-10-24T00:00:00+02:00"> Tue 24 October 2017</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://dlukes.github.io/tag/floss.html">floss</a>
+        /
+	<a href="http://dlukes.github.io/tag/hack.html">hack</a>
+        /
+	<a href="http://dlukes.github.io/tag/r.html">r</a>
+        /
+	<a href="http://dlukes.github.io/tag/monkey-patching.html">monkey-patching</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
+                <p>While building a <a href="https://shiny.rstudio.com/">Shiny</a> application with R recently, I've come across the need
+to invert the <code>filterRange()</code> function in the <a href="https://rstudio.github.io/DT/">DT</a> package, which provides a
+convenient high-level way to add <a href="https://datatables.net/">DataTables</a> to your Shiny app. As indicated
+by its name, this function filters a numeric column in your datatable based on
+a range, so as it contains only values contained <strong>within that range</strong>. What I
+needed was the opposite: include values <strong>outside the specified range</strong>.</p>
+<p>The filtering is done server-side and unfortunately, no option is provided
+out-of-the-box to perform this inversion. One of the solutions is therefore to
+monkey-patch the <code>filterRange()</code> function in the <code>DT</code> R package, replacing it
+with a version that filters the outer range instead.</p>
+<p>Googling for "monkey patching r" (currently) yields this <a href="https://www.r-bloggers.com/an-example-of-monkey-patching-a-package/">blog post</a>,
+which provides a more complicated though arguably cleaner solution, which
+introduces a new environment in the search path. My position on this is that if
+you're worried about cleanliness, you shouldn't be monkey-patching in the first
+place. Conversely, if you decide monkey-patching is acceptable in your
+situation, the code required should be as quick and dirty as the thought.</p>
+<p>Of course, this is R, uncontested king of weird ways of doing anything but the
+most common data analysis tasks, and even some of those -- so it's never going
+to be as simple as Python, for instance:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">stdin</span> <span class="o">=</span> <span class="s2">&quot;foo&quot;</span>
+<span class="c1"># Aaand done.</span>
+</pre></div>
+
+
+<p>But it doesn't have to be as complicated as the solution in the blog post
+above, either.</p>
+<p>The solution presented here is basically taken from <a href="https://stat.ethz.ch/pipermail/r-help/2008-August/171217.html">this mailing list
+post</a>, which has the disadvantage of not containing the key term
+"monkey-patch", which makes it hard to find on Google. It consists in the
+following steps:</p>
+<ol>
+<li>Get a handle on the relevant library's namespace with <code>getNamespace()</code>.</li>
+<li>Make the relevant binding modifiable with <code>unlockBinding()</code>.</li>
+<li>Define your custom version of the function.</li>
+<li>Store it in the namespace under the original name.</li>
+<li>Re-seal everything with <code>lockBinding()</code>.</li>
+</ol>
+<p>Here's the code for my specific use case with <code>DT::filterRange()</code>:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Monkey patch the filterRange() function in the DT package so that server-side filtering returns</span>
+<span class="c1"># values *outside* the range instead of inside.</span>
+
+DT <span class="o">&lt;-</span> <span class="kp">getNamespace</span><span class="p">(</span><span class="s">&quot;DT&quot;</span><span class="p">)</span>
+<span class="kp">unlockBinding</span><span class="p">(</span><span class="s">&quot;filterRange&quot;</span><span class="p">,</span> DT<span class="p">)</span>
+
+<span class="c1">####################################################################################################</span>
+<span class="c1"># This part of the code is deliberately kept as similar to the original as possible, in order to</span>
+<span class="c1"># make potential updates easier. See https://github.com/rstudio/DT/blob/v0.2/R/shiny.R#L474.</span>
+
+<span class="c1"># filter a numeric/date/time vector using the search string &quot;lower ... upper&quot;</span>
+filterRange <span class="o">=</span> <span class="kr">function</span><span class="p">(</span>d<span class="p">,</span> string<span class="p">)</span> <span class="p">{</span>
+  <span class="kr">if</span> <span class="p">(</span><span class="o">!</span><span class="kp">grepl</span><span class="p">(</span><span class="s">&#39;[.]{3}&#39;</span><span class="p">,</span> string<span class="p">)</span> <span class="o">||</span> <span class="kp">length</span><span class="p">(</span>r <span class="o">&lt;-</span> <span class="kp">strsplit</span><span class="p">(</span>string<span class="p">,</span> <span class="s">&#39;[.]{3}&#39;</span><span class="p">)[[</span><span class="m">1</span><span class="p">]])</span> <span class="o">&gt;</span> <span class="m">2</span><span class="p">)</span>
+    <span class="kp">stop</span><span class="p">(</span><span class="s">&#39;The range of a numeric / date / time column must be of length 2&#39;</span><span class="p">)</span>
+  <span class="kr">if</span> <span class="p">(</span><span class="kp">length</span><span class="p">(</span>r<span class="p">)</span> <span class="o">==</span> <span class="m">1</span><span class="p">)</span> r <span class="o">=</span> <span class="kt">c</span><span class="p">(</span>r<span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># lower,</span>
+  r <span class="o">=</span> <span class="kp">gsub</span><span class="p">(</span><span class="s">&#39;^\\s+|\\s+$&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">,</span> r<span class="p">)</span>
+  r1 <span class="o">=</span> r<span class="p">[</span><span class="m">1</span><span class="p">];</span> r2 <span class="o">=</span> r<span class="p">[</span><span class="m">2</span><span class="p">]</span>
+  <span class="kr">if</span> <span class="p">(</span><span class="kp">is.numeric</span><span class="p">(</span>d<span class="p">))</span> <span class="p">{</span>
+    r1 <span class="o">=</span> <span class="kp">as.numeric</span><span class="p">(</span>r1<span class="p">);</span> r2 <span class="o">=</span> <span class="kp">as.numeric</span><span class="p">(</span>r2<span class="p">)</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="kr">if</span> <span class="p">(</span><span class="kp">inherits</span><span class="p">(</span>d<span class="p">,</span> <span class="s">&#39;Date&#39;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>r1 <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">)</span> r1 <span class="o">=</span> <span class="kp">as.Date</span><span class="p">(</span>r1<span class="p">)</span>
+    <span class="kr">if</span> <span class="p">(</span>r2 <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">)</span> r2 <span class="o">=</span> <span class="kp">as.Date</span><span class="p">(</span>r2<span class="p">)</span>
+  <span class="p">}</span> <span class="kr">else</span> <span class="p">{</span>
+    <span class="kr">if</span> <span class="p">(</span>r1 <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">)</span> r1 <span class="o">=</span> <span class="kp">as.POSIXct</span><span class="p">(</span>r1<span class="p">,</span> tz <span class="o">=</span> <span class="s">&#39;GMT&#39;</span><span class="p">,</span> <span class="s">&#39;%Y-%m-%dT%H:%M:%S&#39;</span><span class="p">)</span>
+    <span class="kr">if</span> <span class="p">(</span>r2 <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">)</span> r2 <span class="o">=</span> <span class="kp">as.POSIXct</span><span class="p">(</span>r2<span class="p">,</span> tz <span class="o">=</span> <span class="s">&#39;GMT&#39;</span><span class="p">,</span> <span class="s">&#39;%Y-%m-%dT%H:%M:%S&#39;</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="kr">if</span> <span class="p">(</span>r<span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="kr">return</span><span class="p">(</span>d <span class="o">&lt;=</span> r2<span class="p">)</span>
+  <span class="kr">if</span> <span class="p">(</span>r<span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">)</span> <span class="kr">return</span><span class="p">(</span>d <span class="o">&gt;=</span> r1<span class="p">)</span>
+  d <span class="o">&lt;=</span> r1 <span class="o">|</span> d <span class="o">&gt;=</span> r2
+<span class="p">}</span>
+
+<span class="c1"># End pastiche of original DT code.</span>
+<span class="c1">####################################################################################################</span>
+
+DT<span class="o">$</span>filterRange <span class="o">&lt;-</span> filterRange
+<span class="kp">lockBinding</span><span class="p">(</span><span class="s">&quot;filterRange&quot;</span><span class="p">,</span> DT<span class="p">)</span>
+</pre></div>
+
+
+<p>The last piece of the puzzle concerns UX: the user should understand that the
+filter applies to the outer range, not the inner one. Visually:</p>
+<p><img alt="switch inner to outer range" src="images/inner-to-outer-range.png"></p>
+<p>This is easily achieved with a few lines of CSS:</p>
+<div class="highlight"><pre><span></span><span class="p">#</span><span class="nn">datatable-id</span> <span class="p">.</span><span class="nc">noUi-background</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#3FB8AF</span><span class="p">;</span>
+    <span class="k">box-shadow</span><span class="p">:</span> <span class="kc">inset</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="kt">px</span> <span class="nb">rgba</span><span class="p">(</span><span class="mi">51</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mi">51</span><span class="p">,</span><span class="mf">.45</span><span class="p">);</span>
+    <span class="k">transition</span><span class="p">:</span> <span class="k">background</span> <span class="mi">450</span><span class="kt">ms</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">#</span><span class="nn">datatable-id</span> <span class="p">.</span><span class="nc">noUi-connect</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="mh">#FAFAFA</span><span class="p">;</span>
+    <span class="k">box-shadow</span><span class="p">:</span> <span class="kc">inset</span> <span class="mi">0</span> <span class="mi">1</span><span class="kt">px</span> <span class="mi">1</span><span class="kt">px</span> <span class="mh">#f0f0f0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>In conclusion, monkey-patching is rarely the most elegant, debuggable and
+maintainable solution to a problem you're having. More often, it's actually
+<em>the least</em> elegant (etc.) one. But every once in a while, it's the simplest
+one, the one with the best hassle/reward ratio (until it comes back to bite you
+once your codebase has grown or assumptions about the monkey-patched code have
+changed). At any rate, if you need to resort to it, it's nice to have a quick,
+googlable how-to, hence this post.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'littleumbrellas'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'monkey-patching-in-r';
+                var disqus_url = 'http://dlukes.github.io/monkey-patching-in-r.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -526,7 +700,7 @@ Little Umbrellas            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2014 dlukes
+         <div class="col-xs-10">&copy; 2017 dlukes
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
