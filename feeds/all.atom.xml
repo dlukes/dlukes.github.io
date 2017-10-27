@@ -100,7 +100,363 @@ maintainable solution to a problem you're having. More often, it's actually
 one, the one with the best hassle/reward ratio (until it comes back to bite you
 once your codebase has grown or assumptions about the monkey-patched code have
 changed). At any rate, if you need to resort to it, it's nice to have a quick,
-googlable how-to, hence this post.&lt;/p&gt;</content><category term="floss"></category><category term="hack"></category><category term="r"></category><category term="monkey-patching"></category></entry><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="http://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><updated>2016-09-29T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:/responsive-iframe.html</id><summary type="html">&lt;p&gt;How to embed a "responsive" (i.e. vertically resizing) iframe in a web page.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
+googlable how-to, hence this post.&lt;/p&gt;</content><category term="floss"></category><category term="hack"></category><category term="r"></category><category term="monkey-patching"></category></entry><entry><title>Text munching in R?</title><link href="http://dlukes.github.io/text-munching-in-r.html" rel="alternate"></link><published>2017-10-19T00:00:00+02:00</published><updated>2017-10-19T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-19:/text-munching-in-r.html</id><summary type="html">&lt;p&gt;Is R suited for processing large quantities of text data?&lt;/p&gt;</summary><content type="html">&lt;p&gt;R has been &lt;a href="https://stackoverflow.blog/2017/10/10/impressive-growth-r/"&gt;gaining traction&lt;/a&gt; as a language for data analysis. My
+feelings about the whole ecosystem are mixed -- it has some &lt;a href="https://www.tidyverse.org/"&gt;incredibly
+well-designed libraries&lt;/a&gt; and a &lt;a href="https://www.rstudio.com/"&gt;top-of-the-game IDE&lt;/a&gt;, but
+the core language makes me cringe (it feels like "Perl and Lisp: The Worse
+Parts"). Be that as it may, it has undeniably become the go-to programming
+language for many people for whom programming is not their main breadwinner,
+many linguists among them. If you're one of these people and wondering whether
+it's worth undergoing the cognitive burden of learning another language and
+having to context-switch between them, read on!&lt;/p&gt;
+&lt;p&gt;The main problem with R and large data is of course that R is fast as long as
+you can load everything into memory at once and used vectorized operations. The
+whole point of this post is that with the current size of a typical corpus, you
+often can't do that. You'll have to process the corpus line by line, which
+means using a for-loop, and these are notoriously slow in R. I'm not pretending
+this is some new discovery (it's not), I'm just trying to quantify how
+problematic this slowness is for processing large quantities of text
+(prohibitive, in my opinion), so that you don't have to figure it out for
+yourself and can get started &lt;a href="http://www.nltk.org/book/"&gt;learning Python&lt;/a&gt; right away instead ;)&lt;/p&gt;
+&lt;p&gt;(Another big problem is that R doesn't have an efficient and versatile hash
+table data structure.)&lt;/p&gt;
+&lt;h1&gt;tl;dr&lt;/h1&gt;
+&lt;p&gt;If you're planning to process corpora of tens of millions of tokens or more --
+spoiler alert, you probably shouldn't do it in R.&lt;/p&gt;
+&lt;h1&gt;Task&lt;/h1&gt;
+&lt;p&gt;The following details an informal test comparing the speed of R, Python, Rust
+and Perl at processing a large corpus file (~120M tokens, 1.5GB gzipped) and
+creating a frequency distribution of headwords per part-of-speech. The idea is
+to see whether R is a viable alternative in this domain, or whether the slowing
+down caused by the inability to use vectorized computations (because we can't
+load the entire thing into memory at once) will just be too much.&lt;/p&gt;
+&lt;h1&gt;R: 1 day (!)&lt;/h1&gt;
+&lt;p&gt;After quite some exploration of various alternatives for the individual
+subtasks, this is the program that I came up with:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;stringi&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;hash&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# read input from STDIN&lt;/span&gt;
+con &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stdin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; open&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+pos_sets &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; hash&lt;span class="p"&gt;()&lt;/span&gt;
+start &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="kr"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  line &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;readLines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;con&lt;span class="p"&gt;,&lt;/span&gt; n&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;length&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;line&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kr"&gt;break&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="c1"&gt;# lines with tokens (as opposed to metadata) contain tabs&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;stri_detect_fixed&lt;span class="p"&gt;(&lt;/span&gt;line&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;# individual token attributes are tab-separated&lt;/span&gt;
+    attrs &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; stri_split_fixed&lt;span class="p"&gt;(&lt;/span&gt;line&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# for each token, we&amp;#39;re interested in the lemma (headword)...&lt;/span&gt;
+    lemma &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; attrs&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="c1"&gt;# ... and the part-of-speech, which is the first character of the tag&lt;/span&gt;
+    tag &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; attrs&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    pos &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; stri_split_boundaries&lt;span class="p"&gt;(&lt;/span&gt;tag&lt;span class="p"&gt;,&lt;/span&gt; n&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; type&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;character&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="c1"&gt;# build a per-part-of-speech frequency distribution as a nested hash:&lt;/span&gt;
+    &lt;span class="c1"&gt;# {&lt;/span&gt;
+    &lt;span class="c1"&gt;#   &amp;quot;noun&amp;quot;: {&lt;/span&gt;
+    &lt;span class="c1"&gt;#     &amp;quot;cat&amp;quot;: 5,&lt;/span&gt;
+    &lt;span class="c1"&gt;#     &amp;quot;dog&amp;quot;: 3,&lt;/span&gt;
+    &lt;span class="c1"&gt;#     ...&lt;/span&gt;
+    &lt;span class="c1"&gt;#   },&lt;/span&gt;
+    &lt;span class="c1"&gt;#   &amp;quot;verb&amp;quot;: {&lt;/span&gt;
+    &lt;span class="c1"&gt;#     &amp;quot;look&amp;quot;: 2,&lt;/span&gt;
+    &lt;span class="c1"&gt;#     ...&lt;/span&gt;
+    &lt;span class="c1"&gt;#   },&lt;/span&gt;
+    &lt;span class="c1"&gt;#   ...&lt;/span&gt;
+    &lt;span class="c1"&gt;# }&lt;/span&gt;
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.null&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; hash&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.null&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# report running time&lt;/span&gt;
+diff &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; start
+&lt;span class="kp"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Done in %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; file&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kp"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Given the input corpus mentioned above, this code takes &lt;strong&gt;1.33&lt;/strong&gt; days to run.
+Compared to other languages one might conceivably use (see below), this is just
+ridiculous.&lt;/p&gt;
+&lt;p&gt;Now, I'm certainly not an expert in R, so there may be better ways of doing
+some of this. But I doubt such improvements, if any, would be of any practical
+relevance, because even reducing the running time to &lt;em&gt;a tenth&lt;/em&gt; of the original
+duration wouldn't be enough. And if there &lt;em&gt;is&lt;/em&gt; a way to go even further, say to
+a hundredth, which would begin to make R competitive, then I would argue that a
+language which lets you shoot yourself so spectacularly in the foot
+performance-wise if you're not hip to some clever tricks should just be avoided
+for tasks where said performance matters.&lt;/p&gt;
+&lt;p&gt;With these general considerations out of the way, let's look at some details of
+how to implement this task in R. In many cases, it's unclear how you should
+even approach the problem in R, due to &lt;strong&gt;missing or confusing built-in
+functionality&lt;/strong&gt;. As a result, in addition to having a lousy running time on
+this task, R also puts a strain on the programmer's time.&lt;/p&gt;
+&lt;h2&gt;Reading the data&lt;/h2&gt;
+&lt;p&gt;This sounds so basic it should be obvious, right? Not so fast.&lt;/p&gt;
+&lt;p&gt;First of all, the &lt;code&gt;file("path/to/file")&lt;/code&gt; function creates a file connection,
+which is however not open unless you also specify a mode in the &lt;code&gt;open=&lt;/code&gt;
+argument, or alternatively, unless you call the &lt;code&gt;open()&lt;/code&gt; function on the
+connection. Why you would want to create a connection that's not open is beyond
+me, but R adds insult to injury by allowing &lt;code&gt;readLines()&lt;/code&gt; to work on a closed
+connection: it just opens the connection before doing the reading and closes it
+afterwards. This means that repeated calls to &lt;code&gt;readLines(unopened_connection,
+n=1)&lt;/code&gt; will &lt;strong&gt;repeatedly read the first line of the file&lt;/strong&gt;, which is most likely
+not what you want. This is API design level PHP.&lt;/p&gt;
+&lt;p&gt;Second, the corpus is gzip compressed, so you'll need to uncompress it. There
+are basically two options:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;have an external program (&lt;code&gt;zcat&lt;/code&gt;) do the decompression and pipe the data
+   into R via &lt;code&gt;STDIN&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;handle the decompression within R itself&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;As a general rule (for any language), it will always be faster to handle the
+decompression in a different process on a multi-core system, because the tasks
+can proceed in parallel.&lt;sup id="fnref-1"&gt;&lt;a class="footnote-ref" href="#fn-1"&gt;1&lt;/a&gt;&lt;/sup&gt; On the other hand, it's more portable not to
+depend on external programs, and R does have a built-in function to open a
+connection to a gzipped file, namely &lt;code&gt;gzfile()&lt;/code&gt;. Based on tests on shorter
+inputs, it's about 50% slower than external decompression, which is a somewhat
+worse performance deterioration than e.g. Python (40% based on the full input).
+In light of the already dire running time, it's something we can't really
+afford.&lt;/p&gt;
+&lt;p&gt;Third, having to do the line-by-line reading in a &lt;code&gt;while (TRUE)&lt;/code&gt; loop, using a
+function called &lt;code&gt;readLines()&lt;/code&gt; (note the plural) with an argument of &lt;code&gt;1&lt;/code&gt;,
+checking the length of the resulting character vector in order to determine the
+end of the input -- that's just gross.&lt;/p&gt;
+&lt;h2&gt;String manipulation&lt;/h2&gt;
+&lt;p&gt;R has built-in functions for string matching (&lt;code&gt;grepl()&lt;/code&gt; et al.), not so much
+for string splitting. This is the point where I got suspicious of the
+performance of everything and started testing alternatives. I finally ended up
+using the &lt;a href="http://www.gagolewski.com/software/stringi/"&gt;stringi&lt;/a&gt; package, which is fast and has a fairly consistent
+API. &lt;a href="https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html"&gt;stringr&lt;/a&gt; is a set of higher-level wrappers around it, which have
+however proven somewhat slower than the built-ins in my highly informal
+testing.&lt;/p&gt;
+&lt;h2&gt;O hash map, where art thou?&lt;/h2&gt;
+&lt;p&gt;Building a per-part-of-speech frequency distribution of headwords requires an
+appropriate data structure. As indicated in the comments in the R source, we
+want to build a nested collection that looks something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;{
+  &amp;quot;noun&amp;quot;: {
+    &amp;quot;cat&amp;quot;: 5,
+    &amp;quot;dog&amp;quot;: 3,
+    ...
+  },
+  &amp;quot;verb&amp;quot;: {
+    &amp;quot;look&amp;quot;: 2,
+    ...
+  },
+  ...
+}
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The requirements on the data structure we need are the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;it's a collection&lt;/li&gt;
+&lt;li&gt;strings can be used as keys&lt;/li&gt;
+&lt;li&gt;it can be arbitrarily nested&lt;/li&gt;
+&lt;li&gt;key lookup is fast, i.e. constant time&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In other words, we need a hash (or a dict, in Python terminology). R doesn't
+&lt;em&gt;have&lt;/em&gt; a hash (I'll qualify this statement in a bit).&lt;/p&gt;
+&lt;p&gt;The workhorse data structure in R that satisfies points 1--3 is a list.
+Unfortunately, it has &lt;a href="https://stackoverflow.com/questions/41353298/what-is-the-time-complexity-of-name-look-up-in-an-r-list"&gt;linear access time&lt;/a&gt;. That's not going to work.&lt;/p&gt;
+&lt;p&gt;R also has environments, which it uses to store and access variables. Under the
+hood, environments are implemented as hashes, but using them as such is a
+massive pain, because their API isn't meant for it. Fortunately, there's &lt;a href="https://cran.r-project.org/web/packages/hash/index.html"&gt;a
+wrapper package&lt;/a&gt; which makes it more convenient. Unfortunately,
+environments weren't optimized with this use case in mind. They were designed
+to hold key--value (variable name--variable value) pairs explicitly defined by
+people as part of their programs, not millions of items extracted from data. As
+a result, they &lt;a href="http://appsilondatascience.com/blog/rstats/2017/03/02/r-fast-lookup.html"&gt;slow down dramatically&lt;/a&gt; once the number of items
+grows large.&lt;/p&gt;
+&lt;p&gt;(The article in the previous link provides a survey of the state of the art of
+fast key lookup in R. The state of the art is... dismal. Your only option is
+basically indexing a data table, which is fine for a finalized data set, but
+useless when &lt;em&gt;building the data set&lt;/em&gt; -- you can't afford to reindex after each
+new data point.)&lt;/p&gt;
+&lt;p&gt;There's also the &lt;a href="https://cran.r-project.org/web/packages/hashmap/index.html"&gt;hashmap library&lt;/a&gt;, which is a wrapper around C++
+Boost hashes. However, it doesn't do nesting, so it's of no use to us, and of
+very limited usefulness in general.&lt;/p&gt;
+&lt;p&gt;Conclusion: technically, we have to concede that R has hashes, but &lt;strong&gt;for all
+practical intents and purposes, it doesn't&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;There's one last twist, though. Funnily enough, in our use case, it turns out
+it doesn't really matter anyway. Indeed, it seems the performance of for-loops
+in R is &lt;em&gt;so egregiously bad&lt;/em&gt; that it dwarfs even the inefficiencies accrued by
+the linear lookup time of lists: if you reimplement the script with lists, it
+takes just a little longer than the version with hashes, about 1.36 days.&lt;/p&gt;
+&lt;p&gt;(Or maybe it's just that the performance of environment-based hashes becomes so
+bad when they grow large as to be comparable with that of lists? Who knows, and
+frankly, I don't care enough to want to find out. If it's the for-loops though,
+then adding efficient hashes to R won't really solve anything.)&lt;/p&gt;
+&lt;h2&gt;Summary&lt;/h2&gt;
+&lt;p&gt;If you like R and your reaction to this is, "That's not fair! R was never meant
+to do any of this, that's why everything feels so backhanded." -- then good,
+that's basically the gist of this post: &lt;strong&gt;don't use R for something it wasn't
+meant to do&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;What are the alternatives, then?&lt;/p&gt;
+&lt;h1&gt;Python: 5 minutes&lt;/h1&gt;
+&lt;p&gt;Yes, that's right. It takes Python &lt;strong&gt;5 minutes&lt;/strong&gt; to do the same task that took
+R &lt;strong&gt;over a day&lt;/strong&gt;. The code feels a lot simpler too:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;pos_sets&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{}&lt;/span&gt;
+    &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\t&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lemma&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tag&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\t&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;maxsplit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;pos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;tag&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="c1"&gt;# this is an intentionally naive implementation which mimicks&lt;/span&gt;
+            &lt;span class="c1"&gt;# the R code and something an inexperienced coder might do;&lt;/span&gt;
+            &lt;span class="c1"&gt;# a more concise and probably better performing solution could&lt;/span&gt;
+            &lt;span class="c1"&gt;# be achieved using dict.setdefault() or collections.defaultdict&lt;/span&gt;
+            &lt;span class="c1"&gt;# / collections.Counter&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;pos&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;pos_sets&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;pos_sets&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{}&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;lemma&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;pos_sets&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+                &lt;span class="n"&gt;pos_sets&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;lemma&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;pos_sets&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="n"&gt;lemma&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+
+    &lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Done in {diff:.0f} seconds.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="vm"&gt;__name__&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;__main__&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Perl: 13 minutes&lt;/h1&gt;
+&lt;p&gt;Perl used to be a popular alternative for text processing. Like R, it has its
+fair share of nauseating language design and weird quirks, but since it was
+actually meant for use in this domain, it won't spectacularly let you down.&lt;/p&gt;
+&lt;p&gt;(Unless your data is silently corrupted because you handled text encoding
+wrong. Perl's behavior in this respect is a relict of a pre-UTF-8-everywhere
+past, and it's the single biggest reason for why the language should be put out
+of its misery already.)&lt;/p&gt;
+&lt;p&gt;Here's the code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;strict&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;utf8&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt; &lt;span class="nn"&gt;open&lt;/span&gt; &lt;span class="sx"&gt;qw(:std :encoding(utf8))&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$start&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;time&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;%pos_sets&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/\t/&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;@attrs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;split&lt;/span&gt; &lt;span class="sr"&gt;/\t/&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$lemma&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;@attrs&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$tag&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;@attrs&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+    &lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$pos&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;substr&lt;/span&gt; &lt;span class="nv"&gt;$tag&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="c1"&gt;# auto-vivification: ergonomic, but also made possible by the whole&lt;/span&gt;
+    &lt;span class="c1"&gt;# &amp;quot;implicit defaults that have a potential of screwing stuff up&lt;/span&gt;
+    &lt;span class="c1"&gt;# without you even knowing about it&amp;quot; culture of Perl&lt;/span&gt;
+    &lt;span class="nv"&gt;$pos_sets&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;$pos&lt;/span&gt;&lt;span class="p"&gt;}{&lt;/span&gt;&lt;span class="nv"&gt;$lemma&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="k"&gt;my&lt;/span&gt; &lt;span class="nv"&gt;$diff&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="nv"&gt;$start&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="bp"&gt;STDERR&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Done in $diff seconds.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Bottom line though, being more than twice as slow as Python (which came as a
+surprise to me, I must admit) and definitely the worse language, it has little
+to recommend itself if you're considering to learn a new language for this
+type of task.&lt;/p&gt;
+&lt;p&gt;Except maybe if you want to continuously log what the program is doing to a
+terminal -- like output the number of lines processed after each line. Perl is
+clearly very efficient at writing to a terminal, the running time is basically
+the same with continuous logging incorporated. By contrast, Python takes about
+three times longer (~ 15 minutes).&lt;/p&gt;
+&lt;p&gt;(I guess maybe Python flushes output after each &lt;code&gt;print()&lt;/code&gt; call, whereas Perl
+does some smart buffering which results in it not being slowed down by the
+latency of the terminal...? Who knows, at any rate, it's hardly a "killer"
+feature.)&lt;/p&gt;
+&lt;h1&gt;Rust: 1.25 minutes&lt;/h1&gt;
+&lt;p&gt;As a compiled, systems-level language, Rust is in a different league compared
+to the previous contestants: of course it's going to be faster. I included it
+because it provides a frame of reference. The important takeaway is that we're
+in the same ballpark with Python (roughly units of minutes), so there's no
+pressing need to turn to a compiled language for this task.&lt;/p&gt;
+&lt;p&gt;Here's the code, for completeness sake:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;::&lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;::&lt;span class="n"&gt;io&lt;/span&gt;::&lt;span class="n"&gt;prelude&lt;/span&gt;::&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;::&lt;span class="n"&gt;collections&lt;/span&gt;::&lt;span class="n"&gt;HashMap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;::&lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nc"&gt;LemmaCount&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;HashMap&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nb"&gt;String&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kt"&gt;i32&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nc"&gt;PosSet&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;HashMap&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;LemmaCount&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;time&lt;/span&gt;::&lt;span class="n"&gt;SystemTime&lt;/span&gt;::&lt;span class="n"&gt;now&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pos_sets&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;PosSet&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;io&lt;/span&gt;::&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;in&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;lines&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;contains&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\t&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;mut&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;attrs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\t&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;skip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;take&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;lemma&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;attrs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;tag&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;attrs&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;tag&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;chars&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;take&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;next&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pos_set&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pos_sets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pos&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;or_insert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;LemmaCount&lt;/span&gt;::&lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;count_for_lemma&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;pos_set&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;entry&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;String&lt;/span&gt;::&lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lemma&lt;/span&gt;&lt;span class="p"&gt;)).&lt;/span&gt;&lt;span class="n"&gt;or_insert&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;            &lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;count_for_lemma&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;+=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;elapsed&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;as_secs&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Done in {:.0} seconds.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Note in passing how nicely the Rust code reads for a compiled language. Of
+course, since it's a much stricter (and safer) language than Python, it's more
+ceremonious to write and the APIs are more complicated, because they have to
+adhere to the various memory management guarantees Rust gives you (among other
+things). But once the code is written, it's very readable and clear. And all
+necessary functions and data structures are (a) available in the standard
+library, and (b) plenty efficient.&lt;/p&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Just to be clear: the ultimate purpose of this post is &lt;strong&gt;not&lt;/strong&gt; bashing R (not
+for being slow at text munching, at any rate); it's to give a convincing
+account of why it's just not the right tool for the job. And not in a small
+way, either -- in a way that requires to learn a different tool, there's no way
+around it. Let me reiterate that my recommendation would hands down be
+&lt;a href="http://www.nltk.org/book/"&gt;Python&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Once the data is extracted, go back to R by all means. Although
+Python does have a fairly nice high-level &lt;a href="http://pandas.pydata.org/"&gt;data analysis library&lt;/a&gt;, it's
+not my intention to discourage anyone from using R for what it &lt;em&gt;is&lt;/em&gt; good at,
+especially if this is a skill they are already proficient in.&lt;/p&gt;
+&lt;p&gt;The internet is full of people asking advice on which programming language to
+learn, and the answers are invariably evasive -- it depends on your tastes,
+what fits your brain better, what your use case is. In the hopes that some
+people might find opinionated guidance useful for a change (I know I personally
+often do, when flirting with a new language): if you're looking to process
+large quantities of text data, the answer is a big, resounding &lt;strong&gt;NOT R&lt;/strong&gt;!&lt;/p&gt;
+&lt;!----------------------------- LINKS AND NOTES -----------------------------&gt;
+
+&lt;div class="footnote"&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id="fn-1"&gt;
+&lt;p&gt;You could also offload the decompression to a different thread in the
+same process, but that complicates the implementation. Piping gives you
+parallelization basically for free.&amp;#160;&lt;a class="footnote-backref" href="#fnref-1" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</content><category term="python"></category><category term="r"></category><category term="rust"></category><category term="perl"></category><category term="text processing"></category></entry><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="http://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><updated>2016-09-29T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:/responsive-iframe.html</id><summary type="html">&lt;p&gt;How to embed a "responsive" (i.e. vertically resizing) iframe in a web page.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
 an iframe. Obviously, not when your website is a webapp and that element
 represents the main functionality it's supposed to provide -- that would be
 gross. But when your website is mostly textual / graphical content, typically
