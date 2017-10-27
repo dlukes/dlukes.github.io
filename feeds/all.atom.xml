@@ -1,106 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/all.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2017-10-24T00:00:00+02:00</updated><entry><title>Monkey-patching in R</title><link href="http://dlukes.github.io/monkey-patching-in-r.html" rel="alternate"></link><published>2017-10-24T00:00:00+02:00</published><updated>2017-10-24T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-24:/monkey-patching-in-r.html</id><summary type="html">&lt;p&gt;How to monkey-patch functions in imported libraries in R.&lt;/p&gt;</summary><content type="html">&lt;p&gt;While building a &lt;a href="https://shiny.rstudio.com/"&gt;Shiny&lt;/a&gt; application with R recently, I've come across the need
-to invert the &lt;code&gt;filterRange()&lt;/code&gt; function in the &lt;a href="https://rstudio.github.io/DT/"&gt;DT&lt;/a&gt; package, which provides a
-convenient high-level way to add &lt;a href="https://datatables.net/"&gt;DataTables&lt;/a&gt; to your Shiny app. As indicated
-by its name, this function filters a numeric column in your datatable based on
-a range, so as it contains only values contained &lt;strong&gt;within that range&lt;/strong&gt;. What I
-needed was the opposite: include values &lt;strong&gt;outside the specified range&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;The filtering is done server-side and unfortunately, no option is provided
-out-of-the-box to perform this inversion. One of the solutions is therefore to
-monkey-patch the &lt;code&gt;filterRange()&lt;/code&gt; function in the &lt;code&gt;DT&lt;/code&gt; R package, replacing it
-with a version that filters the outer range instead.&lt;/p&gt;
-&lt;p&gt;Googling for "monkey patching r" (currently) yields this &lt;a href="https://www.r-bloggers.com/an-example-of-monkey-patching-a-package/"&gt;blog post&lt;/a&gt;,
-which provides a more complicated though arguably cleaner solution, which
-introduces a new environment in the search path. My position on this is that if
-you're worried about cleanliness, you shouldn't be monkey-patching in the first
-place. Conversely, if you decide monkey-patching is acceptable in your
-situation, the code required should be as quick and dirty as the thought.&lt;/p&gt;
-&lt;p&gt;Of course, this is R, uncontested king of weird ways of doing anything but the
-most common data analysis tasks, and even some of those -- so it's never going
-to be as simple as Python, for instance:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
-&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;
-&lt;span class="c1"&gt;# Aaand done.&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;But it doesn't have to be as complicated as the solution in the blog post
-above, either.&lt;/p&gt;
-&lt;p&gt;The solution presented here is basically taken from &lt;a href="https://stat.ethz.ch/pipermail/r-help/2008-August/171217.html"&gt;this mailing list
-post&lt;/a&gt;, which has the disadvantage of not containing the key term
-"monkey-patch", which makes it hard to find on Google. It consists in the
-following steps:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Get a handle on the relevant library's namespace with &lt;code&gt;getNamespace()&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Make the relevant binding modifiable with &lt;code&gt;unlockBinding()&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;Define your custom version of the function.&lt;/li&gt;
-&lt;li&gt;Store it in the namespace under the original name.&lt;/li&gt;
-&lt;li&gt;Re-seal everything with &lt;code&gt;lockBinding()&lt;/code&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Here's the code for my specific use case with &lt;code&gt;DT::filterRange()&lt;/code&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Monkey patch the filterRange() function in the DT package so that server-side filtering returns&lt;/span&gt;
-&lt;span class="c1"&gt;# values *outside* the range instead of inside.&lt;/span&gt;
-
-DT &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;getNamespace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;DT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kp"&gt;unlockBinding&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;filterRange&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; DT&lt;span class="p"&gt;)&lt;/span&gt;
-
-&lt;span class="c1"&gt;####################################################################################################&lt;/span&gt;
-&lt;span class="c1"&gt;# This part of the code is deliberately kept as similar to the original as possible, in order to&lt;/span&gt;
-&lt;span class="c1"&gt;# make potential updates easier. See https://github.com/rstudio/DT/blob/v0.2/R/shiny.R#L474.&lt;/span&gt;
-
-&lt;span class="c1"&gt;# filter a numeric/date/time vector using the search string &amp;quot;lower ... upper&amp;quot;&lt;/span&gt;
-filterRange &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d&lt;span class="p"&gt;,&lt;/span&gt; string&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="kp"&gt;grepl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;[.]{3}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; string&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="kp"&gt;length&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;strsplit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;string&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;[.]{3}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="kp"&gt;stop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;The range of a numeric / date / time column must be of length 2&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;length&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# lower,&lt;/span&gt;
-  r &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;^\\s+|\\s+$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; r&lt;span class="p"&gt;)&lt;/span&gt;
-  r1 &lt;span class="o"&gt;=&lt;/span&gt; r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    r1 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r1&lt;span class="p"&gt;);&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r2&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;inherits&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r1 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r1 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.Date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r1&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r2 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.Date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r2&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r1 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r1 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.POSIXct&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r1&lt;span class="p"&gt;,&lt;/span&gt; tz &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;GMT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;%Y-%m-%dT%H:%M:%S&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r2 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.POSIXct&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r2&lt;span class="p"&gt;,&lt;/span&gt; tz &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;GMT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;%Y-%m-%dT%H:%M:%S&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="p"&gt;}&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; r2&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; r1&lt;span class="p"&gt;)&lt;/span&gt;
-  d &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; r1 &lt;span class="o"&gt;|&lt;/span&gt; d &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; r2
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="c1"&gt;# End pastiche of original DT code.&lt;/span&gt;
-&lt;span class="c1"&gt;####################################################################################################&lt;/span&gt;
-
-DT&lt;span class="o"&gt;$&lt;/span&gt;filterRange &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; filterRange
-&lt;span class="kp"&gt;lockBinding&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;filterRange&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; DT&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;The last piece of the puzzle concerns UX: the user should understand that the
-filter applies to the outer range, not the inner one. Visually:&lt;/p&gt;
-&lt;p&gt;&lt;img alt="switch inner to outer range" src="images/inner-to-outer-range.png"&gt;&lt;/p&gt;
-&lt;p&gt;This is easily achieved with a few lines of CSS:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="nn"&gt;datatable-id&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;noUi-background&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;background&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;#3FB8AF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;box-shadow&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;inset&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="nb"&gt;rgba&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;.45&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
-    &lt;span class="k"&gt;transition&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="k"&gt;background&lt;/span&gt; &lt;span class="mi"&gt;450&lt;/span&gt;&lt;span class="kt"&gt;ms&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="nn"&gt;datatable-id&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;noUi-connect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="k"&gt;background&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;#FAFAFA&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-    &lt;span class="k"&gt;box-shadow&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;inset&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="mh"&gt;#f0f0f0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;In conclusion, monkey-patching is rarely the most elegant, debuggable and
-maintainable solution to a problem you're having. More often, it's actually
-&lt;em&gt;the least&lt;/em&gt; elegant (etc.) one. But every once in a while, it's the simplest
-one, the one with the best hassle/reward ratio (until it comes back to bite you
-once your codebase has grown or assumptions about the monkey-patched code have
-changed). At any rate, if you need to resort to it, it's nice to have a quick,
-googlable how-to, hence this post.&lt;/p&gt;</content><category term="floss"></category><category term="hack"></category><category term="r"></category><category term="monkey-patching"></category></entry><entry><title>Text munching in R?</title><link href="http://dlukes.github.io/text-munching-in-r.html" rel="alternate"></link><published>2017-10-19T00:00:00+02:00</published><updated>2017-10-19T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-19:/text-munching-in-r.html</id><summary type="html">&lt;p&gt;Is R suited for processing large quantities of text data?&lt;/p&gt;</summary><content type="html">&lt;p&gt;R has been &lt;a href="https://stackoverflow.blog/2017/10/10/impressive-growth-r/"&gt;gaining traction&lt;/a&gt; as a language for data analysis. My
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/all.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2017-10-28T00:00:00+02:00</updated><entry><title>Text munching in R?</title><link href="http://dlukes.github.io/text-munching-in-r.html" rel="alternate"></link><published>2017-10-28T00:00:00+02:00</published><updated>2017-10-28T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-28:/text-munching-in-r.html</id><summary type="html">&lt;p&gt;Is R suited for processing large quantities of text data?&lt;/p&gt;</summary><content type="html">&lt;p&gt;R has been &lt;a href="https://stackoverflow.blog/2017/10/10/impressive-growth-r/"&gt;gaining traction&lt;/a&gt; as a language for data analysis. My
 feelings about the whole ecosystem are mixed -- it has some &lt;a href="https://www.tidyverse.org/"&gt;incredibly
 well-designed libraries&lt;/a&gt; and a &lt;a href="https://www.rstudio.com/"&gt;top-of-the-game IDE&lt;/a&gt;, but
 the core language makes me cringe (it feels like "Perl and Lisp: The Worse
@@ -456,7 +355,108 @@ same process, but that complicates the implementation. Piping gives you
 parallelization basically for free.&amp;#160;&lt;a class="footnote-backref" href="#fnref-1" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</content><category term="python"></category><category term="r"></category><category term="rust"></category><category term="perl"></category><category term="text processing"></category></entry><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="http://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><updated>2016-09-29T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:/responsive-iframe.html</id><summary type="html">&lt;p&gt;How to embed a "responsive" (i.e. vertically resizing) iframe in a web page.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
+&lt;/div&gt;</content><category term="python"></category><category term="r"></category><category term="rust"></category><category term="perl"></category><category term="text processing"></category></entry><entry><title>Monkey-patching in R</title><link href="http://dlukes.github.io/monkey-patching-in-r.html" rel="alternate"></link><published>2017-10-24T00:00:00+02:00</published><updated>2017-10-24T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-24:/monkey-patching-in-r.html</id><summary type="html">&lt;p&gt;How to monkey-patch functions in imported libraries in R.&lt;/p&gt;</summary><content type="html">&lt;p&gt;While building a &lt;a href="https://shiny.rstudio.com/"&gt;Shiny&lt;/a&gt; application with R recently, I've come across the need
+to invert the &lt;code&gt;filterRange()&lt;/code&gt; function in the &lt;a href="https://rstudio.github.io/DT/"&gt;DT&lt;/a&gt; package, which provides a
+convenient high-level way to add &lt;a href="https://datatables.net/"&gt;DataTables&lt;/a&gt; to your Shiny app. As indicated
+by its name, this function filters a numeric column in your datatable based on
+a range, so as it contains only values contained &lt;strong&gt;within that range&lt;/strong&gt;. What I
+needed was the opposite: include values &lt;strong&gt;outside the specified range&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;The filtering is done server-side and unfortunately, no option is provided
+out-of-the-box to perform this inversion. One of the solutions is therefore to
+monkey-patch the &lt;code&gt;filterRange()&lt;/code&gt; function in the &lt;code&gt;DT&lt;/code&gt; R package, replacing it
+with a version that filters the outer range instead.&lt;/p&gt;
+&lt;p&gt;Googling for "monkey patching r" (currently) yields this &lt;a href="https://www.r-bloggers.com/an-example-of-monkey-patching-a-package/"&gt;blog post&lt;/a&gt;,
+which provides a more complicated though arguably cleaner solution, which
+introduces a new environment in the search path. My position on this is that if
+you're worried about cleanliness, you shouldn't be monkey-patching in the first
+place. Conversely, if you decide monkey-patching is acceptable in your
+situation, the code required should be as quick and dirty as the thought.&lt;/p&gt;
+&lt;p&gt;Of course, this is R, uncontested king of weird ways of doing anything but the
+most common data analysis tasks, and even some of those -- so it's never going
+to be as simple as Python, for instance:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
+&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;foo&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;# Aaand done.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But it doesn't have to be as complicated as the solution in the blog post
+above, either.&lt;/p&gt;
+&lt;p&gt;The solution presented here is basically taken from &lt;a href="https://stat.ethz.ch/pipermail/r-help/2008-August/171217.html"&gt;this mailing list
+post&lt;/a&gt;, which has the disadvantage of not containing the key term
+"monkey-patch", which makes it hard to find on Google. It consists in the
+following steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Get a handle on the relevant library's namespace with &lt;code&gt;getNamespace()&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Make the relevant binding modifiable with &lt;code&gt;unlockBinding()&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Define your custom version of the function.&lt;/li&gt;
+&lt;li&gt;Store it in the namespace under the original name.&lt;/li&gt;
+&lt;li&gt;Re-seal everything with &lt;code&gt;lockBinding()&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Here's the code for my specific use case with &lt;code&gt;DT::filterRange()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Monkey patch the filterRange() function in the DT package so that server-side filtering returns&lt;/span&gt;
+&lt;span class="c1"&gt;# values *outside* the range instead of inside.&lt;/span&gt;
+
+DT &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;getNamespace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;DT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="kp"&gt;unlockBinding&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;filterRange&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; DT&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;####################################################################################################&lt;/span&gt;
+&lt;span class="c1"&gt;# This part of the code is deliberately kept as similar to the original as possible, in order to&lt;/span&gt;
+&lt;span class="c1"&gt;# make potential updates easier. See https://github.com/rstudio/DT/blob/v0.2/R/shiny.R#L474.&lt;/span&gt;
+
+&lt;span class="c1"&gt;# filter a numeric/date/time vector using the search string &amp;quot;lower ... upper&amp;quot;&lt;/span&gt;
+filterRange &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kr"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d&lt;span class="p"&gt;,&lt;/span&gt; string&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="kp"&gt;grepl&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;[.]{3}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; string&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="kp"&gt;length&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;strsplit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;string&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;[.]{3}&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kp"&gt;stop&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;The range of a numeric / date / time column must be of length 2&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;length&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# lower,&lt;/span&gt;
+  r &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;gsub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;^\\s+|\\s+$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; r&lt;span class="p"&gt;)&lt;/span&gt;
+  r1 &lt;span class="o"&gt;=&lt;/span&gt; r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    r1 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r1&lt;span class="p"&gt;);&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.numeric&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r2&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;inherits&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r1 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r1 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.Date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r1&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r2 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.Date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r2&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r1 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r1 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.POSIXct&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r1&lt;span class="p"&gt;,&lt;/span&gt; tz &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;GMT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;%Y-%m-%dT%H:%M:%S&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r2 &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; r2 &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kp"&gt;as.POSIXct&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;r2&lt;span class="p"&gt;,&lt;/span&gt; tz &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;GMT&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;%Y-%m-%dT%H:%M:%S&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; r2&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;r&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="kr"&gt;return&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;d &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; r1&lt;span class="p"&gt;)&lt;/span&gt;
+  d &lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; r1 &lt;span class="o"&gt;|&lt;/span&gt; d &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; r2
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# End pastiche of original DT code.&lt;/span&gt;
+&lt;span class="c1"&gt;####################################################################################################&lt;/span&gt;
+
+DT&lt;span class="o"&gt;$&lt;/span&gt;filterRange &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; filterRange
+&lt;span class="kp"&gt;lockBinding&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;filterRange&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; DT&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The last piece of the puzzle concerns UX: the user should understand that the
+filter applies to the outer range, not the inner one. Visually:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="switch inner to outer range" src="images/inner-to-outer-range.png"&gt;&lt;/p&gt;
+&lt;p&gt;This is easily achieved with a few lines of CSS:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="nn"&gt;datatable-id&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;noUi-background&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;background&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;#3FB8AF&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;box-shadow&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;inset&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="nb"&gt;rgba&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;51&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mf"&gt;.45&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;transition&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="k"&gt;background&lt;/span&gt; &lt;span class="mi"&gt;450&lt;/span&gt;&lt;span class="kt"&gt;ms&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="nn"&gt;datatable-id&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;noUi-connect&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;background&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;#FAFAFA&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="k"&gt;box-shadow&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;inset&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="kt"&gt;px&lt;/span&gt; &lt;span class="mh"&gt;#f0f0f0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In conclusion, monkey-patching is rarely the most elegant, debuggable and
+maintainable solution to a problem you're having. More often, it's actually
+&lt;em&gt;the least&lt;/em&gt; elegant (etc.) one. But every once in a while, it's the simplest
+one, the one with the best hassle/reward ratio (until it comes back to bite you
+once your codebase has grown or assumptions about the monkey-patched code have
+changed). At any rate, if you need to resort to it, it's nice to have a quick,
+googlable how-to, hence this post.&lt;/p&gt;</content><category term="floss"></category><category term="hack"></category><category term="r"></category><category term="monkey-patching"></category></entry><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="http://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><updated>2016-09-29T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:/responsive-iframe.html</id><summary type="html">&lt;p&gt;How to embed a "responsive" (i.e. vertically resizing) iframe in a web page.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
 an iframe. Obviously, not when your website is a webapp and that element
 represents the main functionality it's supposed to provide -- that would be
 gross. But when your website is mostly textual / graphical content, typically
