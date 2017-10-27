@@ -1,6 +1,5 @@
 Title: Configuring Emacs Daemon on Mac OS X
 Date: 2016-02-20
-Category: os x tips
 Tags: osx, gui, emacs, daemon, emacsclient, spacemacs, automator
 Slug: emacs-daemon-osx
 Alias: /output/configuring-emacs-daemon-on-mac-os-x.html
