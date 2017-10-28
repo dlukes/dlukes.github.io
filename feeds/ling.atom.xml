@@ -9,7 +9,7 @@ many linguists among them. If you're one of these people and wondering whether
 it's worth undergoing the cognitive burden of learning another language and
 having to context-switch between them, read on!&lt;/p&gt;
 &lt;p&gt;The main problem with R and large data is of course that R is fast as long as
-you can load everything into memory at once and used vectorized operations. The
+you can load everything into memory at once and use vectorized operations. The
 whole point of this post is that with the current size of a typical corpus, you
 often can't do that. You'll have to process the corpus line by line, which
 means using a for-loop, and these are notoriously slow in R. I'm not pretending
