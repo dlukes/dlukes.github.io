@@ -16,14 +16,15 @@ means using a for-loop, and these are notoriously slow in R. I'm not pretending
 this is some new discovery (it's not), I'm just trying to quantify how
 problematic this slowness is for processing large quantities of text
 (prohibitive, in my opinion), so that you don't have to figure it out for
-yourself and can get started &lt;a href="http://www.nltk.org/book/"&gt;learning Python&lt;/a&gt; right away instead ;)&lt;/p&gt;
+yourself and can get started &lt;a href="http://www.nltk.org/book/"&gt;learning Python 3&lt;/a&gt; right away instead
+;)&lt;/p&gt;
 &lt;p&gt;(Another big problem is that R doesn't have an efficient and versatile hash
 table data structure.)&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;If you're planning to process corpora of hundreds of millions of tokens or more
 -- spoiler alert, you probably shouldn't do it in R.&lt;/p&gt;
 &lt;h1&gt;Task&lt;/h1&gt;
-&lt;p&gt;The following details an informal test comparing the speed of R, Python, Rust
+&lt;p&gt;The following details an informal test comparing the speed of R, Python 3, Rust
 and Perl at processing a large corpus file (~120M tokens, 1.5GB gzipped) and
 creating a frequency distribution of headwords per part-of-speech. The idea is
 to see whether R is a viable alternative in this domain, or whether the slowing
@@ -124,9 +125,9 @@ can proceed in parallel.&lt;sup id="fnref-1"&gt;&lt;a class="footnote-ref" href=
 depend on external programs, and R does have a built-in function to open a
 connection to a gzipped file, namely &lt;code&gt;gzfile()&lt;/code&gt;. Based on tests on shorter
 inputs, it's about 50% slower than external decompression, which is a somewhat
-worse performance deterioration than e.g. Python (40% based on the full input).
-In light of the already dire running time, it's something we can't really
-afford.&lt;/p&gt;
+worse performance deterioration than e.g. Python 3 (40% based on the full
+input). In light of the already dire running time, it's something we can't
+really afford.&lt;/p&gt;
 &lt;p&gt;Third, having to do the line-by-line reading in a &lt;code&gt;while (TRUE)&lt;/code&gt; loop, using a
 function called &lt;code&gt;readLines()&lt;/code&gt; (note the plural) with an argument of &lt;code&gt;1&lt;/code&gt;,
 checking the length of the resulting character vector in order to determine the
@@ -203,9 +204,9 @@ to do any of this, that's why everything feels so backhanded." -- then good,
 that's basically the gist of this post: &lt;strong&gt;don't use R for something it wasn't
 meant to do&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;What are the alternatives, then?&lt;/p&gt;
-&lt;h1&gt;Python: 5 minutes&lt;/h1&gt;
-&lt;p&gt;Yes, that's right. It takes Python &lt;strong&gt;5 minutes&lt;/strong&gt; to do the same task that took
-R &lt;strong&gt;over a day&lt;/strong&gt;. The code feels a lot simpler too:&lt;/p&gt;
+&lt;h1&gt;Python 3: 5 minutes&lt;/h1&gt;
+&lt;p&gt;Yes, that's right. It takes Python 3 &lt;strong&gt;5 minutes&lt;/strong&gt; to do the same task that
+took R &lt;strong&gt;over a day&lt;/strong&gt;. The code feels a lot simpler too:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
 
@@ -238,6 +239,10 @@ R &lt;strong&gt;over a day&lt;/strong&gt;. The code feels a lot simpler too:&lt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
+&lt;p&gt;FYI, this was run using Python 3.6. As a rule, use always the most recent
+version of Python 3 you can (at least 3.5, 3.4 in a pinch; with earlier
+releases, you may encounter performance issues). In any case, &lt;strong&gt;do not use
+Python 2&lt;/strong&gt; for new projects and let it end-of-life in peace.&lt;/p&gt;
 &lt;h1&gt;Perl: 13 minutes&lt;/h1&gt;
 &lt;p&gt;Perl used to be a popular alternative for text processing. Like R, it has its
 fair share of nauseating language design and weird quirks, but since it was
@@ -270,15 +275,15 @@ of its misery already.)&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Bottom line though, being more than twice as slow as Python (which came as a
+&lt;p&gt;Bottom line though, being more than twice as slow as Python 3 (which came as a
 surprise to me, I must admit) and definitely the worse language, it has little
-to recommend itself if you're considering to learn a new language for this
-type of task.&lt;/p&gt;
+to recommend itself if you're considering to learn a new language for this type
+of task.&lt;/p&gt;
 &lt;p&gt;Except maybe if you want to continuously log what the program is doing to a
 terminal -- like output the number of lines processed after each line. Perl is
 clearly very efficient at writing to a terminal, the running time is basically
-the same with continuous logging incorporated. By contrast, Python takes about
-three times longer (~ 15 minutes).&lt;/p&gt;
+the same with continuous logging incorporated. By contrast, Python 3 takes
+about three times longer (~ 15 minutes).&lt;/p&gt;
 &lt;p&gt;(I guess maybe Python flushes output after each &lt;code&gt;print()&lt;/code&gt; call, whereas Perl
 does some smart buffering which results in it not being slowed down by the
 latency of the terminal...? Who knows, at any rate, it's hardly a "killer"
@@ -287,7 +292,7 @@ feature.)&lt;/p&gt;
 &lt;p&gt;As a compiled, systems-level language, Rust is in a different league compared
 to the previous contestants: of course it's going to be faster. I included it
 because it provides a frame of reference. The important takeaway is that we're
-in the same ballpark with Python (roughly units of minutes), so there's no
+in the same ballpark with Python 3 (roughly units of minutes), so there's no
 pressing need to turn to a compiled language for this task.&lt;/p&gt;
 &lt;p&gt;Here's the code, for completeness sake:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;std&lt;/span&gt;::&lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
@@ -332,8 +337,8 @@ library, and (b) plenty efficient.&lt;/p&gt;
 for being slow at text munching, at any rate); it's to give a convincing
 account of why it's just not the right tool for the job. And not in a small
 way, either -- in a way that requires to learn a different tool, there's no way
-around it. Let me reiterate that my recommendation would hands down be
-&lt;a href="http://www.nltk.org/book/"&gt;Python&lt;/a&gt;.&lt;/p&gt;
+around it. Let me reiterate that my recommendation would hands down be &lt;a href="http://www.nltk.org/book/"&gt;Python
+3&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Once the data is extracted, go back to R by all means. Although
 Python does have a fairly nice high-level &lt;a href="http://pandas.pydata.org/"&gt;data analysis library&lt;/a&gt;, it's
 not my intention to discourage anyone from using R for what it &lt;em&gt;is&lt;/em&gt; good at,
