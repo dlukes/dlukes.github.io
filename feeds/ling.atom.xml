@@ -20,8 +20,8 @@ yourself and can get started &lt;a href="http://www.nltk.org/book/"&gt;learning 
 &lt;p&gt;(Another big problem is that R doesn't have an efficient and versatile hash
 table data structure.)&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
-&lt;p&gt;If you're planning to process corpora of tens of millions of tokens or more --
-spoiler alert, you probably shouldn't do it in R.&lt;/p&gt;
+&lt;p&gt;If you're planning to process corpora of hundreds of millions of tokens or more
+-- spoiler alert, you probably shouldn't do it in R.&lt;/p&gt;
 &lt;h1&gt;Task&lt;/h1&gt;
 &lt;p&gt;The following details an informal test comparing the speed of R, Python, Rust
 and Perl at processing a large corpus file (~120M tokens, 1.5GB gzipped) and
