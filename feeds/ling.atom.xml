@@ -23,14 +23,7 @@ table data structure.)&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;If you're planning to process corpora of hundreds of millions of tokens or more
 -- spoiler alert, you probably shouldn't do it in R.&lt;/p&gt;
-&lt;h1&gt;Task&lt;/h1&gt;
-&lt;p&gt;The following details an informal test comparing the speed of R, Python 3, Rust
-and Perl at processing a large corpus file (~120M tokens, 1.5GB gzipped) and
-creating a frequency distribution of headwords per part-of-speech. The idea is
-to see whether R is a viable alternative in this domain, or whether the slowing
-down caused by the inability to use vectorized computations (because we can't
-load the entire thing into memory at once) will just be too much.&lt;/p&gt;
-&lt;h1&gt;R: 1 day (!)&lt;/h1&gt;
+&lt;h1&gt;R: 1 day (!) / 15 hours (see EDIT below, but still !)&lt;/h1&gt;
 &lt;p&gt;After quite some exploration of various alternatives for the individual
 subtasks, this is the program that I came up with:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;stringi&lt;span class="p"&gt;)&lt;/span&gt;
@@ -96,6 +89,22 @@ a hundredth, which would begin to make R competitive, then I would argue that a
 language which lets you shoot yourself so spectacularly in the foot
 performance-wise if you're not hip to some clever tricks should just be avoided
 for tasks where said performance matters.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; Replacing &lt;code&gt;stri_split_boundaries(tag, n=2, type="character")[[1]][1]&lt;/code&gt;
+above with &lt;code&gt;stri_sub(tag, from=1, to=1)&lt;/code&gt;, you can cut the running time down to
+15 hours. That's still way too much in comparison with the competitors, and
+just reinforces one of the points made below: there's often no default and
+efficient way of doing some basic operations (like string manipulation) in R.&lt;/p&gt;
+&lt;p&gt;This is in great part due to R's emphasis on vectorization, which leads to a
+proliferation of subtly different functions designed for doing subtly different
+kinds of vectorized passes over data. Good luck trying to remember them all.
+And if you pick the wrong one (cf. &lt;code&gt;stri_split_boundaries()&lt;/code&gt; vs. &lt;code&gt;stri_sub()&lt;/code&gt;)
+-- because there are just too many similar ways of achieving the same result
+and too much documentation to read before you even begin to see what you should
+use -- you get penalized heavily. This is very programmer-unfriendly design.&lt;/p&gt;
+&lt;p&gt;Contrast this with the &lt;a href="https://www.python.org/dev/peps/pep-0020/#the-zen-of-python"&gt;Zen of Python&lt;/a&gt;: "There should be one -- and
+preferably only one -- obvious way to do it."&lt;/p&gt;
+&lt;hr&gt;
 &lt;p&gt;With these general considerations out of the way, let's look at some details of
 how to implement this task in R. In many cases, it's unclear how you should
 even approach the problem in R, due to &lt;strong&gt;missing or confusing built-in
@@ -198,12 +207,25 @@ takes just a little longer than the version with hashes, about 1.36 days.&lt;/p&
 bad when they grow large as to be comparable with that of lists? Who knows, and
 frankly, I don't care enough to want to find out. If it's the for-loops though,
 then adding efficient hashes to R won't really solve anything.)&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; With &lt;code&gt;stri_sub()&lt;/code&gt; substituted for &lt;code&gt;stri_split_boundaries()&lt;/code&gt; as
+detailed above, the code using lists runs in about 1.28 days, which is a much
+smaller improvement than in the case of the code using lists (1.33 days → 15
+hours).&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2&gt;Summary&lt;/h2&gt;
 &lt;p&gt;If you like R and your reaction to this is, "That's not fair! R was never meant
 to do any of this, that's why everything feels so backhanded." -- then good,
 that's basically the gist of this post: &lt;strong&gt;don't use R for something it wasn't
 meant to do&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;What are the alternatives, then?&lt;/p&gt;
+&lt;h1&gt;Task&lt;/h1&gt;
+&lt;p&gt;The following details an informal test comparing the speed of R, Python 3, Rust
+and Perl at processing a large corpus file (~120M tokens, 1.5GB gzipped) and
+creating a frequency distribution of headwords per part-of-speech. The idea is
+to see whether R is a viable alternative in this domain, or whether the slowing
+down caused by the inability to use vectorized computations (because we can't
+load the entire thing into memory at once) will just be too much.&lt;/p&gt;
 &lt;h1&gt;Python 3: 5 minutes&lt;/h1&gt;
 &lt;p&gt;Yes, that's right. It takes Python 3 &lt;strong&gt;5 minutes&lt;/strong&gt; to do the same task that
 took R &lt;strong&gt;over a day&lt;/strong&gt;. The code feels a lot simpler too:&lt;/p&gt;
