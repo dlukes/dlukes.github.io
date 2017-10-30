@@ -34,18 +34,8 @@ tl;dr
 If you're planning to process corpora of hundreds of millions of tokens or more
 -- spoiler alert, you probably shouldn't do it in R.
 
-Task
-====
-
-The following details an informal test comparing the speed of R, Python 3, Rust
-and Perl at processing a large corpus file (~120M tokens, 1.5GB gzipped) and
-creating a frequency distribution of headwords per part-of-speech. The idea is
-to see whether R is a viable alternative in this domain, or whether the slowing
-down caused by the inability to use vectorized computations (because we can't
-load the entire thing into memory at once) will just be too much.
-
-R: 1 day (!)
-============
+R: 1 day (!) / 15 hours (see EDIT below, but still !)
+=====================================================
 
 After quite some exploration of various alternatives for the individual
 subtasks, this is the program that I came up with:
@@ -114,6 +104,27 @@ a hundredth, which would begin to make R competitive, then I would argue that a
 language which lets you shoot yourself so spectacularly in the foot
 performance-wise if you're not hip to some clever tricks should just be avoided
 for tasks where said performance matters.
+
+---
+
+**EDIT:** Replacing `stri_split_boundaries(tag, n=2, type="character")[[1]][1]`
+above with `stri_sub(tag, from=1, to=1)`, you can cut the running time down to
+15 hours. That's still way too much in comparison with the competitors, and
+just reinforces one of the points made below: there's often no default and
+efficient way of doing some basic operations (like string manipulation) in R.
+
+This is in great part due to R's emphasis on vectorization, which leads to a
+proliferation of subtly different functions designed for doing subtly different
+kinds of vectorized passes over data. Good luck trying to remember them all.
+And if you pick the wrong one (cf. `stri_split_boundaries()` vs. `stri_sub()`)
+-- because there are just too many similar ways of achieving the same result
+and too much documentation to read before you even begin to see what you should
+use -- you get penalized heavily. This is very programmer-unfriendly design.
+
+Contrast this with the [Zen of Python][py-zen]: "There should be one -- and
+preferably only one -- obvious way to do it."
+
+---
 
 With these general considerations out of the way, let's look at some details of
 how to implement this task in R. In many cases, it's unclear how you should
@@ -238,6 +249,15 @@ bad when they grow large as to be comparable with that of lists? Who knows, and
 frankly, I don't care enough to want to find out. If it's the for-loops though,
 then adding efficient hashes to R won't really solve anything.)
 
+---
+
+**EDIT:** With `stri_sub()` substituted for `stri_split_boundaries()` as
+detailed above, the code using lists runs in about 1.28 days, which is a much
+smaller improvement than in the case of the code using lists (1.33 days → 15
+hours).
+
+---
+
 Summary
 -------
 
@@ -247,6 +267,16 @@ that's basically the gist of this post: **don't use R for something it wasn't
 meant to do**.
 
 What are the alternatives, then?
+
+Task
+====
+
+The following details an informal test comparing the speed of R, Python 3, Rust
+and Perl at processing a large corpus file (~120M tokens, 1.5GB gzipped) and
+creating a frequency distribution of headwords per part-of-speech. The idea is
+to see whether R is a viable alternative in this domain, or whether the slowing
+down caused by the inability to use vectorized computations (because we can't
+load the entire thing into memory at once) will just be too much.
 
 Python 3: 5 minutes
 =================
@@ -428,6 +458,7 @@ large quantities of text data, the answer is a big, resounding **NOT R**!
 [r-bigoh]: https://stackoverflow.com/questions/41353298/what-is-the-time-complexity-of-name-look-up-in-an-r-list
 [hash]: https://cran.r-project.org/web/packages/hash/index.html
 [hashmap]: https://cran.r-project.org/web/packages/hashmap/index.html
+[py-zen]: https://www.python.org/dev/peps/pep-0020/#the-zen-of-python
 
 [^1]: You could also offload the decompression to a different thread in the
 same process, but that complicates the implementation. Piping gives you
