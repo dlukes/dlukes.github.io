@@ -614,7 +614,7 @@ Little Umbrellas            </a>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>What happens in the range [128; 256) is not covered by the <code>ASCII</code> standard. In the 1990s, many encodings were standardized which used this range for their own purposes, usually representing additional accented characters used in a particular region. E.g. Czech (and Slovak, Polish...) alphabets can be represented using the ISO <code>latin-2</code> encoding, or Microsoft's <code>cp-1250</code>. Encodings which stick with the same character mappings as <code>ASCII</code> in the range [0; 128) <strong>and represent them physically in the same way (as 1 byte)</strong>, while potentially adding more character mappings beyond that, are called <strong><code>ASCII</code>-compatible</strong>.</p>
+<p>What happens in the range [128; 256) is not covered by the <code>ASCII</code> standard. In the 1990s, many encodings were standardized which used this range for their own purposes, usually representing additional accented characters used in a particular region. E.g. Czech (and Slovak, Polish...) alphabets can be represented using the ISO <code>latin-2</code> encoding, or Microsoft's <code>cp-1250</code>. Encodings which stick to the same character mappings as <code>ASCII</code> in the range [0; 128) <strong>and represent them physically in the same way (as 1 byte)</strong>, while potentially adding more character mappings beyond that, are called <strong><code>ASCII</code>-compatible</strong>.</p>
 <p><code>ASCII</code> compatibility is a good thing&trade;, because when you start reading a character stream in a computer, there's <strong>no way to know in advance what encoding it is in</strong> (unless it's a file you've encoded yourself). So in practice, a heuristic has been established to start reading the stream assuming it is <code>ASCII</code> by default, and switch to a different encoding if evidence becomes available that motivates it. For instance, HTML files should all start something like this:</p>
 <div class="highlight"><pre><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
@@ -624,6 +624,7 @@ Little Umbrellas            </a>
 </pre></div>
 <p>This way, whenever a program wants to read a file like this, it can start off with <code>ASCII</code>, waiting to see if it reaches the <code>charset</code> (i.e. encoding) attribute, and once it does, it can switch from <code>ASCII</code> to that encoding (<code>UTF-8</code> here) and restart reading the file, now fairly sure that it's using the correct encoding. This trick works only if we can assume that whatever encoding the rest of the file is in, the first few lines can be considered as <code>ASCII</code> for all practical intents and purposes.</p>
 <p>Without the <code>charset</code> attribute, the only way to know if the encoding is right would be for you to look at the rendered text and see if it makes sense; if it did not, you'd have to resort to trial and error, manually switching the encodings and looking for the one in which the numbers behind the characters stop coming out as gibberish and are actually translated into intelligible text.</p>
+<p>Let's take a look at printable characters in the <code>Latin-2</code> <strong>character set</strong>. The character set consists of mappings between integers and characters; each one of these is called a "codepoint". The <code>Latin-2</code> <strong>encoding</strong> then defines how to encode each of these integers as a series of bits (1's and 0's) in the computer's memory.</p>
 
 </div>
 </div>
@@ -633,15 +634,14 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Let&#39;s take a look at printable characters in the latin-2 character</span>
-<span class="c1"># set. Each mapping is called a &quot;codepoint&quot;: it is a correspondence</span>
-<span class="c1"># between an integer and a character.</span>
-<span class="kn">import</span> <span class="nn">codecs</span>
-
-<span class="n">latin2</span> <span class="o">=</span> <span class="p">[]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">latin2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># the Latin-2 character set has 256 codepoints, corresponding to</span>
+<span class="c1"># integers from 0 to 255</span>
 <span class="k">for</span> <span class="n">codepoint</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">):</span>
+    <span class="c1"># the Latin-2 encoding is simple: each codepoint is encoded</span>
+    <span class="c1"># as the byte corresponding to that integer in binary</span>
     <span class="n">byte</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">codepoint</span><span class="p">])</span>
-    <span class="n">character</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">byte</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin2&quot;</span><span class="p">)</span>
+    <span class="n">character</span> <span class="o">=</span> <span class="n">byte</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin2&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">character</span><span class="o">.</span><span class="n">isprintable</span><span class="p">():</span>
         <span class="n">latin2</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">codepoint</span><span class="p">,</span> <span class="n">character</span><span class="p">))</span>
 
@@ -870,7 +870,7 @@ Little Umbrellas            </a>
 <li>how to handle multilingual text with characters from many different alphabets, which are not part of the same 8-bit encoding?</li>
 <li>how to handle writing systems which have way more than 256 "characters", e.g. Chinese, Japanese and Korean (CJK) ideograms?</li>
 </ul>
-<p>For these purposes, a standard encoding known as <a href="https://en.wikipedia.org/wiki/Unicode"><strong>Unicode</strong></a> was developed which strives for universal coverage of all possible character sets. Unicode is much bigger than the encodings we've seen so far -- its most frequently used subset, the <a href="https://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">Basic Multilingual Plane</a>, has 2^16 codepoints, but overall the number of codepoints is past 1M and there's room to accommodate many more.</p>
+<p>For these purposes, a standard character set known as <a href="https://en.wikipedia.org/wiki/Unicode"><strong>Unicode</strong></a> was developed which strives for universal coverage of (ultimately) all characters ever used in the history of writing, even adding new ones like <a href="https://unicode.org/emoji/charts/full-emoji-list.html">emojis</a>. Unicode is much bigger than the character sets we've seen so far -- its most frequently used subset, the <a href="https://en.wikipedia.org/wiki/Plane_%28Unicode%29#Basic_Multilingual_Plane">Basic Multilingual Plane</a>, has 2^16 codepoints, but overall the number of codepoints is past 1M and there's room to accommodate many more.</p>
 
 </div>
 </div>
@@ -930,23 +930,19 @@ Little Umbrellas            </a>
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">print_as_binary_utf8</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Prints binary representation of string as encoded by UTF-8.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">print_as_binary_utf8</span><span class="p">(</span><span class="n">char</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Prints binary representation of character as encoded by UTF-8.</span>
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">binary_bytes</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># encode the string as UTF-8 and iterate over the bytes</span>
-    <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">):</span>
-        <span class="c1"># generate a string of general format &quot;0b101...&quot;, which</span>
-        <span class="c1"># is the binary representation of the byte</span>
-        <span class="n">binary</span> <span class="o">=</span> <span class="nb">bin</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span>
-        <span class="c1"># remove the leading &quot;0b&quot;</span>
-        <span class="n">binary</span> <span class="o">=</span> <span class="n">binary</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
-        <span class="c1"># pad the representation with leading zeros to the size of</span>
-        <span class="c1"># a full byte (= a sequence of 8 1&#39;s and 0&#39;s) if necessary</span>
-        <span class="n">binary_byte</span> <span class="o">=</span> <span class="n">binary</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
-        <span class="n">binary_bytes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">binary_byte</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; encoded in UTF-8 is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">binary_bytes</span><span class="p">))</span>
+    <span class="c1"># encode the string as UTF-8 and iterate over the bytes;</span>
+    <span class="c1"># iterating over a sequence of bytes yields integers in the</span>
+    <span class="c1"># range [0; 256); the formatting directive &quot;{:08b}&quot; does two</span>
+    <span class="c1"># things:</span>
+    <span class="c1">#   - &quot;b&quot; prints the integer in its binary representation</span>
+    <span class="c1">#   - &quot;08&quot; pads the binary representation with 0&#39;s to a total</span>
+    <span class="c1">#     width of 8 characters, which is the width of a byte</span>
+    <span class="n">binary_bytes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">{:08b}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">byte</span><span class="p">)</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">char</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{!r}</span><span class="s2"> encoded in UTF-8 is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="n">binary_bytes</span><span class="p">))</span>
 
 <span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>   <span class="c1"># the representations...</span>
 <span class="n">print_as_binary_utf8</span><span class="p">(</span><span class="s2">&quot;č&quot;</span><span class="p">)</span>   <span class="c1"># ... keep...</span>
@@ -1465,7 +1461,6 @@ s2 is 2 character(s) long.
 <span class="c1"># in it and eliminate or replace those that shouldn&#39;t be there</span>
 <span class="kn">import</span> <span class="nn">unicodedata</span>
 
-
 <span class="k">def</span> <span class="nf">inspect_codepoints</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
     <span class="n">charset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">charset</span><span class="p">):</span>
@@ -1566,8 +1561,8 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
 <p>In any case, here's what happens when processing text with Python ("Unicode" in the central box stands for Python's internal representation of Unicode, which is <strong>not</strong> <code>UTF-8</code> nor <code>UTF-16</code>):</p>
 <p><img alt="Text IO in Python" src="http://www.nltk.org/images/unicode.png" style="max-width: 100%;"></p>
 <p>(Image shamelessly hotlinked from / courtesy of the <a href="http://www.nltk.org/book/">NLTK Book</a>. Go check it out, it's an awesome intro to Python programming for linguists!)</p>
-<blockquote><p>A terminological postscript: we've been using some terms a bit informally and for the most part it's okay, but it's good to get the distinctions straight in one's head at least once. So, a <strong>character set</strong> is a mapping between <strong>codepoints</strong> (integers) and <strong>characters</strong>. We may for instance say that in our character set, the integer 99 corresponds to the character "c".</p>
-<p>On the other hand, an <strong>encoding</strong> is a mapping between a <strong>codepoint</strong> (an integer) and a <strong>physical sequence of 1's and 0's that represent it in memory</strong>. With fixed-width encodings, this mapping is generally straightforward -- the 1's and 0's directly represent the given integer, only in binary and padded with zeros to fit the desired width. With variable-width encodings, as the necessity creeps in to include the information about how many bits are spanned by the current character, this straightforward correspondence breaks down.</p>
+<blockquote><p>A terminological postscript: we've been using some terms a bit informally, but now that we have a practical intuition for what they mean, it's good to get the definitions straight in one's head. So, a <strong>character set</strong> is a mapping between <strong>codepoints</strong> (integers) and <strong>characters</strong>. We may for instance say that in our character set, the integer 99 corresponds to the character "c".</p>
+<p>On the other hand, an <strong>encoding</strong> is a mapping between a <strong>codepoint</strong> (an integer) and a <strong>physical sequence of 1's and 0's that represent it in memory</strong>. With fixed-width encodings, this mapping is generally straightforward -- the 1's and 0's directly represent the given integer, only in binary and padded with zeros to fit the desired width. With variable-width encodings, which have to explicitly encode information about how many bits are spanned by each codepoint, this straightforward correspondence breaks down.</p>
 <p>A comparison might be helpful here: as encodings, <code>UTF-8</code> and <code>UTF-16</code> both use <strong>the same character set</strong> -- the same integers corresponding to the same characters. But since they're <strong>different encodings</strong>, when the time comes to turn these integers into sequences of bits to store in a computer's memory, each of them generates a different one.</p>
 </blockquote>
 <p>For more on Unicode, a great read already hinted at above is Joel Spolsky's <a href="http://www.joelonsoftware.com/articles/Unicode.html">The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)</a>. Another great piece of material is the <a href="https://youtu.be/MijmeoH9LT4">Characters, Symbols and the Unicode Miracle</a> video by the <a href="https://www.youtube.com/channel/UC9-y-6csu5WGm29I7JiwpnA">Computerphile</a> channel on YouTube. To make the discussion digestible for newcomers, I sometimes slightly distorted facts about how things are "really really" done. And some inaccuracies may be genuine mistakes. In any case, please let me know in the comments! I'm grateful for feedback and looking to improve this material; I'll fix the mistakes and consider ditching some of the simplifications if they prove untenable :)</p>
@@ -1651,6 +1646,41 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/bonito.html">
+                            Bonito
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/osx.html">
+                            osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/kontext.html">
+                            KonText
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/automator.html">
+                            automator
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/noske.html">
+                            NoSke
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/korpus.html">
+                            korpus
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/r.html">
+                            r
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
                         <a href="http://dlukes.github.io/tag/linguistics.html">
                             linguistics
                         </a>
@@ -1660,84 +1690,14 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                             python
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/bonito.html">
-                            Bonito
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/r.html">
-                            r
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/automator.html">
-                            automator
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/korpus.html">
-                            korpus
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/osx.html">
-                            osx
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/noske.html">
-                            NoSke
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/kontext.html">
-                            KonText
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/unicode.html">
+                            unicode
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/charset.html">
-                            charset
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/text-processing.html">
-                            text processing
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/perl.html">
-                            perl
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/rust.html">
-                            rust
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/fill.html">
-                            fill
+                        <a href="http://dlukes.github.io/tag/shiny.html">
+                            shiny
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1746,13 +1706,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/gui.html">
-                            gui
+                        <a href="http://dlukes.github.io/tag/html.html">
+                            html
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
+                        <a href="http://dlukes.github.io/tag/par.html">
+                            par
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1761,8 +1721,43 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/spacemacs.html">
-                            spacemacs
+                        <a href="http://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/monkey-patching.html">
+                            monkey-patching
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/programming.html">
+                            programming
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1776,73 +1771,13 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/javascript.html">
                             javascript
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/services.html">
-                            services
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/shiny.html">
-                            shiny
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/unicode.html">
-                            unicode
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/versioning.html">
-                            versioning
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/monkey-patching.html">
-                            monkey-patching
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/lines.html">
-                            lines
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
+                        <a href="http://dlukes.github.io/tag/rust.html">
+                            rust
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1851,13 +1786,73 @@ u (\u0075): LATIN SMALL LETTER U (category: Ll)
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/programming.html">
-                            programming
+                        <a href="http://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/charset.html">
+                            charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/spacemacs.html">
+                            spacemacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/text-processing.html">
+                            text processing
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/daemon.html">
+                            daemon
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/dokuwiki.html">
                             dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacs.html">
+                            emacs
                         </a>
                     </li>
                 </ul>
