@@ -663,6 +663,45 @@ what fits your brain better, what your use case is. In the hopes that some
 people might find opinionated guidance useful for a change (I know I personally
 often do, when flirting with a new language): if you're looking to process
 large quantities of text data, the answer is a big, resounding <strong>NOT R</strong>!</p>
+<h1>A vectorized postscript</h1>
+<p>Since I ran these on a server with 64 GB of RAM, I figured I might as well try
+loading everything into memory in R and doing it the proper, vectorized way,
+while I'm at it. Here's the code, using <code>dplyr</code>:</p>
+<div class="highlight"><pre><span></span><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>stringi<span class="p">)</span>
+
+start <span class="o">&lt;-</span> <span class="kp">Sys.time</span><span class="p">()</span>
+
+con <span class="o">&lt;-</span> <span class="kp">file</span><span class="p">(</span><span class="s">&quot;stdin&quot;</span><span class="p">,</span> open<span class="o">=</span><span class="s">&quot;rt&quot;</span><span class="p">)</span>
+corpus <span class="o">&lt;-</span> <span class="kp">readLines</span><span class="p">(</span>con<span class="p">)</span>
+
+diff <span class="o">&lt;-</span>  <span class="kp">Sys.time</span><span class="p">()</span> <span class="o">-</span> start
+<span class="kp">cat</span><span class="p">(</span><span class="kp">sprintf</span><span class="p">(</span><span class="s">&quot;Corpus read in after %g %s.\n&quot;</span><span class="p">,</span> <span class="kp">diff</span><span class="p">,</span> <span class="kp">units</span><span class="p">(</span><span class="kp">diff</span><span class="p">)))</span>
+
+corpus <span class="o">&lt;-</span> stri_subset_fixed<span class="p">(</span>corpus<span class="p">,</span> <span class="s">&quot;\t&quot;</span><span class="p">)</span>
+corpus <span class="o">&lt;-</span> stri_split_fixed<span class="p">(</span>corpus<span class="p">,</span> <span class="s">&quot;\t&quot;</span><span class="p">,</span> simplify<span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+freq_dist <span class="o">&lt;-</span> tibble<span class="p">(</span>
+  POS<span class="o">=</span>stri_sub<span class="p">(</span>corpus<span class="p">[,</span> <span class="m">3</span><span class="p">],</span> from<span class="o">=</span><span class="m">1</span><span class="p">,</span> to<span class="o">=</span><span class="m">1</span><span class="p">),</span>
+  LEMMA<span class="o">=</span>corpus<span class="p">[,</span> <span class="m">2</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">%&gt;%</span>
+  group_by<span class="p">(</span>POS<span class="p">,</span> LEMMA<span class="p">)</span> <span class="o">%&gt;%</span>
+  summarize<span class="p">(</span>FREQ<span class="o">=</span>n<span class="p">())</span>
+
+diff <span class="o">&lt;-</span> <span class="kp">Sys.time</span><span class="p">()</span> <span class="o">-</span> start
+<span class="kp">cat</span><span class="p">(</span><span class="kp">sprintf</span><span class="p">(</span><span class="s">&quot;Finished processing corpus after %g %s.\n&quot;</span><span class="p">,</span> <span class="kp">diff</span><span class="p">,</span> <span class="kp">units</span><span class="p">(</span><span class="kp">diff</span><span class="p">)))</span>
+</pre></div>
+
+
+<p>Let me say at the outset that this code looks much nicer -- it's clean, modern
+R, made possible in great part by Hadley Wickham's efforts to redesign the data
+manipulation vocabulary from the ground up. Note also that we've made a
+concession on our requirements: the resulting data structure is a tibble, not a
+hash, i.e. key lookup time is not constant but depends on the size of the data.</p>
+<p>Well, just loading the corpus into memory took ~18 minutes. The script then ran
+for <strong>several days</strong>, in the course of which I checked every now and then to
+see how much memory it was using: ~35 GB. I don't suppose anyone has that much
+RAM on their laptop. Then someone rebooted the server before the program could
+complete. I think you'll agree the experiment is conclusive even so.</p>
 <!----------------------------- LINKS AND NOTES ----------------------------->
 
 <div class="footnote">
@@ -743,18 +782,13 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/r.html">
-                            r
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
                         <a href="http://dlukes.github.io/tag/korpus.html">
                             korpus
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/osx.html">
-                            osx
+                        <a href="http://dlukes.github.io/tag/linguistics.html">
+                            linguistics
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -768,8 +802,18 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/linguistics.html">
-                            linguistics
+                        <a href="http://dlukes.github.io/tag/python.html">
+                            python
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/osx.html">
+                            osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="http://dlukes.github.io/tag/r.html">
+                            r
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -778,33 +822,18 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/kontext.html">
-                            KonText
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
                         <a href="http://dlukes.github.io/tag/bonito.html">
                             Bonito
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="http://dlukes.github.io/tag/python.html">
-                            python
+                        <a href="http://dlukes.github.io/tag/kontext.html">
+                            KonText
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/rust.html">
-                            rust
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/fill.html">
-                            fill
+                        <a href="http://dlukes.github.io/tag/lines.html">
+                            lines
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -813,33 +842,8 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/spacemacs.html">
-                            spacemacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/monkey-patching.html">
-                            monkey-patching
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/hack.html">
-                            hack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/encoding.html">
-                            encoding
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/par.html">
-                            par
+                        <a href="http://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -848,23 +852,8 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/text-processing.html">
-                            text processing
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/development.html">
-                            development
+                        <a href="http://dlukes.github.io/tag/wrap.html">
+                            wrap
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -873,48 +862,13 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/javascript.html">
-                            javascript
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/iframe.html">
-                            iframe
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/charset.html">
-                            charset
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/dependency.html">
                             dependency
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/versioning.html">
-                            versioning
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/services.html">
-                            services
+                        <a href="http://dlukes.github.io/tag/development.html">
+                            development
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -923,18 +877,13 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/shiny.html">
-                            shiny
+                        <a href="http://dlukes.github.io/tag/versioning.html">
+                            versioning
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/emacs.html">
-                            emacs
+                        <a href="http://dlukes.github.io/tag/charset.html">
+                            charset
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -943,18 +892,108 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/monkey-patching.html">
+                            monkey-patching
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/daemon.html">
+                            daemon
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/spacemacs.html">
+                            spacemacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/iframe.html">
+                            iframe
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/javascript.html">
+                            javascript
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="http://dlukes.github.io/tag/chomsky.html">
                             Chomsky
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/wrap.html">
-                            wrap
+                        <a href="http://dlukes.github.io/tag/hack.html">
+                            hack
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="http://dlukes.github.io/tag/lines.html">
-                            lines
+                        <a href="http://dlukes.github.io/tag/text-processing.html">
+                            text processing
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/shiny.html">
+                            shiny
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/rust.html">
+                            rust
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="http://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                 </ul>
