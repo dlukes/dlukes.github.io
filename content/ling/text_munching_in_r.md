@@ -445,6 +445,50 @@ people might find opinionated guidance useful for a change (I know I personally
 often do, when flirting with a new language): if you're looking to process
 large quantities of text data, the answer is a big, resounding **NOT R**!
 
+A vectorized postscript
+=======================
+
+Since I ran these on a server with 64 GB of RAM, I figured I might as well try
+loading everything into memory in R and doing it the proper, vectorized way,
+while I'm at it. Here's the code, using `dplyr`:
+
+```r
+library(dplyr)
+library(stringi)
+
+start <- Sys.time()
+
+con <- file("stdin", open="rt")
+corpus <- readLines(con)
+
+diff <-  Sys.time() - start
+cat(sprintf("Corpus read in after %g %s.\n", diff, units(diff)))
+
+corpus <- stri_subset_fixed(corpus, "\t")
+corpus <- stri_split_fixed(corpus, "\t", simplify=TRUE)
+freq_dist <- tibble(
+  POS=stri_sub(corpus[, 3], from=1, to=1),
+  LEMMA=corpus[, 2]
+) %>%
+  group_by(POS, LEMMA) %>%
+  summarize(FREQ=n())
+
+diff <- Sys.time() - start
+cat(sprintf("Finished processing corpus after %g %s.\n", diff, units(diff)))
+```
+
+Let me say at the outset that this code looks much nicer -- it's clean, modern
+R, made possible in great part by Hadley Wickham's efforts to redesign the data
+manipulation vocabulary from the ground up. Note also that we've made a
+concession on our requirements: the resulting data structure is a tibble, not a
+hash, i.e. key lookup time is not constant but depends on the size of the data.
+
+Well, just loading the corpus into memory took ~18 minutes. The script then ran
+for **several days**, in the course of which I checked every now and then to
+see how much memory it was using: ~35 GB. I don't suppose anyone has that much
+RAM on their laptop. Then someone rebooted the server before the program could
+complete. I think you'll agree the experiment is conclusive even so.
+
 <!----------------------------- LINKS AND NOTES ----------------------------->
 
 [r-growth]: https://stackoverflow.blog/2017/10/10/impressive-growth-r/
