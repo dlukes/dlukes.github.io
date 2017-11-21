@@ -210,7 +210,7 @@ then adding efficient hashes to R won't really solve anything.)&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; With &lt;code&gt;stri_sub()&lt;/code&gt; substituted for &lt;code&gt;stri_split_boundaries()&lt;/code&gt; as
 detailed above, the code using lists runs in about 1.28 days, which is a much
-smaller improvement than in the case of the code using lists (1.33 days → 15
+smaller improvement than in the case of the code using hashes (1.33 days → 15
 hours).&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2&gt;Summary&lt;/h2&gt;
