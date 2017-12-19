@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>Configuring Emacs Daemon on Mac OS X - Little Umbrellas</title>
+    <title>jupyter - Little Umbrellas</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,27 +166,16 @@ init_mathjax();
 </script>
     <link href="http://dlukes.github.io/images/favicon.ico" rel="icon">
 
-<link rel="canonical" href="http://dlukes.github.io/emacs-daemon-osx.html">
 
-        <meta name="author" content="dlukes" />
-        <meta name="keywords" content="osx,gui,emacs,daemon,emacsclient,spacemacs,automator" />
-        <meta name="description" content="I know I promised this article a loooong time ago (June 2014, when I first got a Mac, to judge by the previous timestamp in the header of this file), but since the historically attested readership of this blog is 2 + a bunch of my facebook friends who I nagged …" />
+    <meta name="author" content="dlukes" />
+    <meta name="keywords" content="jupyter" />
 
+    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Little Umbrellas" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="Configuring Emacs Daemon on Mac OS X"/>
-        <meta property="og:url" content="http://dlukes.github.io/emacs-daemon-osx.html"/>
-        <meta property="og:description" content="I know I promised this article a loooong time ago (June 2014, when I first got a Mac, to judge by the previous timestamp in the header of this file), but since the historically attested readership of this blog is 2 + a bunch of my facebook friends who I nagged …"/>
-        <meta property="article:published_time" content="2016-02-20" />
-            <meta property="article:section" content="macOS" />
-            <meta property="article:tag" content="osx" />
-            <meta property="article:tag" content="gui" />
-            <meta property="article:tag" content="emacs" />
-            <meta property="article:tag" content="daemon" />
-            <meta property="article:tag" content="emacsclient" />
-            <meta property="article:tag" content="spacemacs" />
-            <meta property="article:tag" content="automator" />
-            <meta property="article:author" content="dlukes" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Little Umbrellas"/>
+        <meta property="og:url" content="http://dlukes.github.io"/>
+        <meta property="og:description" content="Little Umbrellas"/>
 
 
     <!-- Bootstrap -->
@@ -203,8 +192,6 @@ init_mathjax();
 
 
 
-        <link href="http://dlukes.github.io/feeds/macos.atom.xml" type="application/atom+xml" rel="alternate"
-              title="Little Umbrellas macOS ATOM Feed"/>
 
 </head>
 <body>
@@ -235,7 +222,7 @@ Little Umbrellas            </a>
                         <li >
                             <a href="http://dlukes.github.io/category/ling.html">ling</a>
                         </li>
-                        <li class="active">
+                        <li >
                             <a href="http://dlukes.github.io/category/macos.html">macOS</a>
                         </li>
             </ul>
@@ -256,229 +243,13 @@ Little Umbrellas            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-    <section id="content">
-        <article>
-            <header class="page-header">
-                <h1>
-                    <a href="http://dlukes.github.io/emacs-daemon-osx.html"
-                       rel="bookmark"
-                       title="Permalink to Configuring Emacs Daemon on Mac OS X">
-                        Configuring Emacs Daemon on Mac OS X
-                    </a>
-                </h1>
-            </header>
-            <div class="entry-content">
-                <div class="panel">
-                    <div class="panel-body">
-<footer class="post-info">
-    <span class="label label-default">Date</span>
-    <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2016-02-20T00:00:00+01:00"> Sat 20 February 2016</time>
-    </span>
-
-
-
-
-
-<span class="label label-default">Tags</span>
-	<a href="http://dlukes.github.io/tag/osx.html">osx</a>
-        /
-	<a href="http://dlukes.github.io/tag/gui.html">gui</a>
-        /
-	<a href="http://dlukes.github.io/tag/emacs.html">emacs</a>
-        /
-	<a href="http://dlukes.github.io/tag/daemon.html">daemon</a>
-        /
-	<a href="http://dlukes.github.io/tag/emacsclient.html">emacsclient</a>
-        /
-	<a href="http://dlukes.github.io/tag/spacemacs.html">spacemacs</a>
-        /
-	<a href="http://dlukes.github.io/tag/automator.html">automator</a>
-    
-</footer><!-- /.post-info -->                    </div>
+            <article>
+                <h2><a href="http://dlukes.github.io/jupyter-magic.html">Make the most of Python Jupyter notebooks</a></h2>
+                <div class="summary"><p>My favorite and most useful IPython magic functions.</p>
+                    <a class="btn btn-default btn-xs" href="http://dlukes.github.io/jupyter-magic.html">more ...</a>
                 </div>
-                <p>I know I promised this article a loooong time ago (June 2014, when I first got a
-Mac, to judge by the previous timestamp in the header of this file), but since
-the historically attested readership of this blog is 2 + a bunch of my facebook
-friends who I nagged to read
-<a href="http://dlukes.github.io/unicode.html">my attempt at explaining character encodings to non-technical people</a>,
-I don't suppose it's as if a legion of fans have been restlessly looking forward
-to this one ;) Nevertheless, the distinct advantage is that my OS X Emacs setup
-has had the opportunity to grow more mature and also much simpler in the
-meantime, which means that if a third reader accidentally stumbles over this
-note (exploding my ratings...), they might actually find something genuinely
-useful here.</p>
-<h1>tl;dr</h1>
-<p>This article presents a way to <strong>start Emacs Daemon</strong> (a persistent Emacs
-session) <strong>from the GUI</strong> and <strong>subsequently connect to it</strong> (creating frames on
-demand) using an <strong>Automator script</strong>. The <strong>benefit</strong> is that you <strong>incur
-startup time lag only once</strong> (when you start the daemon) while still being able
-to <strong>close all frames</strong> when you're not using Emacs, keeping a <strong>clean
-workspace</strong>. This is <strong>especially useful</strong> if your Emacs is <strong>heavily
-customized</strong> and <strong>loading it takes a while</strong>. Another <strong>benefit</strong> is that
-whenever you open a frame connected to an Emacs daemon, <strong>all your previously
-open buffers are still there as you left them</strong> (as opposed to opening a fresh
-instance of Emacs).</p>
-<p>Skim over the code blocks to get the
-important gist without the verbose sauce. Tested on OS X 10.11 El Capitan, with
-Homebrew Emacs and Spacemacs config.</p>
-<h1>Why Emacs Daemon, why this post</h1>
-<p>Installing Emacs on a Mac in and of itself is not that much of a problem --
-there are several options, ranging from Homebrew and Macports to
-<a href="http://emacsformacosx.com/">Emacs for Mac OS X</a>,
-<a href="https://github.com/railwaycat/emacs-mac-port">Emacs Mac Port</a> and
-<a href="http://aquamacs.org/">Aquamacs</a>. The last two in this list have some OS X
-specific tweaks (smooth scrolling, tabs, adapted keyboard shortcuts), which
-makes them perhaps more appealing out of the box but also less extensible, as
-some of the information out there about generic Emacs might not apply to them as
-straightforwardly or indeed at all.</p>
-<p>With that in mind, if you want to tinker with your Emacs config, it's a good
-idea to stick with <a href="http://brew.sh/">Homebrew's</a> fairly conservative version of
-Emacs:</p>
-<div class="highlight"><pre><span></span>$ brew update
-$ brew install emacs --with-cocoa
-<span class="c1"># this step gets you a standard OS X launcher icon</span>
-$ brew linkapps emacs
-</pre></div>
-
-
-<p>But now that you've got Emacs, and especially if you're transferring some heavy
-customization over from say Linux, you might be unhappy that each time you start
-it from cold, it takes a while, typically a few seconds. That's what <code>emacs
---daemon</code> and <code>emacsclient</code> are for: <strong>Emacs</strong> is run as a <strong>daemon</strong> in the
-<strong>backround</strong> and you connect to it with <strong>client frames</strong> that <strong>spawn almost
-instantly</strong>. This also means that you can close all existing frames to keep your
-workspace clean if you won't be using Emacs for a while (hard to imagine, right,
-since you can even
-<a href="https://github.com/vibhavp/emacs-xkcd">read xkcd from inside Emacs</a>) and then
-whip up a frame at the speed of a thought when need arises.</p>
-<p>Now this is all
-<a href="http://stackoverflow.com/a/5578718/1826241">easy to achieve when using the terminal</a>,
-but since you probably bought that Mac in great part for its shiny pretty
-elegant ergonomic GUI, you might want Emacs to use GUI frames instead of
-terminal ones and connect to the Emacs daemon (or start it if it's not running)
-by just clicking on an app icon in the launcher or finding it from Spotlight.
-That's where Automator comes in.</p>
-<h1>An Automator script</h1>
-<p><a href="http://www.macosxautomation.com/automator/">Automator</a> is a built-in OS X app
-for creating custom automated user workflows for just about any installed app
-you might have or even OS functionality. Among other things, this means that it
-allows you to wrap the daemon auto-start functionality available from the
-terminal (as described in the previous paragraph) into an app launchable from
-the GUI. Let's get down to business:</p>
-<ol>
-<li>Launch Automator and create a new document. Select <em>Application</em> as its type.</li>
-<li>Search the Actions palette on the left for the <em>Run Shell Script</em> action and
-   add it to your Automator document.</li>
-<li>In the <em>Run Shell Script</em> building block, change the following:<ul>
-<li>set <em>Shell</em> to the shell you're using and whose init files have thus the
-  <code>PATH</code> correctly set to the <code>emacs</code> and <code>emacsclient</code> executables (if
-  you're using Homebrew, it probably told you how to properly set up your
-  <code>PATH</code> as a post-install step)</li>
-<li>set <em>Pass input</em> to "as arguments" (if you then
-  <a href="http://osxdaily.com/2013/08/08/change-default-application-open-files-mac-os-x/">set this Automator app as the default for opening a given type of file</a>,
-  you'll be able to use <code>emacsclient</code> to open files by double-clicking on them
-  in Finder)</li>
-</ul>
-</li>
-<li>Finally, paste in the following code snippet and save the app e.g. as
-   <code>EmacsClient.app</code>, preferably in your Applications folder so that it is
-   easily accessible from the launcher.</li>
-</ol>
-<div class="highlight"><pre><span></span>emacsclient --no-wait -c -a emacs <span class="s2">&quot;</span><span class="nv">$@</span><span class="s2">&quot;</span> &gt;/dev/null <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">&amp;</span>
-</pre></div>
-
-
-<p><strong>EDIT</strong>: An earlier version of this article had <code>nohup</code> prepended to the
-command above; as pointed out in the comments by <strong>MaTres</strong> (thanks!), this is
-<a href="https://developer.apple.com/library/mac/technotes/tn2065/_index.html">unnecessary</a>.</p>
-<p>At the end of the day, your Automator EmacsClient.app should look something like
-this:</p>
-<p><img alt="EmacsClient.app" src="images/emacsclientapp.png" style="max-width: 100%;"></p>
-<p>The core of the command that you might want to tweak based on your particular
-Emacs setup is <code>emacsclient --no-wait -c -a emacs</code>; mine is optimized to work
-with mostly stock Spacemacs config (see below). If it doesn't work, you might
-also want to try a simple <code>emacsclient -c -a ""</code> and variations; a good
-debugging technique is to try these out in the terminal: as soon as you get the
-line working there, it'll start working in the Automator task as well.</p>
-<p><code>"$@"</code> is just the list of files (if any) passed to Emacs to open (the
-aforementioned double-click in Finder use case). The rest is some black magic to
-ensure that the shell which spawns the Emacs process (because this Automator app
-is after all, at heart, only a shell script) totally and utterly disowns it, so
-that the shell script is allowed to return and the Automator task completes as
-soon as Emacs has started (or the client has spawned a new frame). Otherwise,
-you'd end up with an irritating spinning cog wheel in your notification area
-which would stay there until you completely quit Emacs. Which is probably not
-what you want, since you're undergoing all this hassle in the first place to get
-a zen, distraction-free Emacs experience.</p>
-<p>The details of the various incantations are discussed in
-<a href="https://discussions.apple.com/thread/6474971?start=0&amp;tstart=0">this Apple forum thread</a>,
-but let's have a whirlwind tour for the moderately interested (my knowledge of
-Unix processes is far from perfect, so feel free to correct me on these points!):</p>
-<ol>
-<li><code>&gt;/dev/null</code> redirects standard output to oblivion and <code>2&gt;&amp;1</code> redirects
-   standard error to standard output (i.e. also to oblivion), which persuades
-   Automator that you're really not expecting to hear from the process via these
-   standard streams ever again, so there's no point in keeping the shell script
-   running. These can be shortened to <code>&amp;&gt;/dev/null</code>.</li>
-<li>the final <code>&amp;</code> runs the command in the background, which ensures control of
-   the shell is returned to the user as soon as the process is spawned; since
-   there are no additional commands in the shell script and all remaining ties
-   have been severed, Automator finally agrees that the task has probably done
-   all it was expected to do and exits it.</li>
-</ol>
-<h1>Wrapping up</h1>
-<p>Whew! That's it. It's really not that complicated, it's just that my prose is
-verbose, so it makes it look like there's lots and lots to do. Trust me, there
-isn't. My first go at solving this usability problem -- the one I originally
-wanted to post way back in 2014 -- was a lengthy, godawful Applescript prone to
-subtle breakage. This is <em>much</em> better.</p>
-<p>And the ability to just use a single GUI app for transparently launching <strong>and</strong>
-connecting to the Emacs daemon is pure bliss. While you're at it, for an even
-better Emacs experience, go fetch the excellent
-<a href="http://spacemacs.org">Spacemacs Emacs config distribution</a>, which pulls this
-venerable piece of software screaming into the 21st century. <strong>The best editor
-is neither Vim nor Emacs, its Vim + Emacs!</strong> The addictive icing of Vim modal
-editing on the outside, a creamy Elisp core -- what more could you want from
-life? ;)</p>
-<p>Oh and if, like me, you love
-<a href="https://github.com/nashamri/spacemacs-logo">Spacemacs' snappy icon</a> with the
-Evil spaceship over planet Emacs -- or if, like me, you have OCD -- you'll
-<a href="http://www.macworld.co.uk/how-to/mac-software/how-change-os-x-yosemites-icons-3597494/">definitely want to switch your Emacs logo to the Spacemacs one</a>!</p>
-            </div>
-            <!-- /.entry-content -->
-    <hr/>
-    <section class="comments" id="comments">
-        <h2>Comments</h2>
-
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'littleumbrellas'; // required: replace example with your forum shortname
-
-                    var disqus_identifier = 'emacs-daemon-osx';
-                var disqus_url = 'http://dlukes.github.io/emacs-daemon-osx.html';
-
-            var disqus_config = function () {
-                this.language = "en";
-            };
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function () {
-                var dsq = document.createElement('script');
-                dsq.type = 'text/javascript';
-                dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-    </section>
-        </article>
-    </section>
+            </article>
+            <hr/>
 
         </div>
         <div class="col-sm-3" id="sidebar">

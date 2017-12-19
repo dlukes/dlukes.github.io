@@ -1,5 +1,3046 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas - dlukes</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/dlukes.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2017-10-28T00:00:00+02:00</updated><entry><title>Text munching in R?</title><link href="http://dlukes.github.io/text-munching-in-r.html" rel="alternate"></link><published>2017-10-28T00:00:00+02:00</published><updated>2017-10-28T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-28:/text-munching-in-r.html</id><summary type="html">&lt;p&gt;Is R suited for processing large quantities of text data?&lt;/p&gt;</summary><content type="html">&lt;p&gt;R has been &lt;a href="https://stackoverflow.blog/2017/10/10/impressive-growth-r/"&gt;gaining traction&lt;/a&gt; as a language for data analysis. My
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas - dlukes</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/dlukes.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2017-12-19T00:00:00+01:00</updated><entry><title>Make the most of Python Jupyter notebooks</title><link href="http://dlukes.github.io/jupyter-magic.html" rel="alternate"></link><published>2017-12-19T00:00:00+01:00</published><updated>2017-12-19T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-12-19:/jupyter-magic.html</id><summary type="html">&lt;p&gt;My favorite and most useful IPython magic functions.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Python-based &lt;a href="http://jupyter.org/"&gt;Jupyter&lt;/a&gt; notebooks mostly consist of Python code, obviously, and some Markdown text. But they also offer some very handy functions and shortcuts which are not available in Python itself, and which are really helpful for interactive work. This is my personal best of / reference.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NB:&lt;/strong&gt; Most of the following also applies to the &lt;a href="https://ipython.org/"&gt;IPython REPL&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The shortcuts fall into two groups:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;magics&lt;/strong&gt;: special functions with special syntax whose names start with &lt;code&gt;%&lt;/code&gt; (in which case they apply to the rest of the line → "line magics") or &lt;code&gt;%%&lt;/code&gt; (in which case they apply to the entire cell → "cell magics")&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;command line programs&lt;/strong&gt;: if you know how to use command line programs, you can do so directly from the notebook by prefixing the command line invocation with &lt;code&gt;!&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="Magics"&gt;Magics&lt;a class="anchor-link" href="#Magics"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The syntax of magic functions is modeled after the syntax of command line programs:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;to call them, just write their name and evaluate the cell, without any parentheses (unlike regular Python functions, which are called like this: &lt;code&gt;function()&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;arguments are separated just by whitespace (in Python, there are commas: &lt;code&gt;function(arg1, arg)&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;some have optional arguments (&lt;strong&gt;options&lt;/strong&gt;) which tweak their behavior: these are formed by a hyphen and a letter, e.g. &lt;code&gt;-r&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="Getting-help"&gt;Getting help&lt;a class="anchor-link" href="#Getting-help"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;You can read more about the magic function system by calling the &lt;code&gt;%magic&lt;/code&gt; magic:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[1]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;magic&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;%quickref&lt;/code&gt; brings up a useful cheat sheet of special functionality:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[2]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;quickref&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you want more information about an object, &lt;code&gt;%pinfo&lt;/code&gt; and &lt;code&gt;%pinfo2&lt;/code&gt; are your friends:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[3]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;This foo function returns bar.&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;bar&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[4]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# shows the object&amp;#39;s docstring&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;pinfo&lt;/span&gt; foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[5]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# shows the full source code&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;pinfo2&lt;/span&gt; foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;These are so handy that they have their own special syntax: &lt;code&gt;?&lt;/code&gt; and &lt;code&gt;??&lt;/code&gt;, placed either before or after the object's name:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[6]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[7]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;foo&lt;span class="o"&gt;?&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[8]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;??&lt;/span&gt;foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[9]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;foo&lt;span class="o"&gt;??&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Of course, this also works with magic functions:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[10]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;%pylab
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Manipulating-objects"&gt;Manipulating objects&lt;a class="anchor-link" href="#Manipulating-objects"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;The appeal of an interactive environment like Jupyter is that you can inspect any object you're working with by just evaluating it:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[11]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[12]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[12]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;1&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;%who&lt;/code&gt; and &lt;code&gt;%whos&lt;/code&gt; will show you all the objects you've defined:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[13]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;who&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;foo	 
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[14]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;whos&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;Variable   Type    Data/Info
+----------------------------
+foo        int     1
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Sometimes though, these objects are large and you don't want to litter your notebook with tons of output you'll delete right afterwards. (Also, if you forget to delete it, your notebook might get &lt;a href="https://github.com/jupyter/notebook/issues/650"&gt;too large to save&lt;/a&gt;.) That's when you need to use the Jupyter pager, which lets you inspect an object in a separate window.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[15]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;This is a line of text.&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[16]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;page&lt;/span&gt; foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;By default, the pager pretty-prints objects using the &lt;code&gt;pprint()&lt;/code&gt; function from the &lt;code&gt;pprint&lt;/code&gt; module. This is handy for collections, because it nicely shows the nesting hierarchy, but not so much for strings, because special characters like newlines &lt;code&gt;\n&lt;/code&gt; are shown as escape sequences. If you want the string to look like it would if it were a text file, pass the &lt;code&gt;-r&lt;/code&gt; option ("raw") to page through the result of calling &lt;code&gt;str()&lt;/code&gt; on the object instead:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[17]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;page&lt;/span&gt; -r foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you want to inspect the source code of a module, use &lt;code&gt;%pfile&lt;/code&gt; on the object representing that module, or an object imported from that module:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[18]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;choice&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[19]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;pfile&lt;/span&gt; os
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[20]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;pfile&lt;/span&gt; choice
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Sometimes, you create an object which you know you will want to reuse in a different session or maybe in a completely different notebook. A lightweight way to achieve this is using the &lt;code&gt;%store&lt;/code&gt; magic:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[21]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;store&lt;/span&gt; foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;Stored &amp;#39;foo&amp;#39; (str)
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;You can list the values stored in your database by invoking &lt;code&gt;%store&lt;/code&gt; without arguments:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[22]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;store&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;Stored variables and their in-db values:
+foo             -&amp;gt; &amp;#39;This is a line of text.\nThis is a line of text.\
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;To restore a variable from the database into your current Python process, use the &lt;code&gt;-r&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[23]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# restores only `foo`&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;store&lt;/span&gt; -r foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[24]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# restores all variables in the database&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;store&lt;/span&gt; -r foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;And this is how you clear no longer needed variables from storage:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[25]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# removes `foo`&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;store&lt;/span&gt; -d foo
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[26]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# removes all variables&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;store&lt;/span&gt; -z
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[27]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;store&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;Stored variables and their in-db values:
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Working-with-the-file-system"&gt;Working with the file system&lt;a class="anchor-link" href="#Working-with-the-file-system"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;&lt;code&gt;%ls&lt;/code&gt; lists files in the directory where your notebook is stored:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[28]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;ls&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;classification.ipynb      foo.py               regex.ipynb
+cmudict.ipynb             jupyter_magic.ipynb  unicode.ipynb
+collocations.ipynb        libraries.ipynb      xcorr_vs_conv.ipynb
+command_line_intro.ipynb  pos_tagging.ipynb    zipf.ipynb
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you provide a path as argument, it lists that directory instead:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[29]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;ls&lt;/span&gt; /etc/nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;&lt;span class="ansi-blue-intense-fg ansi-bold"&gt;conf.d&lt;/span&gt;/         koi-utf     nginx.conf    &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;sites-available&lt;/span&gt;/  uwsgi_params
+fastcgi.conf    koi-win     proxy_params  &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;sites-enabled&lt;/span&gt;/    win-utf
+fastcgi_params  mime.types  scgi_params   &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;snippets&lt;/span&gt;/
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you provide a &lt;a href="https://en.wikipedia.org/wiki/Glob_%28programming%29"&gt;glob pattern&lt;/a&gt;, then only files that match it are listed:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[30]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;ls&lt;/span&gt; /etc/nginx/*.conf
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;/etc/nginx/fastcgi.conf  /etc/nginx/nginx.conf
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;%ll&lt;/code&gt; adds more information to the listing and formats it in a single column:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[31]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;ll&lt;/span&gt; ~/edu/
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;total 12805
+drwxrwsrwt+  3 lukes 2000140 Oct  4 18:52 &lt;span class="ansi-black-fg ansi-green-bg"&gt;exchange&lt;/span&gt;/
+drwxrwsr-x+ 21 lukes 2041640 Oct 24 14:44 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;lukes&lt;/span&gt;/
+drwxrwsr-x+  9 lukes 2060567 Dec 18 21:54 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;mda&lt;/span&gt;/
+drwxrwsr-x+ 14 lukes 3001102 Oct 31 17:39 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;python&lt;/span&gt;/
+drwxrwsr-x+  4 lukes 2004559 Feb 23  2017 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;r&lt;/span&gt;/
+drwxr-sr-x+  4 lukes 2002420 Mar  9  2017 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;textlink&lt;/span&gt;/
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;One of those columns indicates file size, but it's kind of hard to tell. The &lt;code&gt;-h&lt;/code&gt; option makes the file sizes print in human-readable format:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[32]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;ll&lt;/span&gt; -h ~/edu/python/syn*
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;-rw-rw-r--+ 1 lukes 1.5G Nov  1  2016 /home/lukes/edu/python/syn2015.gz
+-rw-rw-r--+ 1 lukes 112M Nov  2  2016 /home/lukes/edu/python/syn2015_sample
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;%%writefile&lt;/code&gt; writes the contents of a cell to a file:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[33]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;writefile&lt;/span&gt; foo.py
+def foo():
+    &amp;quot;This foo function returns bar.&amp;quot;
+    return &amp;quot;bar&amp;quot;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;Overwriting foo.py
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;%cat&lt;/code&gt; prints the contents of a file into the notebook:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[34]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;cat&lt;/span&gt; foo.py
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;def foo():
+    &amp;#34;This foo function returns bar.&amp;#34;
+    return &amp;#34;bar&amp;#34;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;&lt;code&gt;%less&lt;/code&gt; opens it in the pager (with nice syntax highlighting if it's a Python source file):&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[35]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;less&lt;/span&gt; foo.py
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Finding-out-more-about-your-code"&gt;Finding out more about your code&lt;a class="anchor-link" href="#Finding-out-more-about-your-code"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;When developing, code often behaves differently from what you intended when you wrote it. These tools will help you find out why.&lt;/p&gt;
+&lt;p&gt;Timing the execution of a piece of code will help you determine if it's slowing you down. The &lt;code&gt;%timeit&lt;/code&gt; magic has your back, it runs your code repeatedly and thus provides more reliable estimates. It comes in both line and cell variants.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[36]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;timeit&lt;/span&gt; sorted(range(1_000_000))
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;57.8 ms ± 2.95 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[37]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;timeit&lt;/span&gt;
+lst = list(range(1_000_000))
+sorted(lst)
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;66.5 ms ± 6.87 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;The cell variant can include initialization code on the first line, which is run only once:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[38]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;timeit&lt;/span&gt; lst = list(range(1_000_000))
+sorted(lst)
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;The slowest run took 7.75 times longer than the fastest. This could mean that an intermediate result is being cached.
+65.4 ms ± 64.8 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you have the &lt;a href="https://github.com/pythonprofilers/memory_profiler"&gt;memory_profiler&lt;/a&gt; library installed, you can load its magic extension and use &lt;code&gt;%memit&lt;/code&gt; in the same way as &lt;code&gt;%timeit&lt;/code&gt; to get a notion of how much memory your code is consuming.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[39]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;load_ext&lt;/span&gt; memory_profiler
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[40]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# peak memory is the highest total amount of memory the Python process used when your code ran&lt;/span&gt;
+&lt;span class="c1"&gt;# increment is peak memory minus the amount of memory Python used before your code ran&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;memit&lt;/span&gt; list(range(1_000_000))
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;peak memory: 81.93 MiB, increment: 35.19 MiB
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[41]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;memit&lt;/span&gt;
+lst = list(range(1_000_000))
+even = [i for i in lst if i % 2 == 0]
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;peak memory: 128.00 MiB, increment: 73.29 MiB
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[42]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;memit&lt;/span&gt; lst = list(range(1_000_000))
+even = [i for i in lst if i % 2 == 0]
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;peak memory: 98.03 MiB, increment: -30.64 MiB
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you have a more involved piece of code where multiple functions are called, you may need more granular information about running times than that provided by &lt;code&gt;%timeit&lt;/code&gt;. In that case, you can resort to &lt;strong&gt;profiling&lt;/strong&gt; using the &lt;code&gt;%prun&lt;/code&gt; magic. Profiling tells you how fast different parts of your code run relative to each other, in other words, where your bottlenecks are.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[43]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;really_slow&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;fast&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;pass&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;only_slow_because_it_calls_another_slow_function&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;fast&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="n"&gt;really_slow&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[44]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;prun&lt;/span&gt; only_slow_because_it_calls_another_slow_function()
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt; &lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;The results show up in the pager, here's a copy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;         7 function calls in 1.001 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    1.001    1.001    1.001    1.001 {built-in method time.sleep}
+        1    0.000    0.000    1.001    1.001 {built-in method builtins.exec}
+        1    0.000    0.000    1.001    1.001 &amp;lt;ipython-input-81-8d3b1f67a0d9&amp;gt;:3(really_slow)
+        1    0.000    0.000    1.001    1.001 &amp;lt;ipython-input-81-8d3b1f67a0d9&amp;gt;:9(only_slow_because_it_calls_another_slow_function)
+        1    0.000    0.000    1.001    1.001 &amp;lt;string&amp;gt;:1(&amp;lt;module&amp;gt;)
+        1    0.000    0.000    0.000    0.000 &amp;lt;ipython-input-81-8d3b1f67a0d9&amp;gt;:6(fast)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;%prun&lt;/code&gt; also has a cell variant:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[45]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="k"&gt;prun&lt;/span&gt;
+really_slow()
+fast()
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt; &lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+
+&lt;pre&gt;&lt;code&gt;         6 function calls in 1.001 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    1.001    1.001    1.001    1.001 {built-in method time.sleep}
+        1    0.000    0.000    1.001    1.001 {built-in method builtins.exec}
+        1    0.000    0.000    1.001    1.001 &amp;lt;string&amp;gt;:2(&amp;lt;module&amp;gt;)
+        1    0.000    0.000    1.001    1.001 &amp;lt;ipython-input-81-8d3b1f67a0d9&amp;gt;:3(really_slow)
+        1    0.000    0.000    0.000    0.000 &amp;lt;ipython-input-81-8d3b1f67a0d9&amp;gt;:6(fast)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}&lt;/code&gt;&lt;/pre&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Perhaps the most useful magic for development is &lt;code&gt;%debug&lt;/code&gt;, which allows you to pause the execution of a piece of code, examine the variables which are defined at that moment in time, resume execution fully or step-by-step etc. You can either pass a statement that you want to debug as argument:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[46]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[47]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;debug&lt;/span&gt; foo()
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;NOTE: Enter &amp;#39;c&amp;#39; at the ipdb&amp;gt;  prompt to continue execution.
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;string&amp;gt;&lt;/span&gt;(1)&lt;span class="ansi-cyan-fg"&gt;&amp;lt;module&amp;gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+
+ipdb&amp;gt; help
+
+Documented commands (type help &amp;lt;topic&amp;gt;):
+========================================
+EOF    cl         disable  interact  next    psource  rv         unt   
+a      clear      display  j         p       q        s          until 
+alias  commands   down     jump      pdef    quit     source     up    
+args   condition  enable   l         pdoc    r        step       w     
+b      cont       exit     list      pfile   restart  tbreak     whatis
+break  continue   h        ll        pinfo   return   u          where 
+bt     d          help     longlist  pinfo2  retval   unalias  
+c      debug      ignore   n         pp      run      undisplay
+
+Miscellaneous help topics:
+==========================
+exec  pdb
+
+ipdb&amp;gt; step
+--Call--
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-46-53239d7f8950&amp;gt;&lt;/span&gt;(1)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 1 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;10&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      3 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; next
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-46-53239d7f8950&amp;gt;&lt;/span&gt;(2)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      1 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 2 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;10&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      3 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; next
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-46-53239d7f8950&amp;gt;&lt;/span&gt;(3)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      1 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;10&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 3 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; i
+0
+ipdb&amp;gt; next
+0
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-46-53239d7f8950&amp;gt;&lt;/span&gt;(2)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      1 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 2 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;10&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      3 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; next
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-46-53239d7f8950&amp;gt;&lt;/span&gt;(3)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      1 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;10&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 3 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; i
+1
+ipdb&amp;gt; quit
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Or you can invoke plain &lt;code&gt;%debug&lt;/code&gt; after an exception has been raised to jump directly to the place where the error occurred, so that you can figure out where things went wrong:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[48]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="n"&gt;dct&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;dict&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;dct&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bar&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[49]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_text output_error"&gt;
+&lt;pre&gt;
+&lt;span class="ansi-red-fg"&gt;---------------------------------------------------------------------------&lt;/span&gt;
+&lt;span class="ansi-red-fg"&gt;KeyError&lt;/span&gt;                                  Traceback (most recent call last)
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-49-c19b6d9633cf&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;&amp;lt;module&amp;gt;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 1&lt;/span&gt;&lt;span class="ansi-red-fg"&gt; &lt;/span&gt;foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+&lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-48-29ed6ce0c4f1&amp;gt;&lt;/span&gt; in &lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-intense-fg ansi-bold"&gt;      1&lt;/span&gt; &lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-intense-fg ansi-bold"&gt;      2&lt;/span&gt;     dct &lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt; dict&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;foo&lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;1&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 3&lt;/span&gt;&lt;span class="ansi-red-fg"&gt;     &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;return&lt;/span&gt; dct&lt;span class="ansi-blue-fg"&gt;[&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;]&lt;/span&gt;
+
+&lt;span class="ansi-red-fg"&gt;KeyError&lt;/span&gt;: &amp;#39;bar&amp;#39;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[50]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;debug&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-48-29ed6ce0c4f1&amp;gt;&lt;/span&gt;(3)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      1 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;dct &lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt; dict&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;foo&lt;span class="ansi-blue-fg"&gt;=&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;1&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 3 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;return&lt;/span&gt; dct&lt;span class="ansi-blue-fg"&gt;[&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;&amp;#34;bar&amp;#34;&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;]&lt;/span&gt;
+
+ipdb&amp;gt; &amp;#34;bar&amp;#34; in dct
+False
+ipdb&amp;gt; dct.keys()
+dict_keys([&amp;#39;foo&amp;#39;])
+ipdb&amp;gt; quit
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;If you want to pause one of your functions at a particular point, set a &lt;em&gt;breakpoint&lt;/em&gt; using the &lt;code&gt;set_trace()&lt;/code&gt; function from the &lt;code&gt;IPython.core.debugger&lt;/code&gt; module. The debugger will be automatically invoked when the call to &lt;code&gt;set_trace()&lt;/code&gt; is reached during execution:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[51]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;IPython.core.debugger&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;set_trace&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;set_trace&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[52]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-51-127db6176edd&amp;gt;&lt;/span&gt;(6)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      3 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      4 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;2&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      5 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;set_trace&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 6 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; i
+0
+ipdb&amp;gt; continue
+0
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-51-127db6176edd&amp;gt;&lt;/span&gt;(5)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      3 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      4 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;2&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 5 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;set_trace&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      6 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; i
+1
+ipdb&amp;gt; continue
+1
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[54]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-53-127db6176edd&amp;gt;&lt;/span&gt;(6)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      3 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      4 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;2&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      5 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;set_trace&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 6 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; i
+0
+ipdb&amp;gt; continue
+0
+&amp;gt; &lt;span class="ansi-green-fg"&gt;&amp;lt;ipython-input-53-127db6176edd&amp;gt;&lt;/span&gt;(5)&lt;span class="ansi-cyan-fg"&gt;foo&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;()&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      2 &lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      3 &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;def&lt;/span&gt; foo&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      4 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;    &lt;/span&gt;&lt;span class="ansi-green-fg"&gt;for&lt;/span&gt; i &lt;span class="ansi-green-fg"&gt;in&lt;/span&gt; range&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-cyan-fg"&gt;2&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;:&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;----&amp;gt; 5 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;set_trace&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+&lt;span class="ansi-green-fg"&gt;      6 &lt;/span&gt;&lt;span class="ansi-red-fg"&gt;        &lt;/span&gt;print&lt;span class="ansi-blue-fg"&gt;(&lt;/span&gt;i&lt;span class="ansi-blue-fg"&gt;)&lt;/span&gt;
+
+ipdb&amp;gt; i
+1
+ipdb&amp;gt; continue
+1
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;The Python debugger is called &lt;code&gt;pdb&lt;/code&gt; and it has some special commands of its own which allow you to step through the execution. They can be listed by typing &lt;code&gt;help&lt;/code&gt; at the debugger prompt (see above), or you can have a look at the &lt;a href="https://docs.python.org/3/library/pdb.html#debugger-commands"&gt;documentation&lt;/a&gt;. The examples above also illustrate what a typical debugging session looks like. When you want to stop debugging, don't forget to &lt;strong&gt;quit the debugger&lt;/strong&gt; with &lt;code&gt;quit&lt;/code&gt; (or just &lt;code&gt;q&lt;/code&gt;) at the debugger prompt, or else your Python process will become unresponsive.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h3 id="Plotting"&gt;Plotting&lt;a class="anchor-link" href="#Plotting"&gt;&amp;#182;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Jupyter is tightly integrated with the &lt;a href="https://matplotlib.org/"&gt;matplotlib&lt;/a&gt; plotting library. Plotting is enabled by running the &lt;code&gt;%matplotlib&lt;/code&gt; magic with an argument specifying how the notebook should handle graphical output. &lt;code&gt;%matplotlib notebook&lt;/code&gt; will generate an interactive plot which you can resize, pan, zoom and more. A word of caution though: when using this variant, once you're &lt;strong&gt;done with the plot&lt;/strong&gt;, don't forget to &lt;strong&gt;"freeze" it using the ⏻ symbol&lt;/strong&gt; in the upper right corner, or else subsequent plotting commands from different cells will all draw into this same plot.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[53]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;matplotlib&lt;/span&gt; notebook
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[54]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[55]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+
+
+
+&lt;div id="1cbc3c43-df6e-4e16-a7cc-5180d3a72a6b"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_javascript "&gt;
+&lt;script type="text/javascript"&gt;
+var element = $('#1cbc3c43-df6e-4e16-a7cc-5180d3a72a6b');
+/* Put everything inside the global mpl namespace */
+window.mpl = {};
+
+
+mpl.get_websocket_type = function() {
+    if (typeof(WebSocket) !== 'undefined') {
+        return WebSocket;
+    } else if (typeof(MozWebSocket) !== 'undefined') {
+        return MozWebSocket;
+    } else {
+        alert('Your browser does not have WebSocket support.' +
+              'Please try Chrome, Safari or Firefox ≥ 6. ' +
+              'Firefox 4 and 5 are also supported but you ' +
+              'have to enable WebSockets in about:config.');
+    };
+}
+
+mpl.figure = function(figure_id, websocket, ondownload, parent_element) {
+    this.id = figure_id;
+
+    this.ws = websocket;
+
+    this.supports_binary = (this.ws.binaryType != undefined);
+
+    if (!this.supports_binary) {
+        var warnings = document.getElementById("mpl-warnings");
+        if (warnings) {
+            warnings.style.display = 'block';
+            warnings.textContent = (
+                "This browser does not support binary websocket messages. " +
+                    "Performance may be slow.");
+        }
+    }
+
+    this.imageObj = new Image();
+
+    this.context = undefined;
+    this.message = undefined;
+    this.canvas = undefined;
+    this.rubberband_canvas = undefined;
+    this.rubberband_context = undefined;
+    this.format_dropdown = undefined;
+
+    this.image_mode = 'full';
+
+    this.root = $('&lt;div/&gt;');
+    this._root_extra_style(this.root)
+    this.root.attr('style', 'display: inline-block');
+
+    $(parent_element).append(this.root);
+
+    this._init_header(this);
+    this._init_canvas(this);
+    this._init_toolbar(this);
+
+    var fig = this;
+
+    this.waiting = false;
+
+    this.ws.onopen =  function () {
+            fig.send_message("supports_binary", {value: fig.supports_binary});
+            fig.send_message("send_image_mode", {});
+            if (mpl.ratio != 1) {
+                fig.send_message("set_dpi_ratio", {'dpi_ratio': mpl.ratio});
+            }
+            fig.send_message("refresh", {});
+        }
+
+    this.imageObj.onload = function() {
+            if (fig.image_mode == 'full') {
+                // Full images could contain transparency (where diff images
+                // almost always do), so we need to clear the canvas so that
+                // there is no ghosting.
+                fig.context.clearRect(0, 0, fig.canvas.width, fig.canvas.height);
+            }
+            fig.context.drawImage(fig.imageObj, 0, 0);
+        };
+
+    this.imageObj.onunload = function() {
+        this.ws.close();
+    }
+
+    this.ws.onmessage = this._make_on_message_function(this);
+
+    this.ondownload = ondownload;
+}
+
+mpl.figure.prototype._init_header = function() {
+    var titlebar = $(
+        '&lt;div class="ui-dialog-titlebar ui-widget-header ui-corner-all ' +
+        'ui-helper-clearfix"/&gt;');
+    var titletext = $(
+        '&lt;div class="ui-dialog-title" style="width: 100%; ' +
+        'text-align: center; padding: 3px;"/&gt;');
+    titlebar.append(titletext)
+    this.root.append(titlebar);
+    this.header = titletext[0];
+}
+
+
+
+mpl.figure.prototype._canvas_extra_style = function(canvas_div) {
+
+}
+
+
+mpl.figure.prototype._root_extra_style = function(canvas_div) {
+
+}
+
+mpl.figure.prototype._init_canvas = function() {
+    var fig = this;
+
+    var canvas_div = $('&lt;div/&gt;');
+
+    canvas_div.attr('style', 'position: relative; clear: both; outline: 0');
+
+    function canvas_keyboard_event(event) {
+        return fig.key_event(event, event['data']);
+    }
+
+    canvas_div.keydown('key_press', canvas_keyboard_event);
+    canvas_div.keyup('key_release', canvas_keyboard_event);
+    this.canvas_div = canvas_div
+    this._canvas_extra_style(canvas_div)
+    this.root.append(canvas_div);
+
+    var canvas = $('&lt;canvas/&gt;');
+    canvas.addClass('mpl-canvas');
+    canvas.attr('style', "left: 0; top: 0; z-index: 0; outline: 0")
+
+    this.canvas = canvas[0];
+    this.context = canvas[0].getContext("2d");
+
+    var backingStore = this.context.backingStorePixelRatio ||
+	this.context.webkitBackingStorePixelRatio ||
+	this.context.mozBackingStorePixelRatio ||
+	this.context.msBackingStorePixelRatio ||
+	this.context.oBackingStorePixelRatio ||
+	this.context.backingStorePixelRatio || 1;
+
+    mpl.ratio = (window.devicePixelRatio || 1) / backingStore;
+
+    var rubberband = $('&lt;canvas/&gt;');
+    rubberband.attr('style', "position: absolute; left: 0; top: 0; z-index: 1;")
+
+    var pass_mouse_events = true;
+
+    canvas_div.resizable({
+        start: function(event, ui) {
+            pass_mouse_events = false;
+        },
+        resize: function(event, ui) {
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+        stop: function(event, ui) {
+            pass_mouse_events = true;
+            fig.request_resize(ui.size.width, ui.size.height);
+        },
+    });
+
+    function mouse_event_fn(event) {
+        if (pass_mouse_events)
+            return fig.mouse_event(event, event['data']);
+    }
+
+    rubberband.mousedown('button_press', mouse_event_fn);
+    rubberband.mouseup('button_release', mouse_event_fn);
+    // Throttle sequential mouse events to 1 every 20ms.
+    rubberband.mousemove('motion_notify', mouse_event_fn);
+
+    rubberband.mouseenter('figure_enter', mouse_event_fn);
+    rubberband.mouseleave('figure_leave', mouse_event_fn);
+
+    canvas_div.on("wheel", function (event) {
+        event = event.originalEvent;
+        event['data'] = 'scroll'
+        if (event.deltaY &lt; 0) {
+            event.step = 1;
+        } else {
+            event.step = -1;
+        }
+        mouse_event_fn(event);
+    });
+
+    canvas_div.append(canvas);
+    canvas_div.append(rubberband);
+
+    this.rubberband = rubberband;
+    this.rubberband_canvas = rubberband[0];
+    this.rubberband_context = rubberband[0].getContext("2d");
+    this.rubberband_context.strokeStyle = "#000000";
+
+    this._resize_canvas = function(width, height) {
+        // Keep the size of the canvas, canvas container, and rubber band
+        // canvas in synch.
+        canvas_div.css('width', width)
+        canvas_div.css('height', height)
+
+        canvas.attr('width', width * mpl.ratio);
+        canvas.attr('height', height * mpl.ratio);
+        canvas.attr('style', 'width: ' + width + 'px; height: ' + height + 'px;');
+
+        rubberband.attr('width', width);
+        rubberband.attr('height', height);
+    }
+
+    // Set the figure to an initial 600x600px, this will subsequently be updated
+    // upon first draw.
+    this._resize_canvas(600, 600);
+
+    // Disable right mouse context menu.
+    $(this.rubberband_canvas).bind("contextmenu",function(e){
+        return false;
+    });
+
+    function set_focus () {
+        canvas.focus();
+        canvas_div.focus();
+    }
+
+    window.setTimeout(set_focus, 100);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('&lt;div/&gt;')
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items) {
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) {
+            // put a spacer in here.
+            continue;
+        }
+        var button = $('&lt;button/&gt;');
+        button.addClass('ui-button ui-widget ui-state-default ui-corner-all ' +
+                        'ui-button-icon-only');
+        button.attr('role', 'button');
+        button.attr('aria-disabled', 'false');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+
+        var icon_img = $('&lt;span/&gt;');
+        icon_img.addClass('ui-button-icon-primary ui-icon');
+        icon_img.addClass(image);
+        icon_img.addClass('ui-corner-all');
+
+        var tooltip_span = $('&lt;span/&gt;');
+        tooltip_span.addClass('ui-button-text');
+        tooltip_span.html(tooltip);
+
+        button.append(icon_img);
+        button.append(tooltip_span);
+
+        nav_element.append(button);
+    }
+
+    var fmt_picker_span = $('&lt;span/&gt;');
+
+    var fmt_picker = $('&lt;select/&gt;');
+    fmt_picker.addClass('mpl-toolbar-option ui-widget ui-widget-content');
+    fmt_picker_span.append(fmt_picker);
+    nav_element.append(fmt_picker_span);
+    this.format_dropdown = fmt_picker[0];
+
+    for (var ind in mpl.extensions) {
+        var fmt = mpl.extensions[ind];
+        var option = $(
+            '&lt;option/&gt;', {selected: fmt === mpl.default_extension}).html(fmt);
+        fmt_picker.append(option)
+    }
+
+    // Add hover states to the ui-buttons
+    $( ".ui-button" ).hover(
+        function() { $(this).addClass("ui-state-hover");},
+        function() { $(this).removeClass("ui-state-hover");}
+    );
+
+    var status_bar = $('&lt;span class="mpl-message"/&gt;');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+}
+
+mpl.figure.prototype.request_resize = function(x_pixels, y_pixels) {
+    // Request matplotlib to resize the figure. Matplotlib will then trigger a resize in the client,
+    // which will in turn request a refresh of the image.
+    this.send_message('resize', {'width': x_pixels, 'height': y_pixels});
+}
+
+mpl.figure.prototype.send_message = function(type, properties) {
+    properties['type'] = type;
+    properties['figure_id'] = this.id;
+    this.ws.send(JSON.stringify(properties));
+}
+
+mpl.figure.prototype.send_draw_message = function() {
+    if (!this.waiting) {
+        this.waiting = true;
+        this.ws.send(JSON.stringify({type: "draw", figure_id: this.id}));
+    }
+}
+
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    var format_dropdown = fig.format_dropdown;
+    var format = format_dropdown.options[format_dropdown.selectedIndex].value;
+    fig.ondownload(fig, format);
+}
+
+
+mpl.figure.prototype.handle_resize = function(fig, msg) {
+    var size = msg['size'];
+    if (size[0] != fig.canvas.width || size[1] != fig.canvas.height) {
+        fig._resize_canvas(size[0], size[1]);
+        fig.send_message("refresh", {});
+    };
+}
+
+mpl.figure.prototype.handle_rubberband = function(fig, msg) {
+    var x0 = msg['x0'] / mpl.ratio;
+    var y0 = (fig.canvas.height - msg['y0']) / mpl.ratio;
+    var x1 = msg['x1'] / mpl.ratio;
+    var y1 = (fig.canvas.height - msg['y1']) / mpl.ratio;
+    x0 = Math.floor(x0) + 0.5;
+    y0 = Math.floor(y0) + 0.5;
+    x1 = Math.floor(x1) + 0.5;
+    y1 = Math.floor(y1) + 0.5;
+    var min_x = Math.min(x0, x1);
+    var min_y = Math.min(y0, y1);
+    var width = Math.abs(x1 - x0);
+    var height = Math.abs(y1 - y0);
+
+    fig.rubberband_context.clearRect(
+        0, 0, fig.canvas.width, fig.canvas.height);
+
+    fig.rubberband_context.strokeRect(min_x, min_y, width, height);
+}
+
+mpl.figure.prototype.handle_figure_label = function(fig, msg) {
+    // Updates the figure title.
+    fig.header.textContent = msg['label'];
+}
+
+mpl.figure.prototype.handle_cursor = function(fig, msg) {
+    var cursor = msg['cursor'];
+    switch(cursor)
+    {
+    case 0:
+        cursor = 'pointer';
+        break;
+    case 1:
+        cursor = 'default';
+        break;
+    case 2:
+        cursor = 'crosshair';
+        break;
+    case 3:
+        cursor = 'move';
+        break;
+    }
+    fig.rubberband_canvas.style.cursor = cursor;
+}
+
+mpl.figure.prototype.handle_message = function(fig, msg) {
+    fig.message.textContent = msg['message'];
+}
+
+mpl.figure.prototype.handle_draw = function(fig, msg) {
+    // Request the server to send over a new figure.
+    fig.send_draw_message();
+}
+
+mpl.figure.prototype.handle_image_mode = function(fig, msg) {
+    fig.image_mode = msg['mode'];
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Called whenever the canvas gets updated.
+    this.send_message("ack", {});
+}
+
+// A function to construct a web socket function for onmessage handling.
+// Called in the figure constructor.
+mpl.figure.prototype._make_on_message_function = function(fig) {
+    return function socket_on_message(evt) {
+        if (evt.data instanceof Blob) {
+            /* FIXME: We get "Resource interpreted as Image but
+             * transferred with MIME type text/plain:" errors on
+             * Chrome.  But how to set the MIME type?  It doesn't seem
+             * to be part of the websocket stream */
+            evt.data.type = "image/png";
+
+            /* Free the memory for the previous frames */
+            if (fig.imageObj.src) {
+                (window.URL || window.webkitURL).revokeObjectURL(
+                    fig.imageObj.src);
+            }
+
+            fig.imageObj.src = (window.URL || window.webkitURL).createObjectURL(
+                evt.data);
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+        else if (typeof evt.data === 'string' &amp;&amp; evt.data.slice(0, 21) == "data:image/png;base64") {
+            fig.imageObj.src = evt.data;
+            fig.updated_canvas_event();
+            fig.waiting = false;
+            return;
+        }
+
+        var msg = JSON.parse(evt.data);
+        var msg_type = msg['type'];
+
+        // Call the  "handle_{type}" callback, which takes
+        // the figure and JSON message as its only arguments.
+        try {
+            var callback = fig["handle_" + msg_type];
+        } catch (e) {
+            console.log("No handler for the '" + msg_type + "' message type: ", msg);
+            return;
+        }
+
+        if (callback) {
+            try {
+                // console.log("Handling '" + msg_type + "' message: ", msg);
+                callback(fig, msg);
+            } catch (e) {
+                console.log("Exception inside the 'handler_" + msg_type + "' callback:", e, e.stack, msg);
+            }
+        }
+    };
+}
+
+// from http://stackoverflow.com/questions/1114465/getting-mouse-location-in-canvas
+mpl.findpos = function(e) {
+    //this section is from http://www.quirksmode.org/js/events_properties.html
+    var targ;
+    if (!e)
+        e = window.event;
+    if (e.target)
+        targ = e.target;
+    else if (e.srcElement)
+        targ = e.srcElement;
+    if (targ.nodeType == 3) // defeat Safari bug
+        targ = targ.parentNode;
+
+    // jQuery normalizes the pageX and pageY
+    // pageX,Y are the mouse positions relative to the document
+    // offset() returns the position of the element relative to the document
+    var x = e.pageX - $(targ).offset().left;
+    var y = e.pageY - $(targ).offset().top;
+
+    return {"x": x, "y": y};
+};
+
+/*
+ * return a copy of an object with only non-object keys
+ * we need this to avoid circular references
+ * http://stackoverflow.com/a/24161582/3208463
+ */
+function simpleKeys (original) {
+  return Object.keys(original).reduce(function (obj, key) {
+    if (typeof original[key] !== 'object')
+        obj[key] = original[key]
+    return obj;
+  }, {});
+}
+
+mpl.figure.prototype.mouse_event = function(event, name) {
+    var canvas_pos = mpl.findpos(event)
+
+    if (name === 'button_press')
+    {
+        this.canvas.focus();
+        this.canvas_div.focus();
+    }
+
+    var x = canvas_pos.x * mpl.ratio;
+    var y = canvas_pos.y * mpl.ratio;
+
+    this.send_message(name, {x: x, y: y, button: event.button,
+                             step: event.step,
+                             guiEvent: simpleKeys(event)});
+
+    /* This prevents the web browser from automatically changing to
+     * the text insertion cursor when the button is pressed.  We want
+     * to control all of the cursor setting manually through the
+     * 'cursor' event from matplotlib */
+    event.preventDefault();
+    return false;
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    // Handle any extra behaviour associated with a key event
+}
+
+mpl.figure.prototype.key_event = function(event, name) {
+
+    // Prevent repeat events
+    if (name == 'key_press')
+    {
+        if (event.which === this._key)
+            return;
+        else
+            this._key = event.which;
+    }
+    if (name == 'key_release')
+        this._key = null;
+
+    var value = '';
+    if (event.ctrlKey &amp;&amp; event.which != 17)
+        value += "ctrl+";
+    if (event.altKey &amp;&amp; event.which != 18)
+        value += "alt+";
+    if (event.shiftKey &amp;&amp; event.which != 16)
+        value += "shift+";
+
+    value += 'k';
+    value += event.which.toString();
+
+    this._key_event_extra(event, name);
+
+    this.send_message(name, {key: value,
+                             guiEvent: simpleKeys(event)});
+    return false;
+}
+
+mpl.figure.prototype.toolbar_button_onclick = function(name) {
+    if (name == 'download') {
+        this.handle_save(this, null);
+    } else {
+        this.send_message("toolbar_button", {name: name});
+    }
+};
+
+mpl.figure.prototype.toolbar_button_onmouseover = function(tooltip) {
+    this.message.textContent = tooltip;
+};
+mpl.toolbar_items = [["Home", "Reset original view", "fa fa-home icon-home", "home"], ["Back", "Back to  previous view", "fa fa-arrow-left icon-arrow-left", "back"], ["Forward", "Forward to next view", "fa fa-arrow-right icon-arrow-right", "forward"], ["", "", "", ""], ["Pan", "Pan axes with left mouse, zoom with right", "fa fa-arrows icon-move", "pan"], ["Zoom", "Zoom to rectangle", "fa fa-square-o icon-check-empty", "zoom"], ["", "", "", ""], ["Download", "Download plot", "fa fa-floppy-o icon-save", "download"]];
+
+mpl.extensions = ["eps", "pdf", "png", "ps", "raw", "svg"];
+
+mpl.default_extension = "png";var comm_websocket_adapter = function(comm) {
+    // Create a "websocket"-like object which calls the given IPython comm
+    // object with the appropriate methods. Currently this is a non binary
+    // socket, so there is still some room for performance tuning.
+    var ws = {};
+
+    ws.close = function() {
+        comm.close()
+    };
+    ws.send = function(m) {
+        //console.log('sending', m);
+        comm.send(m);
+    };
+    // Register the callback with on_msg.
+    comm.on_msg(function(msg) {
+        //console.log('receiving', msg['content']['data'], msg);
+        // Pass the mpl event to the overriden (by mpl) onmessage function.
+        ws.onmessage(msg['content']['data'])
+    });
+    return ws;
+}
+
+mpl.mpl_figure_comm = function(comm, msg) {
+    // This is the function which gets called when the mpl process
+    // starts-up an IPython Comm through the "matplotlib" channel.
+
+    var id = msg.content.data.id;
+    // Get hold of the div created by the display call when the Comm
+    // socket was opened in Python.
+    var element = $("#" + id);
+    var ws_proxy = comm_websocket_adapter(comm)
+
+    function ondownload(figure, format) {
+        window.open(figure.imageObj.src);
+    }
+
+    var fig = new mpl.figure(id, ws_proxy,
+                           ondownload,
+                           element.get(0));
+
+    // Call onopen now - mpl needs it, as it is assuming we've passed it a real
+    // web socket which is closed, not our websocket-&gt;open comm proxy.
+    ws_proxy.onopen();
+
+    fig.parent_element = element.get(0);
+    fig.cell_info = mpl.find_output_cell("&lt;div id='" + id + "'&gt;&lt;/div&gt;");
+    if (!fig.cell_info) {
+        console.error("Failed to find cell for figure", id, fig);
+        return;
+    }
+
+    var output_index = fig.cell_info[2]
+    var cell = fig.cell_info[0];
+
+};
+
+mpl.figure.prototype.handle_close = function(fig, msg) {
+    var width = fig.canvas.width/mpl.ratio
+    fig.root.unbind('remove')
+
+    // Update the output cell to use the data from the current canvas.
+    fig.push_to_output();
+    var dataURL = fig.canvas.toDataURL();
+    // Re-enable the keyboard manager in IPython - without this line, in FF,
+    // the notebook keyboard shortcuts fail.
+    IPython.keyboard_manager.enable()
+    $(fig.parent_element).html('&lt;img src="' + dataURL + '" width="' + width + '"&gt;');
+    fig.close_ws(fig, msg);
+}
+
+mpl.figure.prototype.close_ws = function(fig, msg){
+    fig.send_message('closing', msg);
+    // fig.ws.close()
+}
+
+mpl.figure.prototype.push_to_output = function(remove_interactive) {
+    // Turn the data on the canvas into data in the output cell.
+    var width = this.canvas.width/mpl.ratio
+    var dataURL = this.canvas.toDataURL();
+    this.cell_info[1]['text/html'] = '&lt;img src="' + dataURL + '" width="' + width + '"&gt;';
+}
+
+mpl.figure.prototype.updated_canvas_event = function() {
+    // Tell IPython that the notebook contents must change.
+    IPython.notebook.set_dirty(true);
+    this.send_message("ack", {});
+    var fig = this;
+    // Wait a second, then push the new image to the DOM so
+    // that it is saved nicely (might be nice to debounce this).
+    setTimeout(function () { fig.push_to_output() }, 1000);
+}
+
+mpl.figure.prototype._init_toolbar = function() {
+    var fig = this;
+
+    var nav_element = $('&lt;div/&gt;')
+    nav_element.attr('style', 'width: 100%');
+    this.root.append(nav_element);
+
+    // Define a callback function for later on.
+    function toolbar_event(event) {
+        return fig.toolbar_button_onclick(event['data']);
+    }
+    function toolbar_mouse_event(event) {
+        return fig.toolbar_button_onmouseover(event['data']);
+    }
+
+    for(var toolbar_ind in mpl.toolbar_items){
+        var name = mpl.toolbar_items[toolbar_ind][0];
+        var tooltip = mpl.toolbar_items[toolbar_ind][1];
+        var image = mpl.toolbar_items[toolbar_ind][2];
+        var method_name = mpl.toolbar_items[toolbar_ind][3];
+
+        if (!name) { continue; };
+
+        var button = $('&lt;button class="btn btn-default" href="#" title="' + name + '"&gt;&lt;i class="fa ' + image + ' fa-lg"&gt;&lt;/i&gt;&lt;/button&gt;');
+        button.click(method_name, toolbar_event);
+        button.mouseover(tooltip, toolbar_mouse_event);
+        nav_element.append(button);
+    }
+
+    // Add the status bar.
+    var status_bar = $('&lt;span class="mpl-message" style="text-align:right; float: right;"/&gt;');
+    nav_element.append(status_bar);
+    this.message = status_bar[0];
+
+    // Add the close button to the window.
+    var buttongrp = $('&lt;div class="btn-group inline pull-right"&gt;&lt;/div&gt;');
+    var button = $('&lt;button class="btn btn-mini btn-primary" href="#" title="Stop Interaction"&gt;&lt;i class="fa fa-power-off icon-remove icon-large"&gt;&lt;/i&gt;&lt;/button&gt;');
+    button.click(function (evt) { fig.handle_close(fig, {}); } );
+    button.mouseover('Stop Interaction', toolbar_mouse_event);
+    buttongrp.append(button);
+    var titlebar = this.root.find($('.ui-dialog-titlebar'));
+    titlebar.prepend(buttongrp);
+}
+
+mpl.figure.prototype._root_extra_style = function(el){
+    var fig = this
+    el.on("remove", function(){
+	fig.close_ws(fig, {});
+    });
+}
+
+mpl.figure.prototype._canvas_extra_style = function(el){
+    // this is important to make the div 'focusable
+    el.attr('tabindex', 0)
+    // reach out to IPython and tell the keyboard manager to turn it's self
+    // off when our div gets focus
+
+    // location in version 3
+    if (IPython.notebook.keyboard_manager) {
+        IPython.notebook.keyboard_manager.register_events(el);
+    }
+    else {
+        // location in version 2
+        IPython.keyboard_manager.register_events(el);
+    }
+
+}
+
+mpl.figure.prototype._key_event_extra = function(event, name) {
+    var manager = IPython.notebook.keyboard_manager;
+    if (!manager)
+        manager = IPython.keyboard_manager;
+
+    // Check for shift+enter
+    if (event.shiftKey &amp;&amp; event.which == 13) {
+        this.canvas_div.blur();
+        // select the cell after this one
+        var index = IPython.notebook.find_cell_index(this.cell_info[0]);
+        IPython.notebook.select(index + 1);
+    }
+}
+
+mpl.figure.prototype.handle_save = function(fig, msg) {
+    fig.ondownload(fig, null);
+}
+
+
+mpl.find_output_cell = function(html_output) {
+    // Return the cell and output element which can be found *uniquely* in the notebook.
+    // Note - this is a bit hacky, but it is done because the "notebook_saving.Notebook"
+    // IPython event is triggered only after the cells have been serialised, which for
+    // our purposes (turning an active figure into a static one), is too late.
+    var cells = IPython.notebook.get_cells();
+    var ncells = cells.length;
+    for (var i=0; i&lt;ncells; i++) {
+        var cell = cells[i];
+        if (cell.cell_type === 'code'){
+            for (var j=0; j&lt;cell.output_area.outputs.length; j++) {
+                var data = cell.output_area.outputs[j];
+                if (data.data) {
+                    // IPython &gt;= 3 moved mimebundle to data attribute of output
+                    data = data.data;
+                }
+                if (data['text/html'] == html_output) {
+                    return [cell, data, j];
+                }
+            }
+        }
+    }
+}
+
+// Register the function which deals with the matplotlib target/channel.
+// The kernel may be null if the page has been refreshed.
+if (IPython.notebook.kernel != null) {
+    IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
+}
+
+&lt;/script&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+
+&lt;div class="output_html rendered_html output_subarea "&gt;
+&lt;img src="data:image/png;base64,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" width="640"&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[55]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;[&amp;lt;matplotlib.lines.Line2D at 0x7f296f715160&amp;gt;]&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;By contrast, &lt;code&gt;%matplotlib inline&lt;/code&gt; will just show a basic plot with a default size:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[56]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;matplotlib&lt;/span&gt; inline
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[57]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[57]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;[&amp;lt;matplotlib.lines.Line2D at 0x7f296f68a278&amp;gt;]&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class="output_png output_subarea "&gt;
+&lt;img src="data:image/png;base64,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
+"
+&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;For more information on plotting with matplotlib, see their &lt;a href="https://matplotlib.org/2.1.1/tutorials/introductory/usage.html"&gt;usage guide&lt;/a&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="Command-line-programs"&gt;Command line programs&lt;a class="anchor-link" href="#Command-line-programs"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The operations listed in the section on magics for working with the file system can of course also be achieved using the corresponding command line programs, so if you know those, no need to memorize the magics. In fact, the magics are often just thin wrappers around the command line programs, which is why they are named the same.&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[58]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;ls --color -hArtl /etc/nginx
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;total 56K
+-rw-r--r-- 1 root root 3.0K Mar 30  2016 win-utf
+-rw-r--r-- 1 root root  664 Mar 30  2016 uwsgi_params
+-rw-r--r-- 1 root root  636 Mar 30  2016 scgi_params
+-rw-r--r-- 1 root root  180 Mar 30  2016 proxy_params
+-rw-r--r-- 1 root root 3.9K Mar 30  2016 mime.types
+-rw-r--r-- 1 root root 2.2K Mar 30  2016 koi-win
+-rw-r--r-- 1 root root 2.8K Mar 30  2016 koi-utf
+-rw-r--r-- 1 root root 1007 Mar 30  2016 fastcgi_params
+-rw-r--r-- 1 root root 1.1K Mar 30  2016 fastcgi.conf
+drwxr-xr-x 2 root root 4.0K Apr 26  2016 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;conf.d&lt;/span&gt;
+-rw-r--r-- 1 root root 1.5K Apr 27  2016 nginx.conf
+drwxr-xr-x 2 root root 4.0K Apr 27  2016 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;sites-enabled&lt;/span&gt;
+drwxr-xr-x 2 root root 4.0K Aug 15 09:21 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;sites-available&lt;/span&gt;
+drwxr-xr-x 2 root root 4.0K Aug 15 09:21 &lt;span class="ansi-blue-intense-fg ansi-bold"&gt;snippets&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;The only functionality that I miss among the magics is the ability to take a quick look at part of a possibly very large text file. This can be done with the &lt;code&gt;head&lt;/code&gt; command line program, which prints the beginning of a file:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[59]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;head jupyter_magic.ipynb
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;{
+ &amp;#34;cells&amp;#34;: [
+  {
+   &amp;#34;cell_type&amp;#34;: &amp;#34;markdown&amp;#34;,
+   &amp;#34;metadata&amp;#34;: {},
+   &amp;#34;source&amp;#34;: [
+    &amp;#34;# Make the most of Python Jupyter notebooks\n&amp;#34;,
+    &amp;#34;\n&amp;#34;,
+    &amp;#34;Python-based [Jupyter](http://jupyter.org/) notebooks mostly consist of Python code, obviously, and some Markdown text. But they also offer some very handy functions and shortcuts which are not available in Python itself, and which are really helpful for interactive work. This is my personal best of / reference.\n&amp;#34;,
+    &amp;#34;\n&amp;#34;,
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;The &lt;code&gt;-n&lt;/code&gt; option controls how many lines from the beginning of the file should be printed:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[60]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;head -n3 jupyter_magic.ipynb regex.ipynb
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;==&amp;gt; jupyter_magic.ipynb &amp;lt;==
+{
+ &amp;#34;cells&amp;#34;: [
+  {
+
+==&amp;gt; regex.ipynb &amp;lt;==
+{
+ &amp;#34;cells&amp;#34;: [
+  {
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Similarly, the &lt;code&gt;tail&lt;/code&gt; program prints endings of files:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[61]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;tail -n5 jupyter_magic.ipynb
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt"&gt;&lt;/div&gt;
+
+
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;  }
+ },
+ &amp;#34;nbformat&amp;#34;: 4,
+ &amp;#34;nbformat_minor&amp;#34;: 2
+}
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Another useful feature of command line execution is that instead of &lt;em&gt;printing&lt;/em&gt; the result, you can have it &lt;em&gt;returned&lt;/em&gt; as a list of strings corresponding to lines of output. Either by prepending two exclamation marks instead of one:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[62]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;!!&lt;/span&gt;tail -n5 jupyter_magic.ipynb
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[62]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;[&amp;#39;  }&amp;#39;, &amp;#39; },&amp;#39;, &amp;#39; &amp;#34;nbformat&amp;#34;: 4,&amp;#39;, &amp;#39; &amp;#34;nbformat_minor&amp;#34;: 2&amp;#39;, &amp;#39;}&amp;#39;]&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Or by assigning the expression to a variable:&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[63]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;tail -n5 jupyter_magic.ipynb
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[64]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+    &lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+
+
+&lt;div class="output_area"&gt;
+
+&lt;div class="prompt output_prompt"&gt;Out[64]:&lt;/div&gt;
+
+
+
+
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;[&amp;#39;  }&amp;#39;, &amp;#39; },&amp;#39;, &amp;#39; &amp;#34;nbformat&amp;#34;: 4,&amp;#39;, &amp;#39; &amp;#34;nbformat_minor&amp;#34;: 2&amp;#39;, &amp;#39;}&amp;#39;]&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;h2 id="In-summary"&gt;In summary&lt;a class="anchor-link" href="#In-summary"&gt;&amp;#182;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;These are just my favorite shortcuts, the ones I find most helpful. Obviously, there are many more, see &lt;code&gt;%magic&lt;/code&gt; or &lt;code&gt;%quickref&lt;/code&gt;. If you think I've missed a really neat one, let me know!&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+ 
+
+&lt;/p&gt;</content><category term="python"></category><category term="jupyter"></category><category term="programming"></category></entry><entry><title>Text munching in R?</title><link href="http://dlukes.github.io/text-munching-in-r.html" rel="alternate"></link><published>2017-10-28T00:00:00+02:00</published><updated>2017-10-28T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-28:/text-munching-in-r.html</id><summary type="html">&lt;p&gt;Is R suited for processing large quantities of text data?&lt;/p&gt;</summary><content type="html">&lt;p&gt;R has been &lt;a href="https://stackoverflow.blog/2017/10/10/impressive-growth-r/"&gt;gaining traction&lt;/a&gt; as a language for data analysis. My
 feelings about the whole ecosystem are mixed -- it has some &lt;a href="https://www.tidyverse.org/"&gt;incredibly
 well-designed libraries&lt;/a&gt; and a &lt;a href="https://www.rstudio.com/"&gt;top-of-the-game IDE&lt;/a&gt;, but
 the core language makes me cringe (it feels like "Perl and Lisp: The Worse
