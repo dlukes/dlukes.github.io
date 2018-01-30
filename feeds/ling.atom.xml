@@ -34,14 +34,15 @@ common task.&lt;/p&gt;
 &lt;p&gt;The corpus data consists of lines with tab-separated word form, lemma and tag
 fields, plus some additional lines with metadata which do not contain tabs.
 We'll be skipping those. Here's a glimpse of the corpus format:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;WORD&lt;/span&gt;     &lt;span class="nv"&gt;LEMMA&lt;/span&gt;    &lt;span class="nv"&gt;TAG&lt;/span&gt;
-&lt;span class="nv"&gt;Hladina&lt;/span&gt;  &lt;span class="s s-Atom"&gt;hladina&lt;/span&gt;  &lt;span class="nv"&gt;NNFS1&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
-&lt;span class="s s-Atom"&gt;jezera&lt;/span&gt;   &lt;span class="s s-Atom"&gt;jezero&lt;/span&gt;   &lt;span class="nv"&gt;NNNS2&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
-&lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="nv"&gt;Z&lt;/span&gt;&lt;span class="p"&gt;:-&lt;/span&gt;&lt;span class="s s-Atom"&gt;-------------&lt;/span&gt;
-&lt;span class="s s-Atom"&gt;mrtvá&lt;/span&gt;    &lt;span class="s s-Atom"&gt;mrtvý&lt;/span&gt;    &lt;span class="nv"&gt;AAFS1&lt;/span&gt;&lt;span class="s s-Atom"&gt;----&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
-&lt;span class="s s-Atom"&gt;a&lt;/span&gt;        &lt;span class="s s-Atom"&gt;a&lt;/span&gt;        &lt;span class="nv"&gt;J&lt;/span&gt;&lt;span class="s s-Atom"&gt;^--------------&lt;/span&gt;
-&lt;span class="s s-Atom"&gt;černá&lt;/span&gt;    &lt;span class="s s-Atom"&gt;černý&lt;/span&gt;    &lt;span class="nv"&gt;AAFS1&lt;/span&gt;&lt;span class="s s-Atom"&gt;----&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
-&lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="nv"&gt;Z&lt;/span&gt;&lt;span class="p"&gt;:-&lt;/span&gt;&lt;span class="s s-Atom"&gt;-------------&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;&amp;lt;!--&lt;/span&gt;
+&lt;span class="c"&gt;WORD     LEMMA    TAG --&amp;gt;&lt;/span&gt;
+Hladina  hladina  NNFS1-----A-----
+jezera   jezero   NNNS2-----A-----
+,        ,        Z:--------------
+mrtvá    mrtvý    AAFS1----1A-----
+a        a        J^--------------
+černá    černý    AAFS1----1A-----
+,        ,        Z:--------------
 &lt;/pre&gt;&lt;/div&gt;
 
 
