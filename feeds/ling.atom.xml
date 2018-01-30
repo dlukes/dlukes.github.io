@@ -23,6 +23,33 @@ table data structure.)&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;If you're planning to process corpora of hundreds of millions of tokens or more
 -- spoiler alert, you probably shouldn't do it in R.&lt;/p&gt;
+&lt;h1&gt;Task&lt;/h1&gt;
+&lt;p&gt;OK, I've specifically complained about R being bad at for-loops and hashes.
+Let's devise a task that'll show exactly how bad. At the same time, I don't
+mean to come up with anything particularly convoluted or far-fetched. So here
+goes: we'll be trying to build a per-part-of-speech frequency distribution of
+lemmas (dictionary headword forms) from a 120M-token corpus. If you've ever
+done any linguistic data analysis, I hope you'll agree it's a pretty basic and
+common task.&lt;/p&gt;
+&lt;p&gt;The corpus data consists of lines with tab-separated word form, lemma and tag
+fields, plus some additional lines with metadata which do not contain tabs.
+We'll be skipping those. Here's a glimpse of the corpus format:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;WORD&lt;/span&gt;     &lt;span class="nv"&gt;LEMMA&lt;/span&gt;    &lt;span class="nv"&gt;TAG&lt;/span&gt;
+&lt;span class="nv"&gt;Hladina&lt;/span&gt;  &lt;span class="s s-Atom"&gt;hladina&lt;/span&gt;  &lt;span class="nv"&gt;NNFS1&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
+&lt;span class="s s-Atom"&gt;jezera&lt;/span&gt;   &lt;span class="s s-Atom"&gt;jezero&lt;/span&gt;   &lt;span class="nv"&gt;NNNS2&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
+&lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="nv"&gt;Z&lt;/span&gt;&lt;span class="p"&gt;:-&lt;/span&gt;&lt;span class="s s-Atom"&gt;-------------&lt;/span&gt;
+&lt;span class="s s-Atom"&gt;mrtvá&lt;/span&gt;    &lt;span class="s s-Atom"&gt;mrtvý&lt;/span&gt;    &lt;span class="nv"&gt;AAFS1&lt;/span&gt;&lt;span class="s s-Atom"&gt;----&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
+&lt;span class="s s-Atom"&gt;a&lt;/span&gt;        &lt;span class="s s-Atom"&gt;a&lt;/span&gt;        &lt;span class="nv"&gt;J&lt;/span&gt;&lt;span class="s s-Atom"&gt;^--------------&lt;/span&gt;
+&lt;span class="s s-Atom"&gt;černá&lt;/span&gt;    &lt;span class="s s-Atom"&gt;černý&lt;/span&gt;    &lt;span class="nv"&gt;AAFS1&lt;/span&gt;&lt;span class="s s-Atom"&gt;----&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="nv"&gt;A&lt;/span&gt;&lt;span class="s s-Atom"&gt;-----&lt;/span&gt;
+&lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="p"&gt;,&lt;/span&gt;        &lt;span class="nv"&gt;Z&lt;/span&gt;&lt;span class="p"&gt;:-&lt;/span&gt;&lt;span class="s s-Atom"&gt;-------------&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The first character of the tag indicates the part of speech. For each part of
+speech, we want to create a separate frequency distribution, i.e. we want to be
+able to say, for instance, the most frequent noun is X, followed by Y, whereas
+the most frequent adjective is Z etc. This should nicely exercise all of R's
+weak spots. Let's get to it!&lt;/p&gt;
 &lt;h1&gt;R: 1 day (!) / 15 hours (see EDIT below, but still !)&lt;/h1&gt;
 &lt;p&gt;After quite some exploration of various alternatives for the individual
 subtasks, this is the program that I came up with:&lt;/p&gt;
