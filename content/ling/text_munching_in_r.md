@@ -34,6 +34,39 @@ tl;dr
 If you're planning to process corpora of hundreds of millions of tokens or more
 -- spoiler alert, you probably shouldn't do it in R.
 
+Task
+====
+
+OK, I've specifically complained about R being bad at for-loops and hashes.
+Let's devise a task that'll show exactly how bad. At the same time, I don't
+mean to come up with anything particularly convoluted or far-fetched. So here
+goes: we'll be trying to build a per-part-of-speech frequency distribution of
+lemmas (dictionary headword forms) from a 120M-token corpus. If you've ever
+done any linguistic data analysis, I hope you'll agree it's a pretty basic and
+common task.
+
+The corpus data consists of lines with tab-separated word form, lemma and tag
+fields, plus some additional lines with metadata which do not contain tabs.
+We'll be skipping those. Here's a glimpse of the corpus format:
+
+```html
+<!--
+WORD     LEMMA    TAG -->
+Hladina  hladina  NNFS1-----A-----
+jezera   jezero   NNNS2-----A-----
+,        ,        Z:--------------
+mrtvá    mrtvý    AAFS1----1A-----
+a        a        J^--------------
+černá    černý    AAFS1----1A-----
+,        ,        Z:--------------
+```
+
+The first character of the tag indicates the part of speech. For each part of
+speech, we want to create a separate frequency distribution, i.e. we want to be
+able to say, for instance, the most frequent noun is X, followed by Y, whereas
+the most frequent adjective is Z etc. This should nicely exercise all of R's
+weak spots. Let's get to it!
+
 R: 1 day (!) / 15 hours (see EDIT below, but still !)
 =====================================================
 
