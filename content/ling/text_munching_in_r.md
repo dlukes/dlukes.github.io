@@ -494,7 +494,7 @@ start <- Sys.time()
 con <- file("stdin", open="rt")
 corpus <- readLines(con)
 
-diff <-  Sys.time() - start
+diff <- Sys.time() - start
 cat(sprintf("Corpus read in after %g %s.\n", diff, units(diff)))
 
 corpus <- stri_subset_fixed(corpus, "\t")
