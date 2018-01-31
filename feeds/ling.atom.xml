@@ -411,7 +411,7 @@ start &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.ti
 con &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stdin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; open&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 corpus &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;readLines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;con&lt;span class="p"&gt;)&lt;/span&gt;
 
-diff &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt;  &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; start
+diff &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; start
 &lt;span class="kp"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Corpus read in after %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 
 corpus &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; stri_subset_fixed&lt;span class="p"&gt;(&lt;/span&gt;corpus&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
