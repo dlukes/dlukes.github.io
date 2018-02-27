@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = "http://dlukes.github.io"
+SITEURL = "https://dlukes.github.io"
 # URLs must be absolute, otherwise disqus URLs for articles will turn out
 # relative as well and disqus will fail to load
 RELATIVE_URLS = False

@@ -1,6 +1,6 @@
 AUTHOR = "dlukes"
 SITENAME = "Little Umbrellas"
-SITEURL = "http://dlukes.github.io"
+SITEURL = "https://dlukes.github.io"
 
 TIMEZONE = "Europe/Prague"
 
