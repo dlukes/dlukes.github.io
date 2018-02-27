@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas - floss</title><link href="http://dlukes.github.io/" rel="alternate"></link><link href="http://dlukes.github.io/feeds/floss.atom.xml" rel="self"></link><id>http://dlukes.github.io/</id><updated>2017-12-19T00:00:00+01:00</updated><entry><title>Make the most of Python Jupyter notebooks</title><link href="http://dlukes.github.io/jupyter-magic.html" rel="alternate"></link><published>2017-12-19T00:00:00+01:00</published><updated>2017-12-19T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-12-19:/jupyter-magic.html</id><summary type="html">&lt;p&gt;My favorite and most useful IPython magic functions.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas - floss</title><link href="https://dlukes.github.io/" rel="alternate"></link><link href="https://dlukes.github.io/feeds/floss.atom.xml" rel="self"></link><id>https://dlukes.github.io/</id><updated>2017-12-19T00:00:00+01:00</updated><entry><title>Make the most of Python Jupyter notebooks</title><link href="https://dlukes.github.io/jupyter-magic.html" rel="alternate"></link><published>2017-12-19T00:00:00+01:00</published><updated>2017-12-19T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-12-19:/jupyter-magic.html</id><summary type="html">&lt;p&gt;My favorite and most useful IPython magic functions.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
@@ -1845,10 +1845,10 @@ printing 1
 
 
 
-&lt;div id="5640d723-d9bf-435b-8d4e-af0b085fd0c4"&gt;&lt;/div&gt;
+&lt;div id="17f0d1d9-32b6-41f0-8b1a-5e7dfdee8284"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#5640d723-d9bf-435b-8d4e-af0b085fd0c4');
+var element = $('#17f0d1d9-32b6-41f0-8b1a-5e7dfdee8284');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -3167,7 +3167,7 @@ drwxr-xr-x 2 root root 4.0K Aug 15 09:21 &lt;span class="ansi-blue-intense-fg an
 &lt;/div&gt;
  
 
-&lt;/p&gt;</content><category term="python"></category><category term="jupyter"></category><category term="programming"></category></entry><entry><title>Monkey-patching in R</title><link href="http://dlukes.github.io/monkey-patching-in-r.html" rel="alternate"></link><published>2017-10-24T00:00:00+02:00</published><updated>2017-10-24T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-24:/monkey-patching-in-r.html</id><summary type="html">&lt;p&gt;How to monkey-patch functions in imported libraries in R.&lt;/p&gt;</summary><content type="html">&lt;p&gt;While building a &lt;a href="https://shiny.rstudio.com/"&gt;Shiny&lt;/a&gt; application with R recently, I've come across the need
+&lt;/p&gt;</content><category term="python"></category><category term="jupyter"></category><category term="programming"></category></entry><entry><title>Monkey-patching in R</title><link href="https://dlukes.github.io/monkey-patching-in-r.html" rel="alternate"></link><published>2017-10-24T00:00:00+02:00</published><updated>2017-10-24T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2017-10-24:/monkey-patching-in-r.html</id><summary type="html">&lt;p&gt;How to monkey-patch functions in imported libraries in R.&lt;/p&gt;</summary><content type="html">&lt;p&gt;While building a &lt;a href="https://shiny.rstudio.com/"&gt;Shiny&lt;/a&gt; application with R recently, I've come across the need
 to invert the &lt;code&gt;filterRange()&lt;/code&gt; function in the &lt;a href="https://rstudio.github.io/DT/"&gt;DT&lt;/a&gt; package, which provides a
 convenient high-level way to add &lt;a href="https://datatables.net/"&gt;DataTables&lt;/a&gt; to your Shiny app. As indicated
 by its name, this function filters a numeric column in your datatable based on
@@ -3268,7 +3268,7 @@ maintainable solution to a problem you're having. More often, it's actually
 one, the one with the best hassle/reward ratio (until it comes back to bite you
 once your codebase has grown or assumptions about the monkey-patched code have
 changed). At any rate, if you need to resort to it, it's nice to have a quick,
-googlable how-to, hence this post.&lt;/p&gt;</content><category term="floss"></category><category term="hack"></category><category term="r"></category><category term="monkey-patching"></category></entry><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="http://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><updated>2016-09-29T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:/responsive-iframe.html</id><summary type="html">&lt;p&gt;How to embed a "responsive" (i.e. vertically resizing) iframe in a web page.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
+googlable how-to, hence this post.&lt;/p&gt;</content><category term="floss"></category><category term="hack"></category><category term="r"></category><category term="monkey-patching"></category></entry><entry><title>"Responsive" iframes, e.g. for DokuWiki and Shiny</title><link href="https://dlukes.github.io/responsive-iframe.html" rel="alternate"></link><published>2016-09-29T00:00:00+02:00</published><updated>2016-09-29T00:00:00+02:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-09-29:/responsive-iframe.html</id><summary type="html">&lt;p&gt;How to embed a "responsive" (i.e. vertically resizing) iframe in a web page.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Sometimes, the best way to embed an interactive element into a website is to use
 an iframe. Obviously, not when your website is a webapp and that element
 represents the main functionality it's supposed to provide -- that would be
 gross. But when your website is mostly textual / graphical content, typically
@@ -3424,7 +3424,7 @@ change:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="responsive iframe rearranged" src="images/responsive_rearranged.png"&gt;&lt;/p&gt;
 &lt;p&gt;Cue bittersweet feeling after having figured out a workaround for such a
 specific use case that you're &lt;a href="http://www.xkcd.com/1691/"&gt;not quite sure&lt;/a&gt; it was
-worth putting all that effort into it in the first place...&lt;/p&gt;</content><category term="floss"></category><category term="javascript"></category><category term="html"></category><category term="iframe"></category><category term="dokuwiki"></category><category term="shiny"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="http://dlukes.github.io/beyond-semver.html" rel="alternate"></link><published>2014-12-14T00:00:00+01:00</published><updated>2014-12-14T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:/beyond-semver.html</id><summary type="html">&lt;p&gt;Semantic versioning is a good idea, but it would be better to use an explicit keyword system to signal (non-)breaking changes in library versions.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Background&lt;/h1&gt;
+worth putting all that effort into it in the first place...&lt;/p&gt;</content><category term="floss"></category><category term="javascript"></category><category term="html"></category><category term="iframe"></category><category term="dokuwiki"></category><category term="shiny"></category></entry><entry><title>Beyond semantic versioning? (cross-post)</title><link href="https://dlukes.github.io/beyond-semver.html" rel="alternate"></link><published>2014-12-14T00:00:00+01:00</published><updated>2014-12-14T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2014-12-14:/beyond-semver.html</id><summary type="html">&lt;p&gt;Semantic versioning is a good idea, but it would be better to use an explicit keyword system to signal (non-)breaking changes in library versions.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Background&lt;/h1&gt;
 &lt;p&gt;Ever since I first read about &lt;a href="http://semver.org/"&gt;semantic versioning&lt;/a&gt;, I've
 thought of it as a neat idea. But only recently did it occur to me that what
 I liked about the idea was its goal, much less its execution (more on that
