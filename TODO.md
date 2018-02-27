@@ -1,2 +1,3 @@
 - <https://gist.github.com/dlukes/c4c4fcd0deec738c737c2213d68bf3fa>
 - advertise Spack packages for Manatee, CWB, other corpus management tools...?
+- convenience wrapper around pandoc in zshrc
