@@ -34,7 +34,8 @@ I'm a junior researcher at the [Institute of the Czech National
 Corpus](http://korpus.cz), [Faculty of Arts](http://ff.cuni.cz), [Charles
 University (Prague)](http://cuni.cz). My duties/interests include:
 
-- coordinating phonetic transcription for the ORTOFON corpus project
+- coordinating phonetic transcription for the [ORTOFON
+  corpus](http://wiki.korpus.cz/doku.php/en:cnk:ortofon) project
 - data processing and functionality prototyping (mainly using Python and R)
 - research into the scope of language variability in Czech using
   multi-dimensional analysis
