@@ -33,7 +33,6 @@ SOCIAL = (("github", "https://github.com/dlukes"),
 
 # Eyebrows
 AVATAR = "/images/avatar.jpeg"
-ABOUT_ME = "Language tourist, Python enthusiast & Frank Zappa aficionado"
 FAVICON = "images/favicon.ico"
 PYGMENTS_STYLE = "zenburn"
 THEME = "pelican-bootstrap3"
