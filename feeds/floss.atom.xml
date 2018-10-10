@@ -1845,10 +1845,10 @@ printing 1
 
 
 
-&lt;div id="bdf97b46-8e8b-4623-b14c-c0c2fbeb5cb1"&gt;&lt;/div&gt;
+&lt;div id="6bf9ca0a-d116-4b0b-b935-72ec7253a1eb"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#bdf97b46-8e8b-4623-b14c-c0c2fbeb5cb1');
+var element = $('#6bf9ca0a-d116-4b0b-b935-72ec7253a1eb');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
