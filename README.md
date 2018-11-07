@@ -1,4 +1,13 @@
-# Environment
+# Cloning
+
+Don't forget to initialize the plugin submodules after cloning!
+
+```sh
+git submodule init
+git submodule update
+```
+
+# Python environment
 
 Set it up using `pipenv install --ignore-pipfile --keep-outdated`
 (trying to make sure Pipenv doesn't fetch a newer, possibly incompatible
