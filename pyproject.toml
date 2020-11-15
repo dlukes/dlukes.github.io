@@ -6,7 +6,7 @@ authors = ["David Lukes <dafydd.lukes@gmail.com>"]
 license = "CC-BY-NC-4.0"
 
 [tool.poetry.dependencies]
-python = "~3.6"
+python = "^3.6"
 
 [tool.poetry.dev-dependencies]
 pelican = "^3.7.1"

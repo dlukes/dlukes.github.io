@@ -65,7 +65,7 @@ help:
 	@echo '                                                                          '
 
 bibtex:
-	cat ~/ownCloud/zot/moje-publikace/*.bib >bib.tmp
+	cat ~/Nextcloud/data/zot/moje-publikace/*.bib >bib.tmp
 
 html: bibtex
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
