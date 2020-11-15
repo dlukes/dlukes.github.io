@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
 <head>
-    <title>programming - Little Umbrellas</title>
+    <title>How to mount a Flask app under a URL prefix (or really, any WSGI app) - Little Umbrellas</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -166,16 +166,23 @@ init_mathjax();
 </script>
     <link href="https://dlukes.github.io/images/favicon.ico" rel="icon">
 
+<link rel="canonical" href="https://dlukes.github.io/how-to-mount-a-flask-app-under-a-url-prefix-or-really-any-wsgi-app.html">
 
-    <meta name="author" content="dlukes" />
-    <meta name="keywords" content="programming" />
+        <meta name="author" content="dlukes" />
+        <meta name="keywords" content="python,flask,wsgi" />
+        <meta name="description" content="Arguably the best kept secret in the Flask ecosystem ;)" />
 
-    <!-- Open Graph tags -->
         <meta property="og:site_name" content="Little Umbrellas" />
-        <meta property="og:type" content="website"/>
-        <meta property="og:title" content="Little Umbrellas"/>
-        <meta property="og:url" content="https://dlukes.github.io"/>
-        <meta property="og:description" content="Little Umbrellas"/>
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="How to mount a Flask app under a URL prefix (or really, any WSGI app)"/>
+        <meta property="og:url" content="https://dlukes.github.io/how-to-mount-a-flask-app-under-a-url-prefix-or-really-any-wsgi-app.html"/>
+        <meta property="og:description" content="Arguably the best kept secret in the Flask ecosystem ;)"/>
+        <meta property="article:published_time" content="2020-11-15" />
+            <meta property="article:section" content="floss" />
+            <meta property="article:tag" content="python" />
+            <meta property="article:tag" content="flask" />
+            <meta property="article:tag" content="wsgi" />
+            <meta property="article:author" content="dlukes" />
 
 
     <!-- Bootstrap -->
@@ -192,6 +199,8 @@ init_mathjax();
 
 
 
+        <link href="https://dlukes.github.io/feeds/floss.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Little Umbrellas floss ATOM Feed"/>
 
 </head>
 <body>
@@ -213,7 +222,7 @@ Little Umbrellas            </a>
                          <li><a href="https://dlukes.github.io/pages/about.html">
                              about me
                           </a></li>
-                        <li >
+                        <li class="active">
                             <a href="https://dlukes.github.io/category/floss.html">floss</a>
                         </li>
                         <li >
@@ -240,27 +249,318 @@ Little Umbrellas            </a>
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <article>
-                <h2><a href="https://dlukes.github.io/python-crash-course.html">Vše, co jste kdy chtěli vědět o Pythonu...</a></h2>
-                <div class="summary"><p>... ale báli jste se zeptat na hodině ;)</p>
-                    <a class="btn btn-default btn-xs" href="https://dlukes.github.io/python-crash-course.html">more ...</a>
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://dlukes.github.io/how-to-mount-a-flask-app-under-a-url-prefix-or-really-any-wsgi-app.html"
+                       rel="bookmark"
+                       title="Permalink to How to mount a Flask app under a URL prefix (or really, any WSGI app)">
+                        How to mount a Flask app under a URL prefix (or really, any WSGI app)
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2020-11-15T00:00:00+01:00"> Sun 15 November 2020</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://dlukes.github.io/tag/python.html">python</a>
+        /
+	<a href="https://dlukes.github.io/tag/flask.html">flask</a>
+        /
+	<a href="https://dlukes.github.io/tag/wsgi.html">wsgi</a>
+    
+</footer><!-- /.post-info -->                    </div>
                 </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://dlukes.github.io/jupyter-magic.html">Make the most of Python Jupyter notebooks</a></h2>
-                <div class="summary"><p>My favorite and most useful IPython magic functions.</p>
-                    <a class="btn btn-default btn-xs" href="https://dlukes.github.io/jupyter-magic.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
-            <article>
-                <h2><a href="https://dlukes.github.io/unicode.html">How computers handle text: a gentle but thorough introduction to Unicode</a></h2>
-                <div class="summary"><p>An introductory text about computer text encodings, primarily aimed at linguists.</p>
-                    <a class="btn btn-default btn-xs" href="https://dlukes.github.io/unicode.html">more ...</a>
-                </div>
-            </article>
-            <hr/>
+                <h1>Intro</h1>
+<p>In a hurry? Skip to the <a href="#mwe">minimal working example</a> below!</p>
+<p>So this is probably something that seasoned Flask webapp devs will find
+trivial, especially if they're also well-acquainted with <a href="https://wsgi.readthedocs.io/">WSGI
+itself</a> (the Python web server standard that Flask and the other
+popular synchronous Python web frameworks comply with).</p>
+<p>But my background is not like that. I've only occasionally used Flask
+for a project here and there over the years (and I've been really happy
+with it, since it delivers on its promise of being "micro" and keeps out
+of the way most of the time). I learned it mostly through its own docs.
+I've been aware that WSGI is a thing, but it never occurred to me I
+should learn more about it, it always felt like the Flask docs (should)
+cover everything I need.</p>
+<p>Which they did, except for the issue mentioned in the title of the
+article: transparently mounting the app under a URL prefix. Up until
+yesterday (when I found out basically by sheer luck that this is
+addressed by the WSGI standard that Flask conforms to), I had no idea
+what the proper way to do it in Flask was. I never could find any
+guidance in the Flask docs; as far as I know, I don't think the
+idiomatic solution I'll be discussing below is covered in there (and
+I've tried searching them again now that I know what I'm looking for).
+So I always resorted to clunky workarounds in order to achieve this.</p>
+<p>I'm fairly sure I'm not the only person like this -- a happy occasional
+user of Flask whose one major frustration has been having to manually
+smuggle URL prefixes into his routes. If you have a similar background,
+then may Google be more clement than it was to me and rank this article
+on the first page of its results when you hit this particular roadblock
+;)</p>
+<p>If you're a Flask / WSGI whiz, then your reaction will probably be "But
+of course <a href="#solution">this</a> is how it's done!" So in order to get
+something out of this article, you can instead muse upon the relative
+merits and drawbacks of splitting up technical information in a way
+that's well-organized / clearly delineated / methodical / logical (=
+Flask info in Flask docs, WSGI info in WSGI docs) vs. in a way that's
+useful and accessible even to occasional users, beginners etc. (= Flask
+docs might want to cover the parts of WSGI that a budding Flask dev
+might want to care about, even though that means duplicating
+information).</p>
+<h1>The problem</h1>
+<p>As you're prototyping and developing a Flask app, routing is pretty easy
+and straightforward:</p>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>But when the time comes to deploy it, you often realize you need to
+<strong>mount it under a URL prefix</strong>, e.g. <code>/my-app</code>. For the route above,
+that means that you want to trigger it when users navigate to
+<code>example.com/my-app/login</code>, not <code>example.com/login</code>. And similarly, you
+want this prefix added when generating internal redirects or links in
+your templates.</p>
+<p>So you think to yourself, this is surely such a common use case that
+there's definitely an example how to do this directly in <a href="https://flask.palletsprojects.com/en/1.1.x/quickstart/">Flask's
+<em>Quickstart</em></a>. Or failing that, definitely <em>somewhere</em> in
+the docs.</p>
+<p>So you search the docs for a reasonable query like "url prefix", which
+sounds like what you're interested in, and you learn about <a href="https://flask.palletsprojects.com/en/1.1.x/blueprints/">blueprints</a>,
+which is where stuff starts to become confusing. Blueprints are for
+making reusable application components and they support registering at a
+URL prefix and/or a subdomain.</p>
+<p>They're also a fairly advanced feature useful in more complicated apps,
+so they sort of go against the grain of your expectations with Flask.
+You likely picked up Flask because you liked that a simple app can
+consist of just a single Python module and a few lines of code, but now
+it looks like if you want to run it in production in a flexible way,
+you'll need to learn about blueprints and rewrite it as one? Because it
+sure doesn't look like vanilla Flask apps support URL prefixes, the docs
+don't mention any promising leads...</p>
+<p>So you end up deciding to roll your own homegrown solution, which might
+be configurable but still boilerplate-y if you still have some mental
+energy left to invest into the problem:</p>
+<div class="highlight"><pre><span></span><span class="n">PREFIX</span> <span class="o">=</span> <span class="s2">&quot;/my-app&quot;</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{PREFIX}/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>Or it might just be hardcoded to show you really don't care anymore, if
+you've just lost an hour searching for a Flask feature that would handle
+this in a civilized manner, and/or reading up on blueprints (before
+giving up):</p>
+<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/my-app/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login_func</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>If that sounds like you (and it certainly sounds like me), then boy do I
+have good news for you :) Turns out there actually <em>is</em> a right way to
+do it!</p>
+<h1>The idiomatic solution <a name=solution></a></h1>
+<p>The title of the article hints at the reason why the right way to do it
+is so hard to figure out: it turns out that deploying a Flask app under
+a URL prefix isn't actually a feature of Flask per se, it's a feature of
+the Python <a href="https://wsgi.readthedocs.io/">WSGI</a> standard that Flask conforms to. So that's probably
+why the way to achieve this isn't described in the Flask docs
+themselves, because I suppose you're expected to read up on the
+available WSGI knobs and handles separately...? Frankly, I don't think
+that's a realistic expectation :) I think this information would make a
+great addition to the Flask docs, maybe even directly in the
+<em>Quickstart</em> section.</p>
+<p>So what's the trick? The trick is to set the rather quirkily/quaintly
+named <a href="https://wsgi.readthedocs.io/en/latest/definitions.html"><code>SCRIPT_NAME</code> environment variable</a> prior to starting
+the web server running the app. If you set <code>SCRIPT_NAME=/my-app</code>, WSGI
+guarantees that the web server running your app will strip this prefix
+from incoming URLs, and add it to outgoing URLs (redirects, in-app links
+in templates). That's it, no need to modify your app at all, whether to
+add a configurable or hardcoded prefix to all the routes, or to rewrite
+it as a blueprint. Nice.</p>
+<h1>Caveats</h1>
+<p>Because of course, there are a few issues you might run into.</p>
+<h2>Flask's builtin web server ignores <code>SCRIPT_NAME</code></h2>
+<p>When you find out about <code>SCRIPT_NAME</code>, your first intuition is to test
+if it indeed does what you need with Flask's builtin dev server,
+because, well, that's what you use for development. Unfortunately, it
+turns out that Flask's server couldn't care less about this env var,
+which might lead you to (wrongly) conclude that you're on the wrong
+path. I actually think this happened to me a few years back because I
+feel like I've tinkered with <code>SCRIPT_NAME</code> before, only to conclude it
+doesn't seem to do anything.</p>
+<p>The fix: just use a fully-featured production WSGI server, e.g.
+<a href="https://gunicorn.org/">Gunicorn</a>. I promise <code>SCRIPT_NAME</code> works there.</p>
+<p>Is this one of the reasons why Flask's builtin server warns "This is a
+development server. Do not use it in a production deployment"? I'd
+always thought it was for performance / stability / security reasons,
+but it looks like it also just isn't (fully) WSGI-compliant.</p>
+<h2>Use <code>url_for</code> to generate internal links</h2>
+<p>I.e. instead of writing <code>href="/login"</code> in your templates or
+<code>redirect("/login")</code> in your view functions, write <code>href="{{
+url_for('login_func') }}"</code> and <code>redirect(url_for("login_func"))</code>. This
+will make sure the URLs are correctly prefixed with <code>SCRIPT_NAME</code>, if
+applicable.</p>
+<p>This is <a href="https://flask.palletsprojects.com/en/1.1.x/quickstart/#url-building">recommended as best practice</a> by the Flask docs
+anyway, so it's not like it's additional hoops to jump through.
+Interestingly, this section in the Flask docs is the closest they brush
+with discussing mounting the app under a URL prefix. They tell you:</p>
+<blockquote>
+<p>If your application is placed outside the URL root, for example, in
+<code>/myapplication</code> instead of <code>/</code>, <a href="https://flask.palletsprojects.com/en/1.1.x/api/#flask.url_for"><code>url_for()</code></a> properly
+handles that for you.</p>
+</blockquote>
+<p>But they don't tell you <em>how</em> to place your application outside the URL
+root in the first place, which is kind of maddening. If you open the
+<a href="https://flask.palletsprojects.com/en/1.1.x/api/#flask.url_for">link to the <code>url_for()</code> docs</a>, you are further teased with
+mentions of <code>APPLICATION_ROOT</code> and <code>SERVER_NAME</code> configuration values,
+which sound a lot like the kind of setting you were looking for, except
+the docs immediately dash your hopes and remain silent about what you
+really want, i.e. the <code>SCRIPT_NAME</code> env var:</p>
+<blockquote>
+<p>Configuration values <code>APPLICATION_ROOT</code> and <code>SERVER_NAME</code> are only used
+when generating URLs outside of a request context.</p>
+</blockquote>
+<p>I remember tearing my hair out in despair at this point of digging
+through the Flask docs and trying in vain (of course) to tinker with
+those configuration values a few years back.</p>
+<h2>Don't strip the prefix in your reverse proxy config</h2>
+<p>If you're configuring your Flask app under a URL prefix, it's probably
+running behind a reverse proxy of some sort (Nginx, Apache, etc.).
+Reverse proxies can be configured to strip these prefixes when relaying
+requests to individual apps, but <strong>don't do this</strong>!</p>
+<p>You want to leave the handling of the prefix to the WSGI server running
+your app, because the WSGI server has intimate knowledge about the app
+(it knows it can expect the app to talk WSGI), so it can be smart about
+how exactly prefix handling should be done. By contrast, the reverse
+proxy has very little information about your app -- it can rewrite
+incoming URLs in request headers fairly easily, but that's about it, it
+can hardly rewrite outgoing URLs in response bodies, that would be
+non-trivial. That's what sprinkling <code>url_for()</code>s where appropriate
+throughout your app is for (see previous section).</p>
+<p>So make sure your reverse proxy leaves the prefix alone. As an example,
+for Nginx, you don't want this, which would get rid of the <code>/my-app/</code>
+prefix:</p>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/my-app/</span> <span class="p">{</span>
+    <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:8000/</span><span class="p">;</span>
+    <span class="c1"># ...</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Instead, you want this:</p>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/my-app/</span> <span class="p">{</span>
+    <span class="kn">proxy_pass</span> <span class="s">http://127.0.0.1:8000/my-app/</span><span class="p">;</span>
+    <span class="c1"># ...                            ^^^^^^^</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h1>Minimal working example <a name=mwe></a></h1>
+<p>Let's wrap up with a runnable demo. Put this in <code>app.py</code>:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">url_for</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Run the app with a WSGI-compliant web server, e.g. <a href="https://gunicorn.org/">Gunicorn</a> (again,
+<em>not</em> Flask's builtin dev server, see above), while setting the
+<code>SCRIPT_NAME</code> env var:</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">SCRIPT_NAME</span><span class="o">=</span>/my-app gunicorn app:app
+</pre></div>
+
+
+<p>Now try accessing <code>/</code> with <code>curl</code>:</p>
+<div class="highlight"><pre><span></span>$ curl localhost:8000/
+</pre></div>
+
+
+<p>You should get an internal server error. If you inspect the traceback in
+the window where the app is running, you'll see this was due to the fact
+that the expected <code>/my-app</code> prefix wasn't found, so try adding it:</p>
+<div class="highlight"><pre><span></span>$ curl localhost:8000/my-app/
+/my-app/
+</pre></div>
+
+
+<p>Now everything works, even though your app's source code is clean and
+blissfully unaware of any prefix. Gunicorn strips away the prefix from
+the request before passing it on to your app's router, and <code>url_for</code>
+takes care of adding the prefix back into any internal link generated by
+your app, as you can see in the output (<code>/my-app/</code> instead of <code>/</code>).</p>
+<p>Just to confirm Flask's builtin development server doesn't properly
+handle <code>SCRIPT_NAME</code> -- run the app with it:</p>
+<div class="highlight"><pre><span></span>$ <span class="nv">FLASK_APP</span><span class="o">=</span>app <span class="nv">SCRIPT_NAME</span><span class="o">=</span>/my-app flask run
+</pre></div>
+
+
+<p>The prefix is ignored, which means that accessing <code>/</code> works (which we
+don't want):</p>
+<div class="highlight"><pre><span></span>$ curl localhost:5000/
+/
+</pre></div>
+
+
+<p>And <code>/my-app/</code> unfortunately doesn't:</p>
+<div class="highlight"><pre><span></span>$ curl localhost:5000/my-app/
+<span class="c1"># outputs Flask&#39;s default 404 message</span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'littleumbrellas'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'how-to-mount-a-flask-app-under-a-url-prefix-or-really-any-wsgi-app';
+                var disqus_url = 'https://dlukes.github.io/how-to-mount-a-flask-app-under-a-url-prefix-or-really-any-wsgi-app.html';
+
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
 
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -559,7 +859,7 @@ Little Umbrellas            </a>
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2018 dlukes
+         <div class="col-xs-10">&copy; 2020 dlukes
             &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>              <p><small>  <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>

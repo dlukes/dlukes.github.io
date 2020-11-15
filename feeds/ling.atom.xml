@@ -54,28 +54,28 @@ weak spots. Let's get to it!&lt;/p&gt;
 &lt;h1&gt;R: 1 day (!) / 15 hours (see EDIT below, but still !)&lt;/h1&gt;
 &lt;p&gt;After quite some exploration of various alternatives for the individual
 subtasks, this is the program that I came up with:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;stringi&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;hash&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stringi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nf"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="c1"&gt;# read input from STDIN&lt;/span&gt;
-con &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stdin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; open&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stdin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-pos_sets &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; hash&lt;span class="p"&gt;()&lt;/span&gt;
-start &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
-&lt;span class="kr"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-  line &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;readLines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;con&lt;span class="p"&gt;,&lt;/span&gt; n&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;length&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;line&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="kr"&gt;break&lt;/span&gt;
+&lt;span class="n"&gt;pos_sets&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="nf"&gt;while &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;readLines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nf"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;length&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;break&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
   &lt;span class="c1"&gt;# lines with tokens (as opposed to metadata) contain tabs&lt;/span&gt;
-  &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;stri_detect_fixed&lt;span class="p"&gt;(&lt;/span&gt;line&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nf"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;stri_detect_fixed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="c1"&gt;# individual token attributes are tab-separated&lt;/span&gt;
-    attrs &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; stri_split_fixed&lt;span class="p"&gt;(&lt;/span&gt;line&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;attrs&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;stri_split_fixed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;line&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="c1"&gt;# for each token, we&amp;#39;re interested in the lemma (headword)...&lt;/span&gt;
-    lemma &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; attrs&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;lemma&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;attrs[[1]][2]&lt;/span&gt;
     &lt;span class="c1"&gt;# ... and the part-of-speech, which is the first character of the tag&lt;/span&gt;
-    tag &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; attrs&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-    pos &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; stri_split_boundaries&lt;span class="p"&gt;(&lt;/span&gt;tag&lt;span class="p"&gt;,&lt;/span&gt; n&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; type&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;character&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)[[&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]][&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;tag&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;attrs[[1]][3]&lt;/span&gt;
+    &lt;span class="n"&gt;pos&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;stri_split_boundaries&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;tag&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;character&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;[[1]][1]&lt;/span&gt;
     &lt;span class="c1"&gt;# build a per-part-of-speech frequency distribution as a nested hash:&lt;/span&gt;
     &lt;span class="c1"&gt;# {&lt;/span&gt;
     &lt;span class="c1"&gt;#   &amp;quot;noun&amp;quot;: {&lt;/span&gt;
@@ -89,20 +89,20 @@ start &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.ti
     &lt;span class="c1"&gt;#   },&lt;/span&gt;
     &lt;span class="c1"&gt;#   ...&lt;/span&gt;
     &lt;span class="c1"&gt;# }&lt;/span&gt;
-    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.null&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-      pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; hash&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="nf"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;is.null&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pos_sets[[pos]]&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;pos_sets[[pos]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
-    &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;is.null&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-      pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
-    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="kr"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-      pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; pos_sets&lt;span class="p"&gt;[[&lt;/span&gt;pos&lt;span class="p"&gt;]][[&lt;/span&gt;lemma&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+    &lt;span class="nf"&gt;if &lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;is.null&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pos_sets[[pos]][[lemma]]&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;pos_sets[[pos]][[lemma]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="n"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="n"&gt;pos_sets[[pos]][[lemma]]&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;pos_sets[[pos]][[lemma]]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
   &lt;span class="p"&gt;}&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="c1"&gt;# report running time&lt;/span&gt;
-diff &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; start
-&lt;span class="kp"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Done in %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; file&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kp"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;span class="nf"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Done in %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nf"&gt;stderr&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -181,18 +181,18 @@ testing.&lt;/p&gt;
 &lt;p&gt;Building a per-part-of-speech frequency distribution of headwords requires an
 appropriate data structure. As indicated in the comments in the R source, we
 want to build a nested collection that looks something like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;{
-  &amp;quot;noun&amp;quot;: {
-    &amp;quot;cat&amp;quot;: 5,
-    &amp;quot;dog&amp;quot;: 3,
-    ...
-  },
-  &amp;quot;verb&amp;quot;: {
-    &amp;quot;look&amp;quot;: 2,
-    ...
-  },
-  ...
-}
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;{&lt;/span&gt;
+  &lt;span class="ss"&gt;&amp;quot;noun&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="ss"&gt;&amp;quot;cat&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="ss"&gt;&amp;quot;dog&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+  &lt;span class="err"&gt;}&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="ss"&gt;&amp;quot;verb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="err"&gt;{&lt;/span&gt;
+    &lt;span class="ss"&gt;&amp;quot;look&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+  &lt;span class="err"&gt;}&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -403,28 +403,28 @@ large quantities of text data, the answer is a big, resounding &lt;strong&gt;NOT
 &lt;p&gt;Since I ran these on a server with 64 GB of RAM, I figured I might as well try
 loading everything into memory in R and doing it the proper, vectorized way,
 while I'm at it. Here's the code, using &lt;code&gt;dplyr&lt;/code&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;dplyr&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="kn"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;stringi&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dplyr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nf"&gt;library&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stringi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-start &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
-con &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stdin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; open&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-corpus &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;readLines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;con&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;con&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;file&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;stdin&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;open&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;rt&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;corpus&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;readLines&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;con&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-diff &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; start
-&lt;span class="kp"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Corpus read in after %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;span class="nf"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Corpus read in after %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 
-corpus &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; stri_subset_fixed&lt;span class="p"&gt;(&lt;/span&gt;corpus&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-corpus &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; stri_split_fixed&lt;span class="p"&gt;(&lt;/span&gt;corpus&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; simplify&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-freq_dist &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; tibble&lt;span class="p"&gt;(&lt;/span&gt;
-  POS&lt;span class="o"&gt;=&lt;/span&gt;stri_sub&lt;span class="p"&gt;(&lt;/span&gt;corpus&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; from&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; to&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
-  LEMMA&lt;span class="o"&gt;=&lt;/span&gt;corpus&lt;span class="p"&gt;[,&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;corpus&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;stri_subset_fixed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;corpus&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;corpus&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;stri_split_fixed&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;corpus&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;\t&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;simplify&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="kc"&gt;TRUE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;freq_dist&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;tibble&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+  &lt;span class="n"&gt;POS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nf"&gt;stri_sub&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;corpus[&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="n"&gt;]&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+  &lt;span class="n"&gt;LEMMA&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;corpus[&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="n"&gt;]&lt;/span&gt;
 &lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
-  group_by&lt;span class="p"&gt;(&lt;/span&gt;POS&lt;span class="p"&gt;,&lt;/span&gt; LEMMA&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
-  summarize&lt;span class="p"&gt;(&lt;/span&gt;FREQ&lt;span class="o"&gt;=&lt;/span&gt;n&lt;span class="p"&gt;())&lt;/span&gt;
+  &lt;span class="nf"&gt;group_by&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;POS&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;LEMMA&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span class="nf"&gt;summarize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;FREQ&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nf"&gt;n&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
 
-diff &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="kp"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; start
-&lt;span class="kp"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Finished processing corpus after %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kp"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kp"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+&lt;span class="n"&gt;diff&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;Sys.time&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;span class="nf"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;sprintf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Finished processing corpus after %g %s.\n&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;units&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;diff&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -1111,8 +1111,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;/ol&gt;
 &lt;/div&gt;</content><category term="linguistics"></category><category term="Wittgenstein"></category><category term="Chomsky"></category></entry><entry><title>How computers handle text: a gentle but thorough introduction to Unicode</title><link href="https://dlukes.github.io/unicode.html" rel="alternate"></link><published>2016-01-27T00:00:00+01:00</published><updated>2016-01-27T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2016-01-27:/unicode.html</id><summary type="html">&lt;p&gt;An introductory text about computer text encodings, primarily aimed at linguists.&lt;/p&gt;</summary><content type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Or, &lt;a href="http://www.joelonsoftware.com/articles/Unicode.html"&gt;the absolute minimum every &lt;del&gt;software developer&lt;/del&gt; linguist absolutely, positively must know about Unicode and character sets (no excuses!)&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: This text uses the Python programming language to give some hands-on experience of the concepts discussed. If you're not familiar with programming at all, much less with Python, my advice is:&lt;/p&gt;
@@ -1149,7 +1148,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;bin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;65&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1159,7 +1158,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[1]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[1]:&lt;/div&gt;
 
 
 
@@ -1175,8 +1174,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;As you can see, in Python, binary numbers are given a &lt;code&gt;0b&lt;/code&gt; prefix to distinguish them from regular (decimal) numbers. The number itself is what follows after (i.e. 1000001).&lt;/p&gt;
 &lt;p&gt;Similarly, hexadecimal numbers are given an &lt;code&gt;0x&lt;/code&gt; prefix:&lt;/p&gt;
@@ -1192,7 +1190,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;65&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1202,7 +1200,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[2]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[2]:&lt;/div&gt;
 
 
 
@@ -1218,8 +1216,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;To convert in the opposite direction, i.e. &lt;em&gt;to&lt;/em&gt; decimal, just evaluate the binary or hexadecimal representation of a number:&lt;/p&gt;
 
@@ -1234,7 +1231,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mb"&gt;0b1000001&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1244,7 +1241,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[3]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[3]:&lt;/div&gt;
 
 
 
@@ -1267,7 +1264,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mh"&gt;0x41&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1277,7 +1274,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[4]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[4]:&lt;/div&gt;
 
 
 
@@ -1293,8 +1290,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Numbers using these different &lt;strong&gt;bases&lt;/strong&gt; (base 2 = binary, base 10 = decimal, base 16 = hexadecimal) are mutually compatible, e.g. for comparison purposes:&lt;/p&gt;
 
@@ -1309,7 +1305,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mb"&gt;0b1000001&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mh"&gt;0x41&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;65&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1319,7 +1315,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[5]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[5]:&lt;/div&gt;
 
 
 
@@ -1335,8 +1331,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Why are hexadecimals useful? They're primarily a more &lt;strong&gt;convenient, condensed&lt;/strong&gt; way of representing sequences of bits: each hexadecimal digit can represent 16 different values, and therefore it can stand in for a sequence of 4 bits (2^4 = 16).&lt;/p&gt;
 
@@ -1351,7 +1346,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mh"&gt;0xa&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mb"&gt;0b1010&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1361,7 +1356,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[6]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[6]:&lt;/div&gt;
 
 
 
@@ -1384,7 +1379,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mh"&gt;0xb&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mb"&gt;0b1011&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1394,7 +1389,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[7]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[7]:&lt;/div&gt;
 
 
 
@@ -1419,7 +1414,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="mh"&gt;0xab&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mb"&gt;0b10101011&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1429,7 +1424,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[8]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[8]:&lt;/div&gt;
 
 
 
@@ -1445,8 +1440,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;In other words, instead of binary 10101011, we can just write hexadecimal ab and save ourselves some space. Of course, this only works if shorter binary numbers are &lt;strong&gt;padded to a 4-bit width&lt;/strong&gt;:&lt;/p&gt;
 
@@ -1461,7 +1455,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mh"&gt;0x2&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mb"&gt;0b10&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1471,7 +1465,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[9]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[9]:&lt;/div&gt;
 
 
 
@@ -1494,7 +1488,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mh"&gt;0x3&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mb"&gt;0b11&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1504,7 +1498,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[10]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[10]:&lt;/div&gt;
 
 
 
@@ -1529,7 +1523,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="mh"&gt;0x23&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mb"&gt;0b00100011&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1539,7 +1533,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[11]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[11]:&lt;/div&gt;
 
 
 
@@ -1563,7 +1557,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="mh"&gt;0x23&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mb"&gt;0b1011&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1573,7 +1567,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[12]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[12]:&lt;/div&gt;
 
 
 
@@ -1589,8 +1583,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;The padding has no effect on the value, much like decimal 42 and 00000042 are effectively the same numbers.&lt;/p&gt;
 &lt;p&gt;Now back to text encodings. The oldest encoding still in widespread use is &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;&lt;code&gt;ASCII&lt;/code&gt;&lt;/a&gt;, which is a 7-bit encoding. What's the number of &lt;em&gt;different&lt;/em&gt; sequences of seven 1's and 0's?&lt;/p&gt;
@@ -1607,7 +1600,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1617,7 +1610,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[13]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[13]:&lt;/div&gt;
 
 
 
@@ -1633,8 +1626,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;This means ASCII can represent &lt;a href="http://www.ascii-code.com/"&gt;128 different characters&lt;/a&gt;, which comfortably fits the basic Latin alphabet (both lowercase and uppercase), Arabic numerals, punctuation and some "control characters" which were primarily useful on the old &lt;a href="https://en.wikipedia.org/wiki/Teleprinter"&gt;teletype terminals&lt;/a&gt; for which &lt;code&gt;ASCII&lt;/code&gt; was designed. For instance, the letter "A" corresponds to the number 65 (&lt;code&gt;1000001&lt;/code&gt; in binary, see above).&lt;/p&gt;
 &lt;blockquote&gt;&lt;p&gt;"ASCII" stands for "&lt;strong&gt;American&lt;/strong&gt; Standard Code for Information Interchange" -- which explains why there are no accented characters, for instance.&lt;/p&gt;
@@ -1652,7 +1644,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1662,7 +1654,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[14]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[14]:&lt;/div&gt;
 
 
 
@@ -1678,8 +1670,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;What happens in the range [128; 256) is not covered by the &lt;code&gt;ASCII&lt;/code&gt; standard. In the 1990s, many encodings were standardized which used this range for their own purposes, usually representing additional accented characters used in a particular region. E.g. Czech (and Slovak, Polish...) alphabets can be represented using the ISO &lt;code&gt;latin-2&lt;/code&gt; encoding, or Microsoft's &lt;code&gt;cp-1250&lt;/code&gt;. Encodings which stick to the same character mappings as &lt;code&gt;ASCII&lt;/code&gt; in the range [0; 128) &lt;strong&gt;and represent them physically in the same way (as 1 byte)&lt;/strong&gt;, while potentially adding more character mappings beyond that, are called &lt;strong&gt;&lt;code&gt;ASCII&lt;/code&gt;-compatible&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;ASCII&lt;/code&gt; compatibility is a good thing&amp;trade;, because when you start reading a character stream in a computer, there's &lt;strong&gt;no way to know in advance what encoding it is in&lt;/strong&gt; (unless it's a file you've encoded yourself). So in practice, a heuristic has been established to start reading the stream assuming it is &lt;code&gt;ASCII&lt;/code&gt; by default, and switch to a different encoding if evidence becomes available that motivates it. For instance, HTML files should all start something like this:&lt;/p&gt;
@@ -1715,7 +1706,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="n"&gt;latin2_printable_characters&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1725,7 +1716,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[15]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[15]:&lt;/div&gt;
 
 
 
@@ -1929,8 +1920,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Using the 8th bit (and thus the codepoint range [128; 256)) solves the problem of handling languages with character sets different than that of American English, but introduces a lot of complexity -- whenever you come across a text file with an unknown encoding, it might be in one of literally dozens of encodings. Additional drawbacks include:&lt;/p&gt;
 &lt;ul&gt;
@@ -1950,7 +1940,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -1960,7 +1950,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[16]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[16]:&lt;/div&gt;
 
 
 
@@ -1976,8 +1966,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Now, the most straightforward representation for 2^16 codepoints is what? Well, it's simply using 16 bits per character, i.e. 2 bytes. That encoding exists, it's called &lt;code&gt;UTF-16&lt;/code&gt; ("UTF" stands for "Unicode Transformation Format"), but consider the drawbacks:&lt;/p&gt;
 &lt;ul&gt;
@@ -2014,7 +2003,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="n"&gt;print_utf8_bytes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;字&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# ... getting longer.&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2024,7 +2013,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -2040,8 +2029,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;How does that even work? The obvious problem here is that with a fixed-width encoding, you just chop up the string at regular intervals (7, 8, 16 bits) and you know that each interval represents one character. So &lt;strong&gt;how do you know where to chop up a variable width-encoded string, if each character can take up a different number of bits?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Essentially, the trick is to &lt;strong&gt;use some of the bits&lt;/strong&gt; in the representation of a codepoint &lt;strong&gt;to store information&lt;/strong&gt; not about which character it is (whether it's an "A" or a "字"), but &lt;strong&gt;how many bits it occupies&lt;/strong&gt;. In other words, if you want to skip ahead 10 characters in a string encoded with a variable width-encoding, you can't just skip 10 * 7 or 8 or 16 bits; you have to read all the intervening characters to figure out how much space they take up. Take the following example:&lt;/p&gt;
@@ -2058,7 +2046,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
     &lt;span class="n"&gt;print_utf8_bytes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;char&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2068,7 +2056,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -2090,8 +2078,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Notice the initial bits in each byte of a character follow a pattern depending on how many bytes in total that character has:&lt;/p&gt;
 &lt;ul&gt;
@@ -2116,7 +2103,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u010d&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2126,7 +2113,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -2151,7 +2138,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="se"&gt;\u0063\u030c&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2161,7 +2148,7 @@ the elements colour and shape, ‘composite’” (Wittgenstein 2009,
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -2184,7 +2171,7 @@ č
 &lt;span class="nb"&gt;chr&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;269&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2194,7 +2181,7 @@ č
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[21]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[21]:&lt;/div&gt;
 
 
 
@@ -2210,8 +2197,7 @@ č
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;This means you have to be careful when working with languages that use accents, because &lt;strong&gt;to a computer, the two possible representations are of course different strings&lt;/strong&gt;, even though to you, they're conceptually the same:&lt;/p&gt;
 
@@ -2229,7 +2215,7 @@ č
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2239,7 +2225,7 @@ č
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -2261,7 +2247,7 @@ č
 &lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2271,7 +2257,7 @@ č
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[23]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[23]:&lt;/div&gt;
 
 
 
@@ -2287,8 +2273,7 @@ č
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Watch out, &lt;strong&gt;they even have different lengths&lt;/strong&gt;! This might come to bite you if you're trying to compute the length of a word in letters.&lt;/p&gt;
 
@@ -2304,7 +2289,7 @@ č
 &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;s2 is&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s2&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;character(s) long.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2314,7 +2299,7 @@ č
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt"&gt;&lt;/div&gt;
+    &lt;div class="prompt"&gt;&lt;/div&gt;
 
 
 &lt;div class="output_subarea output_stream output_stdout output_text"&gt;
@@ -2329,8 +2314,7 @@ s2 is 2 character(s) long.
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;For this reason, even though we've been informally calling these Unicode entities "characters", it is more accurate and less confusing to use the technical term "codepoints".&lt;/p&gt;
 &lt;p&gt;Generally, most text out there will use the first, single-codepoint approach whenever possible, and pre-packaged linguistic corpora will try to be consistent about this (unless they come from the web, which always warrants being suspicious and defensive about your material). If you're worried about inconsistencies in your data, you can perform a &lt;a href="https://en.wikipedia.org/wiki/Unicode_equivalence#Normalization"&gt;normalization&lt;/a&gt;:&lt;/p&gt;
@@ -2354,7 +2338,7 @@ s2 is 2 character(s) long.
 &lt;span class="n"&gt;s1&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;s2&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2364,7 +2348,7 @@ s2 is 2 character(s) long.
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[25]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[25]:&lt;/div&gt;
 
 
 
@@ -2380,8 +2364,7 @@ s2 is 2 character(s) long.
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Let's wrap things up by saying that Python itself uses Unicode internally, but the encoding it defaults to when opening an external file depends on the &lt;em&gt;locale&lt;/em&gt; of the system (broadly speaking, the set of region, language and character-encoding related settings of the operating system). On most modern Linux and macOS systems, this will probably be a &lt;code&gt;UTF-8&lt;/code&gt; locale and Python will therefore assume &lt;code&gt;UTF-8&lt;/code&gt; as the encoding by default. Unfortunately, Windows is different. To be on the safe side, whenever opening files in Python, you can specify the encoding explicitly:&lt;/p&gt;
 
@@ -2397,14 +2380,13 @@ s2 is 2 character(s) long.
     &lt;span class="k"&gt;pass&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;In fact, it's &lt;strong&gt;always a good idea to specify the encoding explicitly, using &lt;code&gt;UTF-8&lt;/code&gt; as a default&lt;/strong&gt; if you don't know, for at least two reasons -- it makes your code more:&lt;/p&gt;
 &lt;ol&gt;
@@ -2445,14 +2427,13 @@ s2 is 2 character(s) long.
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;df&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Depending on your font configuration, it may be very hard to spot the two intruders in the sentence below. The frequency table shows the string contains regular &lt;code&gt;LATIN SMALL LETTER T&lt;/code&gt; and &lt;code&gt;LATIN SMALL LETTER G&lt;/code&gt;, but also their specialized but visually similar variants &lt;code&gt;MATHEMATICAL SANS-SERIF SMALL T&lt;/code&gt; and &lt;code&gt;LATIN SMALL LETTER SCRIPT G&lt;/code&gt;. You might want to replace such codepoints before doing further text processing...&lt;/p&gt;
 
@@ -2467,7 +2448,7 @@ s2 is 2 character(s) long.
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;inspect_codepoints&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Intruders here, good 𝗍hinɡ I checked.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2477,7 +2458,7 @@ s2 is 2 character(s) long.
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[28]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[28]:&lt;/div&gt;
 
 
 
@@ -2672,8 +2653,7 @@ s2 is 2 character(s) long.
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;... because of course, for a computer, the word "thing" written with two different variants of "g" is really just two different words, which is probably not what you want:&lt;/p&gt;
 
@@ -2688,7 +2668,7 @@ s2 is 2 character(s) long.
 &lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;thing&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;thinɡ&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
-&lt;/div&gt;
+    &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 
@@ -2698,7 +2678,7 @@ s2 is 2 character(s) long.
 
 &lt;div class="output_area"&gt;
 
-&lt;div class="prompt output_prompt"&gt;Out[29]:&lt;/div&gt;
+    &lt;div class="prompt output_prompt"&gt;Out[29]:&lt;/div&gt;
 
 
 
@@ -2714,8 +2694,7 @@ s2 is 2 character(s) long.
 
 &lt;/div&gt;
 &lt;div class="cell border-box-sizing text_cell rendered"&gt;&lt;div class="prompt input_prompt"&gt;
-&lt;/div&gt;
-&lt;div class="inner_cell"&gt;
+&lt;/div&gt;&lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;Finally, to put things into perspective, here's a diagram what happens when processing text with Python ("Unicode" in the central box stands for Python's internal representation of Unicode, which is &lt;strong&gt;not&lt;/strong&gt; &lt;code&gt;UTF-8&lt;/code&gt; nor &lt;code&gt;UTF-16&lt;/code&gt;):&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Text IO in Python" src="http://www.nltk.org/images/unicode.png" style="max-width: 100%;"&gt;&lt;/p&gt;
