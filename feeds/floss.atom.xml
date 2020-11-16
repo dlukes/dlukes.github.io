@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas - floss</title><link href="https://dlukes.github.io/" rel="alternate"></link><link href="https://dlukes.github.io/feeds/floss.atom.xml" rel="self"></link><id>https://dlukes.github.io/</id><updated>2020-11-15T00:00:00+01:00</updated><entry><title>How to mount a Flask app under a URL prefix (or really, any WSGI app)</title><link href="https://dlukes.github.io/how-to-mount-a-flask-app-under-a-url-prefix-or-really-any-wsgi-app.html" rel="alternate"></link><published>2020-11-15T00:00:00+01:00</published><updated>2020-11-15T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2020-11-15:/how-to-mount-a-flask-app-under-a-url-prefix-or-really-any-wsgi-app.html</id><summary type="html">&lt;p&gt;Arguably the best kept secret in the Flask ecosystem ;)&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Intro&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Little Umbrellas - floss</title><link href="https://dlukes.github.io/" rel="alternate"></link><link href="https://dlukes.github.io/feeds/floss.atom.xml" rel="self"></link><id>https://dlukes.github.io/</id><updated>2020-11-15T00:00:00+01:00</updated><entry><title>How to mount a Flask app under a URL prefix (or really, any WSGI app)</title><link href="https://dlukes.github.io/flask-wsgi-url-prefix.html" rel="alternate"></link><published>2020-11-15T00:00:00+01:00</published><updated>2020-11-15T00:00:00+01:00</updated><author><name>dlukes</name></author><id>tag:dlukes.github.io,2020-11-15:/flask-wsgi-url-prefix.html</id><summary type="html">&lt;p&gt;Arguably the best kept secret in the Flask ecosystem ;)&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Intro&lt;/h1&gt;
 &lt;p&gt;In a hurry? Skip to the &lt;a href="#mwe"&gt;minimal working example&lt;/a&gt; below!&lt;/p&gt;
 &lt;p&gt;So this is probably something that seasoned Flask webapp devs will find
 trivial, especially if they're also well-acquainted with &lt;a href="https://wsgi.readthedocs.io/"&gt;WSGI
@@ -20612,10 +20612,10 @@ printing 1
 
 
 
-&lt;div id="afa96658-53d5-49c5-8d39-677dc51c4681"&gt;&lt;/div&gt;
+&lt;div id="54607732-24ee-43de-9cb5-35ccf76beb05"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#afa96658-53d5-49c5-8d39-677dc51c4681');
+var element = $('#54607732-24ee-43de-9cb5-35ccf76beb05');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
