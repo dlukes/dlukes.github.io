@@ -313,7 +313,7 @@ on the first page of its results when you hit this particular roadblock
 <p>If you're a Flask / WSGI whiz, then your reaction will probably be "But
 of course <a href="#solution">this</a> is how it's done!" So in order to get
 something out of this article, you can instead muse upon the relative
-merits and drawbacks of splitting up technical information in a way
+merits and drawbacks of splitting up technical documentation in a way
 that's well-organized / clearly delineated / methodical / logical (=
 Flask info in Flask docs, WSGI info in WSGI docs) vs. in a way that's
 useful and accessible even to occasional users, beginners etc. (= Flask
@@ -395,9 +395,36 @@ from incoming URLs, and add it to outgoing URLs (redirects, in-app links
 in templates). That's it, no need to modify your app at all, whether to
 add a configurable or hardcoded prefix to all the routes, or to rewrite
 it as a blueprint. Nice.</p>
+<hr>
+<p><strong>EDIT:</strong> As <a href="https://www.reddit.com/user/james_pic/">u/james_pic</a> points out over on <a href="https://www.reddit.com/r/Python/comments/juwj3x/how_to_mount_a_flask_app_under_a_url_prefix_or/gchdsld">Reddit</a>, reading
+<code>SCRIPT_NAME</code> from an env var is actually not required by the WSGI spec,
+it's a convenience feature provided by some WSGI servers, e.g.
+<a href="https://gunicorn.org/">Gunicorn</a>.</p>
+<hr>
 <h1>Caveats</h1>
 <p>Because of course, there are a few issues you might run into.</p>
 <h2>Flask's builtin web server ignores <code>SCRIPT_NAME</code></h2>
+<hr>
+<p><strong>EDIT:</strong> As should be clear from the previous edit, Flask's builtin web
+server only ignores the <code>SCRIPT_NAME</code> env var. It works perfectly well
+with the <code>SCRIPT_NAME</code> WSGI variable, which however requires quite a bit
+more work to set up. You need to add WSGI routing middleware to your
+application, e.g. like this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">werkzeug.middleware.dispatcher</span> <span class="kn">import</span> <span class="n">DispatcherMiddleware</span>
+<span class="kn">from</span> <span class="nn">werkzeug.wrappers</span> <span class="kn">import</span> <span class="n">Response</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span> <span class="o">=</span> <span class="n">DispatcherMiddleware</span><span class="p">(</span>
+    <span class="n">Response</span><span class="p">(</span><span class="s1">&#39;Not Found&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">404</span><span class="p">),</span>
+    <span class="p">{</span><span class="s1">&#39;/my-app&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">wsgi_app</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>Presumably, you'd make the actual value of the prefix part of the app's
+config.</p>
+<p>(Code sample courtesy of <a href="https://www.reddit.com/user/james_pic/">u/james_pic</a> over on <a href="https://www.reddit.com/r/Python/comments/juwj3x/how_to_mount_a_flask_app_under_a_url_prefix_or/gchdsld">Reddit</a>, thank
+you!)</p>
+<hr>
 <p>When you find out about <code>SCRIPT_NAME</code>, your first intuition is to test
 if it indeed does what you need with Flask's builtin dev server,
 because, well, that's what you use for development. Unfortunately, it
@@ -406,12 +433,17 @@ which might lead you to (wrongly) conclude that you're on the wrong
 path. I actually think this happened to me a few years back because I
 feel like I've tinkered with <code>SCRIPT_NAME</code> before, only to conclude it
 doesn't seem to do anything.</p>
-<p>The fix: just use a fully-featured production WSGI server, e.g.
-<a href="https://gunicorn.org/">Gunicorn</a>. I promise <code>SCRIPT_NAME</code> works there.</p>
-<p>Is this one of the reasons why Flask's builtin server warns "This is a
+<p>The fix: just use a <del>fully-featured production</del> WSGI server
+<ins>that supports reading this configuration from an environment
+variable</ins>, e.g. <a href="https://gunicorn.org/">Gunicorn</a>. I promise <code>SCRIPT_NAME</code> works there.</p>
+<p><ins>Alternatively, add some routing middleware of the kind sketched
+above to your app.</ins></p>
+<p><del>
+Is this one of the reasons why Flask's builtin server warns "This is a
 development server. Do not use it in a production deployment"? I'd
 always thought it was for performance / stability / security reasons,
-but it looks like it also just isn't (fully) WSGI-compliant.</p>
+but it looks like it also just isn't (fully) WSGI-compliant.
+</del></p>
 <h2>Use <code>url_for</code> to generate internal links</h2>
 <p>I.e. instead of writing <code>href="/login"</code> in your templates or
 <code>redirect("/login")</code> in your view functions, write <code>href="{{
@@ -441,6 +473,25 @@ when generating URLs outside of a request context.</p>
 <p>I remember tearing my hair out in despair at this point of digging
 through the Flask docs and trying in vain (of course) to tinker with
 those configuration values a few years back.</p>
+<hr>
+<p><strong>EDIT:</strong> Again, after reading <a href="https://www.reddit.com/user/james_pic/">u/james_pic</a>'s very helpful and
+insightful comment on <a href="https://www.reddit.com/r/Python/comments/juwj3x/how_to_mount_a_flask_app_under_a_url_prefix_or/gchdsld">Reddit</a>, I've realized the Flask docs technically
+<em>do</em> contain information which can help you figure this out, in the
+<a href="https://flask.palletsprojects.com/en/1.1.x/patterns/appdispatch/"><em>Application Dispatching</em></a> section, specifically under <a href="https://flask.palletsprojects.com/en/1.1.x/patterns/appdispatch/#dispatch-by-path"><em>Dispatch by
+Path</em></a>.</p>
+<p>The trouble is that the section is introduced by the following sentence:</p>
+<blockquote>
+<p>Application dispatching is the process of combining multiple Flask
+applications on the WSGI level.</p>
+</blockquote>
+<p>Which sounds like it's once again a more advanced topic (kind of like
+blueprints) meant for people who are trying to run multiple apps under
+the same WSGI server at the same time (which you're not). The code
+examples are fairly complex to match, so at first sight, it doesn't look
+like this is what you should be spending your time reading if you just
+need to figure out something as basic as running your app under a URL
+prefix in production.</p>
+<hr>
 <h2>Don't strip the prefix in your reverse proxy config</h2>
 <p>If you're configuring your Flask app under a URL prefix, it's probably
 running behind a reverse proxy of some sort (Nginx, Apache, etc.).
@@ -510,8 +561,9 @@ blissfully unaware of any prefix. Gunicorn strips away the prefix from
 the request before passing it on to your app's router, and <code>url_for</code>
 takes care of adding the prefix back into any internal link generated by
 your app, as you can see in the output (<code>/my-app/</code> instead of <code>/</code>).</p>
-<p>Just to confirm Flask's builtin development server doesn't properly
-handle <code>SCRIPT_NAME</code> -- run the app with it:</p>
+<p>Just to confirm Flask's builtin development server doesn't <del>properly
+handle</del> <ins>read</ins> <code>SCRIPT_NAME</code> <ins>from the
+environment</ins> -- run the app with it:</p>
 <div class="highlight"><pre><span></span>$ <span class="nv">FLASK_APP</span><span class="o">=</span>app <span class="nv">SCRIPT_NAME</span><span class="o">=</span>/my-app flask run
 </pre></div>
 
@@ -582,11 +634,6 @@ don't want):</p>
             <li class="list-group-item"><a href="https://dlukes.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
-                        <a href="https://dlukes.github.io/tag/programming.html">
-                            programming
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="https://dlukes.github.io/tag/python.html">
                             python
                         </a>
@@ -596,39 +643,9 @@ don't want):</p>
                             floss
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/korpus.html">
-                            korpus
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/linguistics.html">
-                            linguistics
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/konkordance.html">
-                            konkordance
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/noske.html">
-                            NoSke
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/automator.html">
-                            automator
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/r.html">
-                            r
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/kontext.html">
-                            KonText
+                    <li class="list-group-item tag-1">
+                        <a href="https://dlukes.github.io/tag/programming.html">
+                            programming
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -637,33 +654,53 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/konkordance.html">
+                            konkordance
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/automator.html">
+                            automator
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/linguistics.html">
+                            linguistics
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/kontext.html">
+                            KonText
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/noske.html">
+                            NoSke
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/korpus.html">
+                            korpus
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/r.html">
+                            r
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
                         <a href="https://dlukes.github.io/tag/osx.html">
                             osx
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/jupyter.html">
-                            jupyter
+                        <a href="https://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/javascript.html">
-                            javascript
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/spacemacs.html">
-                            spacemacs
+                        <a href="https://dlukes.github.io/tag/lines.html">
+                            lines
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -672,38 +709,18 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wsgi.html">
-                            wsgi
+                        <a href="https://dlukes.github.io/tag/flask.html">
+                            flask
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
+                        <a href="https://dlukes.github.io/tag/development.html">
+                            development
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/text-processing.html">
-                            text processing
+                        <a href="https://dlukes.github.io/tag/gui.html">
+                            gui
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -712,8 +729,38 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/perl.html">
-                            perl
+                        <a href="https://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/jupyter.html">
+                            jupyter
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/shiny.html">
+                            shiny
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -727,13 +774,8 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/shiny.html">
-                            shiny
+                        <a href="https://dlukes.github.io/tag/text-processing.html">
+                            text processing
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -742,53 +784,13 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/fill.html">
-                            fill
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/services.html">
-                            services
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/library.html">
                             library
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/versioning.html">
-                            versioning
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/unicode.html">
-                            unicode
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/flask.html">
-                            flask
+                        <a href="https://dlukes.github.io/tag/javascript.html">
+                            javascript
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -797,13 +799,18 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/lines.html">
-                            lines
+                        <a href="https://dlukes.github.io/tag/semver.html">
+                            semver
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/charset.html">
-                            charset
+                        <a href="https://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wsgi.html">
+                            wsgi
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -812,8 +819,53 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dependency.html">
-                            dependency
+                        <a href="https://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/daemon.html">
+                            daemon
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/html.html">
+                            html
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/spacemacs.html">
+                            spacemacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/charset.html">
+                            charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/unicode.html">
+                            unicode
                         </a>
                     </li>
                 </ul>

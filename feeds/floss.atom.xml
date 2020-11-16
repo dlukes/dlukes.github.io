@@ -30,7 +30,7 @@ on the first page of its results when you hit this particular roadblock
 &lt;p&gt;If you're a Flask / WSGI whiz, then your reaction will probably be "But
 of course &lt;a href="#solution"&gt;this&lt;/a&gt; is how it's done!" So in order to get
 something out of this article, you can instead muse upon the relative
-merits and drawbacks of splitting up technical information in a way
+merits and drawbacks of splitting up technical documentation in a way
 that's well-organized / clearly delineated / methodical / logical (=
 Flask info in Flask docs, WSGI info in WSGI docs) vs. in a way that's
 useful and accessible even to occasional users, beginners etc. (= Flask
@@ -112,9 +112,36 @@ from incoming URLs, and add it to outgoing URLs (redirects, in-app links
 in templates). That's it, no need to modify your app at all, whether to
 add a configurable or hardcoded prefix to all the routes, or to rewrite
 it as a blueprint. Nice.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; As &lt;a href="https://www.reddit.com/user/james_pic/"&gt;u/james_pic&lt;/a&gt; points out over on &lt;a href="https://www.reddit.com/r/Python/comments/juwj3x/how_to_mount_a_flask_app_under_a_url_prefix_or/gchdsld"&gt;Reddit&lt;/a&gt;, reading
+&lt;code&gt;SCRIPT_NAME&lt;/code&gt; from an env var is actually not required by the WSGI spec,
+it's a convenience feature provided by some WSGI servers, e.g.
+&lt;a href="https://gunicorn.org/"&gt;Gunicorn&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h1&gt;Caveats&lt;/h1&gt;
 &lt;p&gt;Because of course, there are a few issues you might run into.&lt;/p&gt;
 &lt;h2&gt;Flask's builtin web server ignores &lt;code&gt;SCRIPT_NAME&lt;/code&gt;&lt;/h2&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; As should be clear from the previous edit, Flask's builtin web
+server only ignores the &lt;code&gt;SCRIPT_NAME&lt;/code&gt; env var. It works perfectly well
+with the &lt;code&gt;SCRIPT_NAME&lt;/code&gt; WSGI variable, which however requires quite a bit
+more work to set up. You need to add WSGI routing middleware to your
+application, e.g. like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;werkzeug.middleware.dispatcher&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;DispatcherMiddleware&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;werkzeug.wrappers&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Response&lt;/span&gt;
+
+&lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wsgi_app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;DispatcherMiddleware&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;Response&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Not Found&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;status&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;404&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/my-app&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;app&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;wsgi_app&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Presumably, you'd make the actual value of the prefix part of the app's
+config.&lt;/p&gt;
+&lt;p&gt;(Code sample courtesy of &lt;a href="https://www.reddit.com/user/james_pic/"&gt;u/james_pic&lt;/a&gt; over on &lt;a href="https://www.reddit.com/r/Python/comments/juwj3x/how_to_mount_a_flask_app_under_a_url_prefix_or/gchdsld"&gt;Reddit&lt;/a&gt;, thank
+you!)&lt;/p&gt;
+&lt;hr&gt;
 &lt;p&gt;When you find out about &lt;code&gt;SCRIPT_NAME&lt;/code&gt;, your first intuition is to test
 if it indeed does what you need with Flask's builtin dev server,
 because, well, that's what you use for development. Unfortunately, it
@@ -123,12 +150,17 @@ which might lead you to (wrongly) conclude that you're on the wrong
 path. I actually think this happened to me a few years back because I
 feel like I've tinkered with &lt;code&gt;SCRIPT_NAME&lt;/code&gt; before, only to conclude it
 doesn't seem to do anything.&lt;/p&gt;
-&lt;p&gt;The fix: just use a fully-featured production WSGI server, e.g.
-&lt;a href="https://gunicorn.org/"&gt;Gunicorn&lt;/a&gt;. I promise &lt;code&gt;SCRIPT_NAME&lt;/code&gt; works there.&lt;/p&gt;
-&lt;p&gt;Is this one of the reasons why Flask's builtin server warns "This is a
+&lt;p&gt;The fix: just use a &lt;del&gt;fully-featured production&lt;/del&gt; WSGI server
+&lt;ins&gt;that supports reading this configuration from an environment
+variable&lt;/ins&gt;, e.g. &lt;a href="https://gunicorn.org/"&gt;Gunicorn&lt;/a&gt;. I promise &lt;code&gt;SCRIPT_NAME&lt;/code&gt; works there.&lt;/p&gt;
+&lt;p&gt;&lt;ins&gt;Alternatively, add some routing middleware of the kind sketched
+above to your app.&lt;/ins&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;
+Is this one of the reasons why Flask's builtin server warns "This is a
 development server. Do not use it in a production deployment"? I'd
 always thought it was for performance / stability / security reasons,
-but it looks like it also just isn't (fully) WSGI-compliant.&lt;/p&gt;
+but it looks like it also just isn't (fully) WSGI-compliant.
+&lt;/del&gt;&lt;/p&gt;
 &lt;h2&gt;Use &lt;code&gt;url_for&lt;/code&gt; to generate internal links&lt;/h2&gt;
 &lt;p&gt;I.e. instead of writing &lt;code&gt;href="/login"&lt;/code&gt; in your templates or
 &lt;code&gt;redirect("/login")&lt;/code&gt; in your view functions, write &lt;code&gt;href="{{
@@ -158,6 +190,25 @@ when generating URLs outside of a request context.&lt;/p&gt;
 &lt;p&gt;I remember tearing my hair out in despair at this point of digging
 through the Flask docs and trying in vain (of course) to tinker with
 those configuration values a few years back.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;EDIT:&lt;/strong&gt; Again, after reading &lt;a href="https://www.reddit.com/user/james_pic/"&gt;u/james_pic&lt;/a&gt;'s very helpful and
+insightful comment on &lt;a href="https://www.reddit.com/r/Python/comments/juwj3x/how_to_mount_a_flask_app_under_a_url_prefix_or/gchdsld"&gt;Reddit&lt;/a&gt;, I've realized the Flask docs technically
+&lt;em&gt;do&lt;/em&gt; contain information which can help you figure this out, in the
+&lt;a href="https://flask.palletsprojects.com/en/1.1.x/patterns/appdispatch/"&gt;&lt;em&gt;Application Dispatching&lt;/em&gt;&lt;/a&gt; section, specifically under &lt;a href="https://flask.palletsprojects.com/en/1.1.x/patterns/appdispatch/#dispatch-by-path"&gt;&lt;em&gt;Dispatch by
+Path&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The trouble is that the section is introduced by the following sentence:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Application dispatching is the process of combining multiple Flask
+applications on the WSGI level.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Which sounds like it's once again a more advanced topic (kind of like
+blueprints) meant for people who are trying to run multiple apps under
+the same WSGI server at the same time (which you're not). The code
+examples are fairly complex to match, so at first sight, it doesn't look
+like this is what you should be spending your time reading if you just
+need to figure out something as basic as running your app under a URL
+prefix in production.&lt;/p&gt;
+&lt;hr&gt;
 &lt;h2&gt;Don't strip the prefix in your reverse proxy config&lt;/h2&gt;
 &lt;p&gt;If you're configuring your Flask app under a URL prefix, it's probably
 running behind a reverse proxy of some sort (Nginx, Apache, etc.).
@@ -227,8 +278,9 @@ blissfully unaware of any prefix. Gunicorn strips away the prefix from
 the request before passing it on to your app's router, and &lt;code&gt;url_for&lt;/code&gt;
 takes care of adding the prefix back into any internal link generated by
 your app, as you can see in the output (&lt;code&gt;/my-app/&lt;/code&gt; instead of &lt;code&gt;/&lt;/code&gt;).&lt;/p&gt;
-&lt;p&gt;Just to confirm Flask's builtin development server doesn't properly
-handle &lt;code&gt;SCRIPT_NAME&lt;/code&gt; -- run the app with it:&lt;/p&gt;
+&lt;p&gt;Just to confirm Flask's builtin development server doesn't &lt;del&gt;properly
+handle&lt;/del&gt; &lt;ins&gt;read&lt;/ins&gt; &lt;code&gt;SCRIPT_NAME&lt;/code&gt; &lt;ins&gt;from the
+environment&lt;/ins&gt; -- run the app with it:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nv"&gt;FLASK_APP&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;app &lt;span class="nv"&gt;SCRIPT_NAME&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;/my-app flask run
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -20612,10 +20664,10 @@ printing 1
 
 
 
-&lt;div id="54607732-24ee-43de-9cb5-35ccf76beb05"&gt;&lt;/div&gt;
+&lt;div id="7765eb55-8bff-41a5-8378-ef0a9e74c4e5"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#54607732-24ee-43de-9cb5-35ccf76beb05');
+var element = $('#7765eb55-8bff-41a5-8378-ef0a9e74c4e5');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
