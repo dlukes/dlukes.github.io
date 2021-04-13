@@ -323,7 +323,7 @@ information).</p>
 <h1>The problem</h1>
 <p>As you're prototyping and developing a Flask app, routing is pretty easy
 and straightforward:</p>
-<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">login_func</span><span class="p">():</span>
     <span class="o">...</span>
 </pre></div>
@@ -357,7 +357,7 @@ be configurable but still boilerplate-y if you still have some mental
 energy left to invest into the problem:</p>
 <div class="highlight"><pre><span></span><span class="n">PREFIX</span> <span class="o">=</span> <span class="s2">&quot;/my-app&quot;</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{PREFIX}/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">PREFIX</span><span class="si">}</span><span class="s2">/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">login_func</span><span class="p">():</span>
     <span class="o">...</span>
 </pre></div>
@@ -367,7 +367,7 @@ energy left to invest into the problem:</p>
 you've just lost an hour searching for a Flask feature that would handle
 this in a civilized manner, and/or reading up on blueprints (before
 giving up):</p>
-<div class="highlight"><pre><span></span><span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/my-app/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/my-app/login&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="s2">&quot;POST&quot;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">login_func</span><span class="p">():</span>
     <span class="o">...</span>
 </pre></div>
@@ -530,7 +530,7 @@ prefix:</p>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
     <span class="k">return</span> <span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;index&quot;</span><span class="p">)</span>
 </pre></div>
@@ -639,28 +639,13 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="https://dlukes.github.io/tag/floss.html">
-                            floss
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="https://dlukes.github.io/tag/programming.html">
                             programming
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/bonito.html">
-                            Bonito
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/konkordance.html">
-                            konkordance
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/automator.html">
-                            automator
+                    <li class="list-group-item tag-1">
+                        <a href="https://dlukes.github.io/tag/floss.html">
+                            floss
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -674,13 +659,18 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/noske.html">
-                            NoSke
+                        <a href="https://dlukes.github.io/tag/automator.html">
+                            automator
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
                         <a href="https://dlukes.github.io/tag/korpus.html">
                             korpus
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/bonito.html">
+                            Bonito
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -693,124 +683,14 @@ don't want):</p>
                             osx
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/noske.html">
+                            NoSke
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/lines.html">
-                            lines
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/flask.html">
-                            flask
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
-                            monkey-patching
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/fill.html">
-                            fill
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/jupyter.html">
-                            jupyter
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dependency.html">
-                            dependency
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/shiny.html">
-                            shiny
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/hack.html">
-                            hack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/encoding.html">
-                            encoding
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/text-processing.html">
-                            text processing
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/iframe.html">
-                            iframe
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/javascript.html">
-                            javascript
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/rust.html">
-                            rust
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wsgi.html">
-                            wsgi
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/konkordance.html">
+                            konkordance
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -819,28 +699,23 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/perl.html">
                             perl
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
+                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
+                            monkey-patching
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/javascript.html">
+                            javascript
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -849,13 +724,68 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/rust.html">
+                            rust
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/versioning.html">
                             versioning
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/charset.html">
-                            charset
+                        <a href="https://dlukes.github.io/tag/shiny.html">
+                            shiny
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/jupyter.html">
+                            jupyter
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/iframe.html">
+                            iframe
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/html.html">
+                            html
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -864,8 +794,78 @@ don't want):</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/hack.html">
+                            hack
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/text-processing.html">
+                            text processing
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/unicode.html">
                             unicode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/charset.html">
+                            charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/daemon.html">
+                            daemon
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/flask.html">
+                            flask
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wsgi.html">
+                            wsgi
                         </a>
                     </li>
                 </ul>

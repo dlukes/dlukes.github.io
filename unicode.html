@@ -291,8 +291,7 @@ Little Umbrellas            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+                <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Or, <a href="http://www.joelonsoftware.com/articles/Unicode.html">the absolute minimum every <del>software developer</del> linguist absolutely, positively must know about Unicode and character sets (no excuses!)</a></p>
@@ -1177,8 +1176,8 @@ Little Umbrellas            </a>
     <span class="c1">#   - &quot;b&quot; prints the integer in its binary representation</span>
     <span class="c1">#   - &quot;08&quot; left-pads the binary representation with 0&#39;s to a total</span>
     <span class="c1">#     width of 8, which is the width of a byte</span>
-    <span class="n">binary_bytes</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{byte:08b}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">char</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{char!r}</span><span class="s2"> encoded in UTF-8 is: </span><span class="si">{binary_bytes}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">binary_bytes</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">byte</span><span class="si">:</span><span class="s2">08b</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">byte</span> <span class="ow">in</span> <span class="n">char</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">char</span><span class="si">!r}</span><span class="s2"> encoded in UTF-8 is: </span><span class="si">{</span><span class="n">binary_bytes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="n">print_utf8_bytes</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>   <span class="c1"># the representations...</span>
 <span class="n">print_utf8_bytes</span><span class="p">(</span><span class="s2">&quot;č&quot;</span><span class="p">)</span>   <span class="c1"># ... keep...</span>
@@ -1509,7 +1508,7 @@ s2 is 2 character(s) long.
 <div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="k">import</span> <span class="n">normalize</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">unicodedata</span> <span class="kn">import</span> <span class="n">normalize</span>
 
 <span class="c1"># NFC stands for Normal Form C; this normalization applies a canonical</span>
 <span class="c1"># decomposition (into a multi-codepoint representation) followed by a</span>
@@ -1586,7 +1585,7 @@ s2 is 2 character(s) long.
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">unicodedata</span> <span class="k">as</span> <span class="nn">ud</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -1599,7 +1598,7 @@ s2 is 2 character(s) long.
         <span class="p">(</span>
             <span class="n">freq</span><span class="p">,</span>
             <span class="n">char</span><span class="p">,</span>
-            <span class="n">f</span><span class="s2">&quot;U+{ord(char):04x}&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;U+</span><span class="si">{</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">)</span><span class="si">:</span><span class="s2">04x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">ud</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="n">char</span><span class="p">),</span>
             <span class="n">ud</span><span class="o">.</span><span class="n">category</span><span class="p">(</span><span class="n">char</span><span class="p">)</span>
         <span class="p">)</span>
@@ -1890,9 +1889,6 @@ s2 is 2 character(s) long.
 </div>
 </div>
 </div>
- 
-
-</p>
             </div>
             <!-- /.entry-content -->
     <hr/>
@@ -1953,28 +1949,13 @@ s2 is 2 character(s) long.
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="https://dlukes.github.io/tag/floss.html">
-                            floss
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="https://dlukes.github.io/tag/programming.html">
                             programming
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/bonito.html">
-                            Bonito
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/konkordance.html">
-                            konkordance
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/automator.html">
-                            automator
+                    <li class="list-group-item tag-1">
+                        <a href="https://dlukes.github.io/tag/floss.html">
+                            floss
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -1988,13 +1969,18 @@ s2 is 2 character(s) long.
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/noske.html">
-                            NoSke
+                        <a href="https://dlukes.github.io/tag/automator.html">
+                            automator
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
                         <a href="https://dlukes.github.io/tag/korpus.html">
                             korpus
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/bonito.html">
+                            Bonito
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -2007,124 +1993,14 @@ s2 is 2 character(s) long.
                             osx
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/noske.html">
+                            NoSke
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/lines.html">
-                            lines
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/flask.html">
-                            flask
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
-                            monkey-patching
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/fill.html">
-                            fill
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/jupyter.html">
-                            jupyter
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dependency.html">
-                            dependency
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/shiny.html">
-                            shiny
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/hack.html">
-                            hack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/encoding.html">
-                            encoding
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/text-processing.html">
-                            text processing
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/iframe.html">
-                            iframe
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/javascript.html">
-                            javascript
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/rust.html">
-                            rust
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wsgi.html">
-                            wsgi
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/konkordance.html">
+                            konkordance
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -2133,28 +2009,23 @@ s2 is 2 character(s) long.
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/perl.html">
                             perl
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
+                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
+                            monkey-patching
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/javascript.html">
+                            javascript
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -2163,13 +2034,68 @@ s2 is 2 character(s) long.
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/rust.html">
+                            rust
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/versioning.html">
                             versioning
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/charset.html">
-                            charset
+                        <a href="https://dlukes.github.io/tag/shiny.html">
+                            shiny
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/jupyter.html">
+                            jupyter
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/iframe.html">
+                            iframe
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/html.html">
+                            html
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -2178,8 +2104,78 @@ s2 is 2 character(s) long.
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/hack.html">
+                            hack
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/text-processing.html">
+                            text processing
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/unicode.html">
                             unicode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/charset.html">
+                            charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/daemon.html">
+                            daemon
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/flask.html">
+                            flask
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wsgi.html">
+                            wsgi
                         </a>
                     </li>
                 </ul>

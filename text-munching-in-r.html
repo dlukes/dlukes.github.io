@@ -361,10 +361,10 @@ subtasks, this is the program that I came up with:</p>
     <span class="c1"># individual token attributes are tab-separated</span>
     <span class="n">attrs</span> <span class="o">&lt;-</span> <span class="nf">stri_split_fixed</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s">&quot;\t&quot;</span><span class="p">)</span>
     <span class="c1"># for each token, we&#39;re interested in the lemma (headword)...</span>
-    <span class="n">lemma</span> <span class="o">&lt;-</span> <span class="n">attrs[[1]][2]</span>
+    <span class="n">lemma</span> <span class="o">&lt;-</span> <span class="n">attrs</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">2</span><span class="p">]</span>
     <span class="c1"># ... and the part-of-speech, which is the first character of the tag</span>
-    <span class="n">tag</span> <span class="o">&lt;-</span> <span class="n">attrs[[1]][3]</span>
-    <span class="n">pos</span> <span class="o">&lt;-</span> <span class="nf">stri_split_boundaries</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">)</span><span class="n">[[1]][1]</span>
+    <span class="n">tag</span> <span class="o">&lt;-</span> <span class="n">attrs</span><span class="p">[[</span><span class="m">1</span><span class="p">]][</span><span class="m">3</span><span class="p">]</span>
+    <span class="n">pos</span> <span class="o">&lt;-</span> <span class="nf">stri_split_boundaries</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&quot;character&quot;</span><span class="p">)[[</span><span class="m">1</span><span class="p">]][</span><span class="m">1</span><span class="p">]</span>
     <span class="c1"># build a per-part-of-speech frequency distribution as a nested hash:</span>
     <span class="c1"># {</span>
     <span class="c1">#   &quot;noun&quot;: {</span>
@@ -378,13 +378,13 @@ subtasks, this is the program that I came up with:</p>
     <span class="c1">#   },</span>
     <span class="c1">#   ...</span>
     <span class="c1"># }</span>
-    <span class="nf">if </span><span class="p">(</span><span class="nf">is.null</span><span class="p">(</span><span class="n">pos_sets[[pos]]</span><span class="p">))</span> <span class="p">{</span>
-      <span class="n">pos_sets[[pos]]</span> <span class="o">&lt;-</span> <span class="nf">hash</span><span class="p">()</span>
+    <span class="nf">if </span><span class="p">(</span><span class="nf">is.null</span><span class="p">(</span><span class="n">pos_sets</span><span class="p">[[</span><span class="n">pos</span><span class="p">]]))</span> <span class="p">{</span>
+      <span class="n">pos_sets</span><span class="p">[[</span><span class="n">pos</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="nf">hash</span><span class="p">()</span>
     <span class="p">}</span>
-    <span class="nf">if </span><span class="p">(</span><span class="nf">is.null</span><span class="p">(</span><span class="n">pos_sets[[pos]][[lemma]]</span><span class="p">))</span> <span class="p">{</span>
-      <span class="n">pos_sets[[pos]][[lemma]]</span> <span class="o">&lt;-</span> <span class="m">1</span>
+    <span class="nf">if </span><span class="p">(</span><span class="nf">is.null</span><span class="p">(</span><span class="n">pos_sets</span><span class="p">[[</span><span class="n">pos</span><span class="p">]][[</span><span class="n">lemma</span><span class="p">]]))</span> <span class="p">{</span>
+      <span class="n">pos_sets</span><span class="p">[[</span><span class="n">pos</span><span class="p">]][[</span><span class="n">lemma</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="m">1</span>
     <span class="p">}</span> <span class="n">else</span> <span class="p">{</span>
-      <span class="n">pos_sets[[pos]][[lemma]]</span> <span class="o">&lt;-</span> <span class="n">pos_sets[[pos]][[lemma]]</span> <span class="o">+</span> <span class="m">1</span>
+      <span class="n">pos_sets</span><span class="p">[[</span><span class="n">pos</span><span class="p">]][[</span><span class="n">lemma</span><span class="p">]]</span> <span class="o">&lt;-</span> <span class="n">pos_sets</span><span class="p">[[</span><span class="n">pos</span><span class="p">]][[</span><span class="n">lemma</span><span class="p">]]</span> <span class="o">+</span> <span class="m">1</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -470,18 +470,18 @@ testing.</p>
 <p>Building a per-part-of-speech frequency distribution of headwords requires an
 appropriate data structure. As indicated in the comments in the R source, we
 want to build a nested collection that looks something like this:</p>
-<div class="highlight"><pre><span></span><span class="err">{</span>
-  <span class="ss">&quot;noun&quot;</span><span class="p">:</span> <span class="err">{</span>
-    <span class="ss">&quot;cat&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="ss">&quot;dog&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="p">...</span>
-  <span class="err">}</span><span class="p">,</span>
-  <span class="ss">&quot;verb&quot;</span><span class="p">:</span> <span class="err">{</span>
-    <span class="ss">&quot;look&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="p">...</span>
-  <span class="err">}</span><span class="p">,</span>
-  <span class="p">...</span>
-<span class="err">}</span>
+<div class="highlight"><pre><span></span>{
+  &quot;noun&quot;: {
+    &quot;cat&quot;: 5,
+    &quot;dog&quot;: 3,
+    ...
+  },
+  &quot;verb&quot;: {
+    &quot;look&quot;: 2,
+    ...
+  },
+  ...
+}
 </pre></div>
 
 
@@ -570,7 +570,7 @@ took R <strong>over a day</strong>. The code feels a lot simpler too:</p>
                 <span class="n">pos_sets</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">lemma</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="n">diff</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Done in {diff:.0f} seconds.&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Done in </span><span class="si">{</span><span class="n">diff</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> seconds.&quot;</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -640,7 +640,7 @@ pressing need to turn to a compiled language for this task.</p>
 <span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">type</span> <span class="nc">LemmaCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;</span><span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
-<span class="k">type</span> <span class="nc">PosSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">char</span><span class="p">,</span><span class="w"> </span><span class="n">LemmaCount</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
+<span class="k">type</span> <span class="nc">PosSet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="w"> </span><span class="n">LemmaCount</span><span class="o">&gt;</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span>::<span class="n">SystemTime</span>::<span class="n">now</span><span class="p">();</span><span class="w"></span>
@@ -659,7 +659,7 @@ pressing need to turn to a compiled language for this task.</p>
 <span class="w">        </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start</span><span class="p">.</span><span class="n">elapsed</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">as_secs</span><span class="p">();</span><span class="w"></span>
-<span class="w">    </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Done in {:.0} seconds.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">diff</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;Done in {:.0} seconds.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">diff</span><span class="p">);</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 
@@ -706,8 +706,8 @@ while I'm at it. Here's the code, using <code>dplyr</code>:</p>
 <span class="n">corpus</span> <span class="o">&lt;-</span> <span class="nf">stri_subset_fixed</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&quot;\t&quot;</span><span class="p">)</span>
 <span class="n">corpus</span> <span class="o">&lt;-</span> <span class="nf">stri_split_fixed</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="s">&quot;\t&quot;</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 <span class="n">freq_dist</span> <span class="o">&lt;-</span> <span class="nf">tibble</span><span class="p">(</span>
-  <span class="n">POS</span><span class="o">=</span><span class="nf">stri_sub</span><span class="p">(</span><span class="n">corpus[</span><span class="p">,</span> <span class="m">3</span><span class="n">]</span><span class="p">,</span> <span class="n">from</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="m">1</span><span class="p">),</span>
-  <span class="n">LEMMA</span><span class="o">=</span><span class="n">corpus[</span><span class="p">,</span> <span class="m">2</span><span class="n">]</span>
+  <span class="n">POS</span><span class="o">=</span><span class="nf">stri_sub</span><span class="p">(</span><span class="n">corpus</span><span class="p">[,</span> <span class="m">3</span><span class="p">],</span> <span class="n">from</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">to</span><span class="o">=</span><span class="m">1</span><span class="p">),</span>
+  <span class="n">LEMMA</span><span class="o">=</span><span class="n">corpus</span><span class="p">[,</span> <span class="m">2</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">%&gt;%</span>
   <span class="nf">group_by</span><span class="p">(</span><span class="n">POS</span><span class="p">,</span> <span class="n">LEMMA</span><span class="p">)</span> <span class="o">%&gt;%</span>
   <span class="nf">summarize</span><span class="p">(</span><span class="n">FREQ</span><span class="o">=</span><span class="nf">n</span><span class="p">())</span>
@@ -799,28 +799,13 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-1">
-                        <a href="https://dlukes.github.io/tag/floss.html">
-                            floss
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="https://dlukes.github.io/tag/programming.html">
                             programming
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/bonito.html">
-                            Bonito
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/konkordance.html">
-                            konkordance
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/automator.html">
-                            automator
+                    <li class="list-group-item tag-1">
+                        <a href="https://dlukes.github.io/tag/floss.html">
+                            floss
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -834,13 +819,18 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/noske.html">
-                            NoSke
+                        <a href="https://dlukes.github.io/tag/automator.html">
+                            automator
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
                         <a href="https://dlukes.github.io/tag/korpus.html">
                             korpus
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/bonito.html">
+                            Bonito
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -853,124 +843,14 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                             osx
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/noske.html">
+                            NoSke
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/lines.html">
-                            lines
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/flask.html">
-                            flask
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
-                            monkey-patching
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/fill.html">
-                            fill
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/jupyter.html">
-                            jupyter
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dependency.html">
-                            dependency
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/shiny.html">
-                            shiny
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/hack.html">
-                            hack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/encoding.html">
-                            encoding
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/text-processing.html">
-                            text processing
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/iframe.html">
-                            iframe
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/javascript.html">
-                            javascript
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/rust.html">
-                            rust
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wsgi.html">
-                            wsgi
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/konkordance.html">
+                            konkordance
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -979,28 +859,23 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/perl.html">
                             perl
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
+                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
+                            monkey-patching
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/javascript.html">
+                            javascript
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1009,13 +884,68 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/rust.html">
+                            rust
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/versioning.html">
                             versioning
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/charset.html">
-                            charset
+                        <a href="https://dlukes.github.io/tag/shiny.html">
+                            shiny
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/jupyter.html">
+                            jupyter
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/iframe.html">
+                            iframe
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/html.html">
+                            html
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -1024,8 +954,78 @@ parallelization basically for free.&#160;<a class="footnote-backref" href="#fnre
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/hack.html">
+                            hack
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/text-processing.html">
+                            text processing
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/unicode.html">
                             unicode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/charset.html">
+                            charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/daemon.html">
+                            daemon
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/flask.html">
+                            flask
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wsgi.html">
+                            wsgi
                         </a>
                     </li>
                 </ul>

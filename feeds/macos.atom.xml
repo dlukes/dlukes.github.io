@@ -205,7 +205,7 @@ and went back to the Gmail in-browser UI.&lt;/p&gt;
 compose at your fingertips in no time flat. If you don't have &lt;code&gt;homebrew&lt;/code&gt;, start
 by installing that (or any other ports manager that will allow you to install
 &lt;code&gt;par&lt;/code&gt;; I'll assume &lt;code&gt;homebrew&lt;/code&gt; below) by pasting&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    &lt;span class="n"&gt;ruby&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;
 &lt;/pre&gt;&lt;/div&gt;
 
 
