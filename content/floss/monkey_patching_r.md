@@ -87,6 +87,11 @@ DT$filterRange <- filterRange
 lockBinding("filterRange", DT)
 ```
 
+**EDIT, 2021-04-13:** As Vincent Wolowski points out in the comments,
+you can also call the higher-level function `assignInNamespace`, which
+does the unlock/relock dance for you behind the scenes:
+`assignInNamespace('filterRange', filterRange, 'DT')`.
+
 The last piece of the puzzle concerns UX: the user should understand that the
 filter applies to the outer range, not the inner one. Visually:
 
