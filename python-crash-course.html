@@ -338,6 +338,7 @@ Little Umbrellas            </a>
 <li><a href="#V%C3%BDrazy-vs.-p%C5%99%C3%ADkazy">Výrazy vs. příkazy</a></li>
 <li><a href="#Dokumentace">Dokumentace</a></li>
 </ul>
+</ul>
 </div>
 
 </div>
@@ -1672,6 +1673,12 @@ Little Umbrellas            </a>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># následujícímu příkazu není potřeba věnovat přílišnou</span>
+<span class="c1"># pozornost, jen zajistí, abychom pokaždé dostali stejnou</span>
+<span class="c1"># sérii pseudonáhodných čísel; viz:</span>
+<span class="c1"># https://docs.python.org/3/library/random.html#random.seed</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1711,7 +1718,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>7</pre>
+<pre>2</pre>
 </div>
 
 </div>
@@ -1737,7 +1744,7 @@ Little Umbrellas            </a>
 
 <span class="kn">import</span> <span class="nn">random</span> <span class="k">as</span> <span class="nn">rnd</span>
 
-<span class="n">rnd</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">rnd</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">random</span>
 </pre></div>
 
     </div>
@@ -1756,7 +1763,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>9</pre>
+<pre>(1, &#39;random. angl. náhodný&#39;)</pre>
 </div>
 
 </div>
@@ -1799,7 +1806,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>6</pre>
+<pre>5</pre>
 </div>
 
 </div>
@@ -1842,7 +1849,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(0.8077885990971538, 7)</pre>
+<pre>(0.24489185380347622, 3)</pre>
 </div>
 
 </div>
@@ -1922,7 +1929,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;/cnk/work/edu/python/tutorials/python_crash_course.ipynb&#39;</pre>
+<pre>&#39;/home/david/src/dlukes.github.io/content/notebooks/python_crash_course.ipynb&#39;</pre>
 </div>
 
 </div>
@@ -2020,7 +2027,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>5</pre>
+<pre>6</pre>
 </div>
 
 </div>
@@ -2074,7 +2081,7 @@ Little Umbrellas            </a>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>6</pre>
+<pre>1</pre>
 </div>
 
 </div>
@@ -2212,7 +2219,7 @@ Tohle taky.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>1700</pre>
+<pre>1800</pre>
 </div>
 
 </div>
@@ -2276,7 +2283,7 @@ Tohle taky.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>1100</pre>
+<pre>300</pre>
 </div>
 
 </div>
@@ -2317,7 +2324,7 @@ Tohle taky.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.07</pre>
+<pre>0.19</pre>
 </div>
 
 </div>
@@ -2360,7 +2367,7 @@ Tohle taky.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>30</pre>
+<pre>40</pre>
 </div>
 
 </div>
@@ -2435,7 +2442,7 @@ Tohle taky.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>40</pre>
+<pre>10</pre>
 </div>
 
 </div>
@@ -2469,7 +2476,7 @@ Tohle taky.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>40</pre>
+<pre>10</pre>
 </div>
 
 </div>
@@ -2510,7 +2517,7 @@ Tohle taky.
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>40</pre>
+<pre>20</pre>
 </div>
 
 </div>
@@ -2583,7 +2590,7 @@ My local variable: 1
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
@@ -2619,7 +2626,7 @@ My local variable: 1
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
@@ -2756,7 +2763,7 @@ My global variable: 2
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
@@ -3520,7 +3527,7 @@ zbytek pojmenovaných argumentů: {&#39;a&#39;: 5, &#39;b&#39;: 6, &#39;c&#39;: 
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[102]:</div>
 <div class="inner_cell">
@@ -3577,7 +3584,7 @@ zbytek pojmenovaných argumentů: {&#39;a&#39;: 5, &#39;b&#39;: 6, &#39;c&#39;: 
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[104]:</div>
 <div class="inner_cell">
@@ -8225,7 +8232,7 @@ aa      11
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[228]:</div>
 <div class="inner_cell">
@@ -10117,7 +10124,7 @@ aa      11
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[280]:</div>
 <div class="inner_cell">
@@ -10195,7 +10202,7 @@ aa      11
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[282]:</div>
 <div class="inner_cell">
@@ -10464,7 +10471,7 @@ aa      11
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[289]:</div>
 <div class="inner_cell">
@@ -10492,7 +10499,7 @@ aa      11
 <span class="ansi-green-fg">&lt;ipython-input-289-c38563f1af7a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>set1<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
 
-<span class="ansi-red-fg">TypeError</span>: &#39;set&#39; object does not support indexing</pre>
+<span class="ansi-red-fg">TypeError</span>: &#39;set&#39; object is not subscriptable</pre>
 </div>
 </div>
 
@@ -11156,7 +11163,7 @@ aa      11
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>22.1 ms ± 2.57 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+<pre>8.28 ms ± 26.2 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre>
 </div>
 </div>
@@ -11242,7 +11249,7 @@ aa      11
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>54.9 ns ± 0.536 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+<pre>26.3 ns ± 0.0176 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 </pre>
 </div>
 </div>
@@ -11762,7 +11769,7 @@ aa      11
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[325]:</div>
 <div class="inner_cell">
@@ -12814,7 +12821,7 @@ aa      11
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>33.2 ms ± 4.22 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+<pre>11.4 ms ± 243 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 </pre>
 </div>
 </div>
@@ -12887,7 +12894,7 @@ aa      11
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>44.7 ns ± 1.08 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
+<pre>23.6 ns ± 0.00474 ns per loop (mean ± std. dev. of 7 runs, 10000000 loops each)
 </pre>
 </div>
 </div>
@@ -12996,7 +13003,7 @@ aa      11
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[358]:</div>
 <div class="inner_cell">
@@ -13011,6 +13018,20 @@ aa      11
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>&lt;&gt;:1: SyntaxWarning: str indices must be integers or slices, not str; perhaps you missed a comma?
+&lt;&gt;:1: SyntaxWarning: str indices must be integers or slices, not str; perhaps you missed a comma?
+&lt;ipython-input-358-c2f5af94dca9&gt;:1: SyntaxWarning: str indices must be integers or slices, not str; perhaps you missed a comma?
+  slovník[&#34;hesla&#34;[&#34;kočka&#34;]]
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -13045,7 +13066,7 @@ aa      11
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[359]:</div>
 <div class="inner_cell">
@@ -13060,6 +13081,20 @@ aa      11
 <div class="output_wrapper">
 <div class="output">
 
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>&lt;&gt;:1: SyntaxWarning: str indices must be integers or slices, not str; perhaps you missed a comma?
+&lt;&gt;:1: SyntaxWarning: str indices must be integers or slices, not str; perhaps you missed a comma?
+&lt;ipython-input-359-acc1bf557eb4&gt;:1: SyntaxWarning: str indices must be integers or slices, not str; perhaps you missed a comma?
+  &#34;hesla&#34;[&#34;kočka&#34;]
+</pre>
+</div>
+</div>
 
 <div class="output_area">
 
@@ -13967,9 +14002,9 @@ Pod klíčem &#39;c&#39; je uložená hodnota 3.
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>5
+<pre>2
 5
-4
+5
 </pre>
 </div>
 </div>
@@ -14156,7 +14191,7 @@ WORD: &#39;.&#39;, LEMMA: &#39;.&#39;, TAG: &#39;Z&#39;
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[387]:</div>
 <div class="inner_cell">
@@ -14200,7 +14235,7 @@ WORD: &#39;.&#39;, LEMMA: &#39;.&#39;, TAG: &#39;Z&#39;
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[388]:</div>
 <div class="inner_cell">
@@ -16520,7 +16555,7 @@ x is False, y is False, the equality is True
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Podm&#237;nky:-if,-elif,-else-(a-while-cyklus)">Podm&#237;nky: if, elif, else (a while-cyklus)<a class="anchor-link" href="#Podm&#237;nky:-if,-elif,-else-(a-while-cyklus)">&#182;</a></h1><p>Na logických výrocích lze dál stavět větvení programu pomocí podmínek:</p>
+<p>Aby rovnost dvou výrazů platila obecně, musí platit pro každou variantu dosazení konkrétních hodnot za proměnné (zde <code>x</code> a <code>y</code>). O tom se můžeme přesvědčit buď ověřením výstupů funkce <code>print</code> (viz předchozí buňka), nebo můžeme kód taky upravit jako konvertor kolekce v kombinaci s funkcí <code>all</code> a dostaneme tak celkový výsledek rovnou:</p>
 
 </div>
 </div>
@@ -16528,6 +16563,141 @@ x is False, y is False, the equality is True
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[455]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">all</span><span class="p">(</span>
+    <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">and</span> <span class="n">y</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="ow">not</span> <span class="n">x</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[455]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A ještě pro srovnání, jak by vypadaly výstupy v případě, že si porovnávané výrazy obecně vzato rovné nejsou (všimněte si, že pro některé kombinace hodnot <code>x</code> a <code>y</code> rovnost platí, ale ne pro všechny)...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[456]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]:</span>
+        <span class="n">is_equal</span> <span class="o">=</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">and</span> <span class="n">y</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="ow">not</span> <span class="n">x</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">y</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x is </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2">, y is </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">, the equality is </span><span class="si">{</span><span class="n">is_equal</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>x is True, y is True, the equality is True
+x is True, y is False, the equality is False
+x is False, y is True, the equality is False
+x is False, y is False, the equality is True
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>... takže celkový verdikt je...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[457]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">all</span><span class="p">(</span>
+    <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="ow">and</span> <span class="n">y</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="ow">not</span> <span class="n">x</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[457]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Podm&#237;nky:-if,-elif,-else-(a-while-cyklus)">Podm&#237;nky: if, elif, else (a while-cyklus)<a class="anchor-link" href="#Podm&#237;nky:-if,-elif,-else-(a-while-cyklus)">&#182;</a></h1><p>Na logických výrocích lze dál stavět větvení programu pomocí podmínek:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[458]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>                   <span class="c1"># hlavička</span>
@@ -16568,7 +16738,7 @@ x is False, y is False, the equality is True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[456]:</div>
+<div class="prompt input_prompt">In&nbsp;[459]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">num</span> <span class="o">=</span> <span class="mi">2</span>
@@ -16614,7 +16784,7 @@ x is False, y is False, the equality is True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[457]:</div>
+<div class="prompt input_prompt">In&nbsp;[460]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">num</span> <span class="o">=</span> <span class="mi">3</span>
@@ -16662,7 +16832,7 @@ x is False, y is False, the equality is True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[458]:</div>
+<div class="prompt input_prompt">In&nbsp;[461]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="kc">True</span><span class="p">:</span>
@@ -16716,7 +16886,7 @@ x is False, y is False, the equality is True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[459]:</div>
+<div class="prompt input_prompt">In&nbsp;[462]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
@@ -16762,7 +16932,7 @@ x is False, y is False, the equality is True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[460]:</div>
+<div class="prompt input_prompt">In&nbsp;[463]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
@@ -16808,7 +16978,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[461]:</div>
+<div class="prompt input_prompt">In&nbsp;[464]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">num</span> <span class="o">=</span> <span class="mi">2</span>
@@ -16874,7 +17044,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[462]:</div>
+<div class="prompt input_prompt">In&nbsp;[465]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;A&quot;</span> <span class="k">if</span> <span class="kc">True</span> <span class="k">else</span> <span class="s2">&quot;B&quot;</span>
@@ -16890,7 +17060,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[462]:</div>
+    <div class="prompt output_prompt">Out[465]:</div>
 
 
 
@@ -16907,7 +17077,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[463]:</div>
+<div class="prompt input_prompt">In&nbsp;[466]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="s2">&quot;A&quot;</span> <span class="k">if</span> <span class="kc">False</span> <span class="k">else</span> <span class="s2">&quot;B&quot;</span>
@@ -16923,7 +17093,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[463]:</div>
+    <div class="prompt output_prompt">Out[466]:</div>
 
 
 
@@ -16948,7 +17118,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[464]:</div>
+<div class="prompt input_prompt">In&nbsp;[467]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lednička</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;puding&quot;</span><span class="p">,</span> <span class="s2">&quot;sýr&quot;</span><span class="p">,</span> <span class="s2">&quot;salát&quot;</span><span class="p">}</span>
@@ -16971,7 +17141,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[464]:</div>
+    <div class="prompt output_prompt">Out[467]:</div>
 
 
 
@@ -16996,7 +17166,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[465]:</div>
+<div class="prompt input_prompt">In&nbsp;[468]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">reakce</span> <span class="o">=</span> <span class="s2">&quot;hurá, puding!&quot;</span> <span class="k">if</span> <span class="s2">&quot;puding&quot;</span> <span class="ow">in</span> <span class="n">lednička</span> <span class="k">else</span> <span class="s2">&quot;není puding :(&quot;</span>
@@ -17013,7 +17183,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[465]:</div>
+    <div class="prompt output_prompt">Out[468]:</div>
 
 
 
@@ -17038,7 +17208,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[466]:</div>
+<div class="prompt input_prompt">In&nbsp;[469]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
@@ -17084,7 +17254,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[467]:</div>
+<div class="prompt input_prompt">In&nbsp;[470]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">věta</span> <span class="o">=</span> <span class="s2">&quot;Bylo nás pět .&quot;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -17101,7 +17271,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[467]:</div>
+    <div class="prompt output_prompt">Out[470]:</div>
 
 
 
@@ -17118,7 +17288,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[468]:</div>
+<div class="prompt input_prompt">In&nbsp;[471]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">věta</span><span class="p">)</span>
@@ -17134,7 +17304,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[468]:</div>
+    <div class="prompt output_prompt">Out[471]:</div>
 
 
 
@@ -17159,7 +17329,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[469]:</div>
+<div class="prompt input_prompt">In&nbsp;[472]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span> <span class="k">if</span> <span class="n">slovo</span><span class="o">.</span><span class="n">islower</span><span class="p">())</span>
@@ -17175,7 +17345,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[469]:</div>
+    <div class="prompt output_prompt">Out[472]:</div>
 
 
 
@@ -17200,7 +17370,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[470]:</div>
+<div class="prompt input_prompt">In&nbsp;[473]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span>
@@ -17220,7 +17390,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[470]:</div>
+    <div class="prompt output_prompt">Out[473]:</div>
 
 
 
@@ -17260,7 +17430,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[471]:</div>
+<div class="prompt input_prompt">In&nbsp;[474]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span>
@@ -17280,7 +17450,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[471]:</div>
+    <div class="prompt output_prompt">Out[474]:</div>
 
 
 
@@ -17305,7 +17475,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[472]:</div>
+<div class="prompt input_prompt">In&nbsp;[475]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span>
@@ -17325,7 +17495,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[472]:</div>
+    <div class="prompt output_prompt">Out[475]:</div>
 
 
 
@@ -17350,7 +17520,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[473]:</div>
+<div class="prompt input_prompt">In&nbsp;[476]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span>
@@ -17370,7 +17540,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[473]:</div>
+    <div class="prompt output_prompt">Out[476]:</div>
 
 
 
@@ -17395,7 +17565,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[474]:</div>
+<div class="prompt input_prompt">In&nbsp;[477]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pomocný_seznam</span> <span class="o">=</span> <span class="p">[]</span>
@@ -17415,7 +17585,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[474]:</div>
+    <div class="prompt output_prompt">Out[477]:</div>
 
 
 
@@ -17447,7 +17617,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[475]:</div>
+<div class="prompt input_prompt">In&nbsp;[478]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">((</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span> <span class="k">if</span> <span class="n">slovo</span><span class="o">.</span><span class="n">islower</span><span class="p">()),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -17463,7 +17633,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[475]:</div>
+    <div class="prompt output_prompt">Out[478]:</div>
 
 
 
@@ -17486,9 +17656,9 @@ HA! DVOJKA.
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
+<div class="cell border-box-sizing code_cell rendered celltag_raises-exception">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[476]:</div>
+<div class="prompt input_prompt">In&nbsp;[479]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">sorted</span><span class="p">(</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span> <span class="k">if</span> <span class="n">slovo</span><span class="o">.</span><span class="n">islower</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -17509,9 +17679,9 @@ HA! DVOJKA.
 
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-476-bd2750ac97af&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">1</span>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-479-bd2750ac97af&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">1</span>
 <span class="ansi-red-fg">    sorted(slovo for slovo in věta if slovo.islower(), reverse=True)</span>
-          ^
+           ^
 <span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> Generator expression must be parenthesized
 </pre>
 </div>
@@ -17531,7 +17701,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[477]:</div>
+<div class="prompt input_prompt">In&nbsp;[480]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">[</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span> <span class="k">if</span> <span class="n">slovo</span><span class="o">.</span><span class="n">islower</span><span class="p">()]</span>
@@ -17547,7 +17717,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[477]:</div>
+    <div class="prompt output_prompt">Out[480]:</div>
 
 
 
@@ -17572,7 +17742,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[478]:</div>
+<div class="prompt input_prompt">In&nbsp;[481]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slovo</span><span class="p">)</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">}</span>
@@ -17588,7 +17758,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[478]:</div>
+    <div class="prompt output_prompt">Out[481]:</div>
 
 
 
@@ -17613,7 +17783,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[479]:</div>
+<div class="prompt input_prompt">In&nbsp;[482]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">{</span><span class="n">slovo</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">slovo</span><span class="p">)</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">}</span>
@@ -17629,7 +17799,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[479]:</div>
+    <div class="prompt output_prompt">Out[482]:</div>
 
 
 
@@ -17654,7 +17824,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[480]:</div>
+<div class="prompt input_prompt">In&nbsp;[483]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">tuple</span><span class="p">(</span><span class="n">slovo</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">)</span>
@@ -17670,7 +17840,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[480]:</div>
+    <div class="prompt output_prompt">Out[483]:</div>
 
 
 
@@ -17687,7 +17857,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[481]:</div>
+<div class="prompt input_prompt">In&nbsp;[484]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">FreqDist</span>
@@ -17705,7 +17875,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[481]:</div>
+    <div class="prompt output_prompt">Out[484]:</div>
 
 
 
@@ -17730,7 +17900,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[482]:</div>
+<div class="prompt input_prompt">In&nbsp;[485]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
@@ -17746,7 +17916,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[482]:</div>
+    <div class="prompt output_prompt">Out[485]:</div>
 
 
 
@@ -17763,7 +17933,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[483]:</div>
+<div class="prompt input_prompt">In&nbsp;[486]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
@@ -17779,7 +17949,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[483]:</div>
+    <div class="prompt output_prompt">Out[486]:</div>
 
 
 
@@ -17796,7 +17966,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[484]:</div>
+<div class="prompt input_prompt">In&nbsp;[487]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
@@ -17812,7 +17982,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[484]:</div>
+    <div class="prompt output_prompt">Out[487]:</div>
 
 
 
@@ -17837,7 +18007,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[485]:</div>
+<div class="prompt input_prompt">In&nbsp;[488]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">)</span>
@@ -17850,7 +18020,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[486]:</div>
+<div class="prompt input_prompt">In&nbsp;[489]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">gen</span>
@@ -17866,13 +18036,13 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[486]:</div>
+    <div class="prompt output_prompt">Out[489]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;generator object &lt;genexpr&gt; at 0x7fc9e6fed6d8&gt;</pre>
+<pre>&lt;generator object &lt;genexpr&gt; at 0x7fea335dd7b0&gt;</pre>
 </div>
 
 </div>
@@ -17883,7 +18053,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[487]:</div>
+<div class="prompt input_prompt">In&nbsp;[490]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
@@ -17899,7 +18069,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[487]:</div>
+    <div class="prompt output_prompt">Out[490]:</div>
 
 
 
@@ -17924,7 +18094,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[488]:</div>
+<div class="prompt input_prompt">In&nbsp;[491]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">)</span>
@@ -17940,7 +18110,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[488]:</div>
+    <div class="prompt output_prompt">Out[491]:</div>
 
 
 
@@ -17972,7 +18142,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[489]:</div>
+<div class="prompt input_prompt">In&nbsp;[492]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">)</span>
@@ -17988,13 +18158,13 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[489]:</div>
+    <div class="prompt output_prompt">Out[492]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;generator object &lt;genexpr&gt; at 0x7fc9e6fed840&gt;</pre>
+<pre>&lt;generator object &lt;genexpr&gt; at 0x7fea2bf89510&gt;</pre>
 </div>
 
 </div>
@@ -18005,7 +18175,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[490]:</div>
+<div class="prompt input_prompt">In&nbsp;[493]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">enumerate</span><span class="p">(</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">)</span>
@@ -18021,13 +18191,13 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[490]:</div>
+    <div class="prompt output_prompt">Out[493]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;enumerate at 0x7fc9e6ffe2d0&gt;</pre>
+<pre>&lt;enumerate at 0x7fea2bf86c80&gt;</pre>
 </div>
 
 </div>
@@ -18038,7 +18208,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[491]:</div>
+<div class="prompt input_prompt">In&nbsp;[494]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">reversed</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
@@ -18054,13 +18224,13 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[491]:</div>
+    <div class="prompt output_prompt">Out[494]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;list_reverseiterator at 0x7fc9e6fffda0&gt;</pre>
+<pre>&lt;list_reverseiterator at 0x7fea2bfbfd30&gt;</pre>
 </div>
 
 </div>
@@ -18071,7 +18241,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[492]:</div>
+<div class="prompt input_prompt">In&nbsp;[495]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -18087,7 +18257,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[492]:</div>
+    <div class="prompt output_prompt">Out[495]:</div>
 
 
 
@@ -18112,7 +18282,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[493]:</div>
+<div class="prompt input_prompt">In&nbsp;[496]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">)</span>
@@ -18128,7 +18298,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[493]:</div>
+    <div class="prompt output_prompt">Out[496]:</div>
 
 
 
@@ -18145,7 +18315,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[494]:</div>
+<div class="prompt input_prompt">In&nbsp;[497]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">slovo</span> <span class="k">for</span> <span class="n">slovo</span> <span class="ow">in</span> <span class="n">věta</span><span class="p">))</span>
@@ -18161,7 +18331,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[494]:</div>
+    <div class="prompt output_prompt">Out[497]:</div>
 
 
 
@@ -18178,7 +18348,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[495]:</div>
+<div class="prompt input_prompt">In&nbsp;[498]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
@@ -18194,7 +18364,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[495]:</div>
+    <div class="prompt output_prompt">Out[498]:</div>
 
 
 
@@ -18211,7 +18381,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[496]:</div>
+<div class="prompt input_prompt">In&nbsp;[499]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -18227,7 +18397,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[496]:</div>
+    <div class="prompt output_prompt">Out[499]:</div>
 
 
 
@@ -18253,7 +18423,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[497]:</div>
+<div class="prompt input_prompt">In&nbsp;[500]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;kočka leze dírou</span><span class="se">\n</span><span class="s2">pes oknem&quot;</span>
@@ -18279,7 +18449,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[498]:</div>
+<div class="prompt input_prompt">In&nbsp;[501]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;kočka.txt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -18298,7 +18468,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[498]:</div>
+    <div class="prompt output_prompt">Out[501]:</div>
 
 
 
@@ -18323,7 +18493,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[499]:</div>
+<div class="prompt input_prompt">In&nbsp;[502]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;kočka.txt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -18342,7 +18512,7 @@ HA! DVOJKA.
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[499]:</div>
+    <div class="prompt output_prompt">Out[502]:</div>
 
 
 
@@ -18367,7 +18537,7 @@ HA! DVOJKA.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[500]:</div>
+<div class="prompt input_prompt">In&nbsp;[503]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;kočka.txt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -18410,7 +18580,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[501]:</div>
+<div class="prompt input_prompt">In&nbsp;[504]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;python_crash_course.ipynb&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
@@ -18430,7 +18600,7 @@ pes oknem</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[501]:</div>
+    <div class="prompt output_prompt">Out[504]:</div>
 
 
 
@@ -18465,7 +18635,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[502]:</div>
+<div class="prompt input_prompt">In&nbsp;[505]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
@@ -18489,7 +18659,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[503]:</div>
+<div class="prompt input_prompt">In&nbsp;[506]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">nb</span><span class="p">)</span>
@@ -18505,7 +18675,7 @@ pes oknem</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[503]:</div>
+    <div class="prompt output_prompt">Out[506]:</div>
 
 
 
@@ -18522,7 +18692,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[504]:</div>
+<div class="prompt input_prompt">In&nbsp;[507]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nb</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
@@ -18538,7 +18708,7 @@ pes oknem</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[504]:</div>
+    <div class="prompt output_prompt">Out[507]:</div>
 
 
 
@@ -18555,7 +18725,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[505]:</div>
+<div class="prompt input_prompt">In&nbsp;[508]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">nb</span><span class="p">[</span><span class="s2">&quot;cells&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;source&quot;</span><span class="p">]</span>
@@ -18571,7 +18741,7 @@ pes oknem</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[505]:</div>
+    <div class="prompt output_prompt">Out[508]:</div>
 
 
 
@@ -18610,7 +18780,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[506]:</div>
+<div class="prompt input_prompt">In&nbsp;[509]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
@@ -18626,13 +18796,13 @@ pes oknem</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[506]:</div>
+    <div class="prompt output_prompt">Out[509]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;generator object &lt;genexpr&gt; at 0x7fc9e6feda20&gt;</pre>
+<pre>&lt;generator object &lt;genexpr&gt; at 0x7fea2bfebf90&gt;</pre>
 </div>
 
 </div>
@@ -18651,7 +18821,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[507]:</div>
+<div class="prompt input_prompt">In&nbsp;[510]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="mi">42</span> <span class="k">if</span> <span class="kc">False</span> <span class="k">else</span> <span class="mi">0</span>
@@ -18667,7 +18837,7 @@ pes oknem</pre>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[507]:</div>
+    <div class="prompt output_prompt">Out[510]:</div>
 
 
 
@@ -18706,7 +18876,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[508]:</div>
+<div class="prompt input_prompt">In&nbsp;[511]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># sečíst dvě jedničky a výsledek uložit do proměnná dva</span>
@@ -18728,7 +18898,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[509]:</div>
+<div class="prompt input_prompt">In&nbsp;[512]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">funkce</span><span class="p">():</span>
@@ -18757,7 +18927,7 @@ pes oknem</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[510]:</div>
+<div class="prompt input_prompt">In&nbsp;[513]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">help</span><span class="p">(</span><span class="n">funkce</span><span class="p">)</span>
@@ -18804,13 +18974,42 @@ funkce()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[511]:</div>
+<div class="prompt input_prompt">In&nbsp;[514]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span>funkce<span class="o">?</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre><span class="ansi-red-fg">Signature:</span> funkce<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">Docstring:</span>
+Toto je dokumentační řetězec.
+
+První řádek by měl obsahovat stručný popis, k čemu funkce
+slouží. Další mohou obsahovat detaily, charakteristiku
+parametrů funkce atp.
+<span class="ansi-red-fg">File:</span>      ~/src/dlukes.github.io/content/notebooks/&lt;ipython-input-512-8724e3419bb6&gt;
+<span class="ansi-red-fg">Type:</span>      function
+</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -18825,13 +19024,40 @@ funkce()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[512]:</div>
+<div class="prompt input_prompt">In&nbsp;[515]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span>sorted<span class="o">?</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+<div class="output_text output_subarea ">
+<pre><span class="ansi-red-fg">Signature:</span> sorted<span class="ansi-blue-fg">(</span>iterable<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">/</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span><span class="ansi-blue-fg">,</span> key<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> reverse<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-red-fg">Docstring:</span>
+Return a new list containing all items from the iterable in ascending order.
+
+A custom key function can be supplied to customize the sort order, and the
+reverse flag can be set to request the result in descending order.
+<span class="ansi-red-fg">Type:</span>      builtin_function_or_method
+</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -18891,11 +19117,6 @@ funkce()
             <li class="list-group-item"><a href="https://dlukes.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                 <ul class="list-group " id="tags">
                     <li class="list-group-item tag-1">
-                        <a href="https://dlukes.github.io/tag/python.html">
-                            python
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-1">
                         <a href="https://dlukes.github.io/tag/programming.html">
                             programming
                         </a>
@@ -18905,29 +19126,9 @@ funkce()
                             floss
                         </a>
                     </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/linguistics.html">
-                            linguistics
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/kontext.html">
-                            KonText
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/automator.html">
-                            automator
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/korpus.html">
-                            korpus
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/bonito.html">
-                            Bonito
+                    <li class="list-group-item tag-1">
+                        <a href="https://dlukes.github.io/tag/python.html">
+                            python
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -18936,8 +19137,18 @@ funkce()
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/automator.html">
+                            automator
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
                         <a href="https://dlukes.github.io/tag/osx.html">
                             osx
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/kontext.html">
+                            KonText
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -18946,138 +19157,23 @@ funkce()
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/bonito.html">
+                            Bonito
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/linguistics.html">
+                            linguistics
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
                         <a href="https://dlukes.github.io/tag/konkordance.html">
                             konkordance
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/perl.html">
-                            perl
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
-                            monkey-patching
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/javascript.html">
-                            javascript
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/spacemacs.html">
-                            spacemacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/rust.html">
-                            rust
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/library.html">
-                            library
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/versioning.html">
-                            versioning
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/shiny.html">
-                            shiny
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/jupyter.html">
-                            jupyter
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/fill.html">
-                            fill
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/iframe.html">
-                            iframe
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/semver.html">
-                            semver
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/par.html">
-                            par
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/services.html">
-                            services
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/hack.html">
-                            hack
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/text-processing.html">
-                            text processing
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/lines.html">
-                            lines
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/unicode.html">
-                            unicode
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacs.html">
-                            emacs
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/korpus.html">
+                            korpus
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -19086,13 +19182,73 @@ funkce()
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/hack.html">
+                            hack
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/par.html">
+                            par
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/unicode.html">
+                            unicode
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/iframe.html">
+                            iframe
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wsgi.html">
+                            wsgi
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/rust.html">
+                            rust
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/perl.html">
+                            perl
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/airmail.html">
                             airmail
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
+                        <a href="https://dlukes.github.io/tag/text-processing.html">
+                            text processing
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -19101,18 +19257,18 @@ funkce()
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/daemon.html">
-                            daemon
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/dependency.html">
                             dependency
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/flask.html">
-                            flask
+                        <a href="https://dlukes.github.io/tag/html.html">
+                            html
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -19121,8 +19277,78 @@ funkce()
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wsgi.html">
-                            wsgi
+                        <a href="https://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/jupyter.html">
+                            jupyter
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/gui.html">
+                            gui
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/spacemacs.html">
+                            spacemacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/daemon.html">
+                            daemon
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/shiny.html">
+                            shiny
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/monkey-patching.html">
+                            monkey-patching
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/flask.html">
+                            flask
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/javascript.html">
+                            javascript
                         </a>
                     </li>
                 </ul>
