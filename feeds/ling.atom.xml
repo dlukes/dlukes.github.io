@@ -34,8 +34,8 @@ common task.&lt;/p&gt;
 &lt;p&gt;The corpus data consists of lines with tab-separated word form, lemma and tag
 fields, plus some additional lines with metadata which do not contain tabs.
 We'll be skipping those. Here's a glimpse of the corpus format:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;&amp;lt;!--&lt;/span&gt;
-&lt;span class="c"&gt;WORD     LEMMA    TAG --&amp;gt;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cm"&gt;&amp;lt;!--&lt;/span&gt;
+&lt;span class="cm"&gt;WORD     LEMMA    TAG --&amp;gt;&lt;/span&gt;
 Hladina  hladina  NNFS1-----A-----
 jezera   jezero   NNNS2-----A-----
 ,        ,        Z:--------------

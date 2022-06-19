@@ -320,61 +320,61 @@ the border and stretch it horizontally...</p>
 embedded web page to send information about its height to the parent at
 appropriate times. This can be achieved by adding this piece of JavaScript to
 it:</p>
-<div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="c1">////////////////////////////////////////////</span>
-  <span class="c1">// CONFIGURE THESE TO MATCH YOUR USE CASE //</span>
-  <span class="c1">////////////////////////////////////////////</span>
+<div class="highlight"><pre><span></span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">////////////////////////////////////////////</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// CONFIGURE THESE TO MATCH YOUR USE CASE //</span><span class="w"></span>
+<span class="w">  </span><span class="c1">////////////////////////////////////////////</span><span class="w"></span>
 
-  <span class="c1">// set this to a selector for the element that contains the entire UI</span>
-  <span class="c1">// you want to access via the iframe -- for a Shiny app, it might be</span>
-  <span class="c1">// a div with Bootstrap&#39;s container-fluid class</span>
-  <span class="kd">var</span> <span class="nx">containerSelector</span> <span class="o">=</span> <span class="s2">&quot;.container-fluid&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// set this to a selector for the element that contains the entire UI</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// you want to access via the iframe -- for a Shiny app, it might be</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// a div with Bootstrap&#39;s container-fluid class</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">containerSelector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;.container-fluid&quot;</span><span class="p">;</span><span class="w"></span>
 
-  <span class="c1">// this should be the root URL of the parent frame (DokuWiki) which you want</span>
-  <span class="c1">// to allow to send messages to the child</span>
-  <span class="kd">var</span> <span class="nx">allowedOrigin</span> <span class="o">=</span> <span class="s2">&quot;https://dokuwiki.example.com&quot;</span>
+<span class="w">  </span><span class="c1">// this should be the root URL of the parent frame (DokuWiki) which you want</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// to allow to send messages to the child</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">allowedOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://dokuwiki.example.com&quot;</span><span class="w"></span>
 
-  <span class="c1">///////////////////////</span>
-  <span class="c1">// END CONFIGURATION //</span>
-  <span class="c1">///////////////////////</span>
+<span class="w">  </span><span class="c1">///////////////////////</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// END CONFIGURATION //</span><span class="w"></span>
+<span class="w">  </span><span class="c1">///////////////////////</span><span class="w"></span>
 
-  <span class="kd">function</span> <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">querySelector</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="nx">querySelector</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">scrollHeight</span> <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">h</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">;</span>
-      <span class="nx">parent</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">h</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No element corresponding to querySelector &quot;</span> <span class="o">+</span> <span class="nx">querySelector</span> <span class="o">+</span>
-                  <span class="s2">&quot; found, or element did not have property scrollHeight.&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">querySelector</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">container</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="nx">querySelector</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">undefined</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">container</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="nx">parent</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">h</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No element corresponding to querySelector &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">querySelector</span><span class="w"> </span><span class="o">+</span><span class="w"></span>
+<span class="w">                  </span><span class="s2">&quot; found, or element did not have property scrollHeight.&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="c1">// cross-browser compatible infrastructure</span>
-  <span class="kd">var</span> <span class="nx">eventMethod</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="o">?</span> <span class="s2">&quot;addEventListener&quot;</span> <span class="o">:</span> <span class="s2">&quot;attachEvent&quot;</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">eventer</span> <span class="o">=</span> <span class="nb">window</span><span class="p">[</span><span class="nx">eventMethod</span><span class="p">];</span>
-  <span class="kd">var</span> <span class="nx">messageEvent</span> <span class="o">=</span> <span class="nx">eventMethod</span> <span class="o">==</span> <span class="s2">&quot;attachEvent&quot;</span> <span class="o">?</span> <span class="s2">&quot;onmessage&quot;</span> <span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// cross-browser compatible infrastructure</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">eventMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;addEventListener&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;attachEvent&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">eventer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">[</span><span class="nx">eventMethod</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">messageEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">eventMethod</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;attachEvent&quot;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;onmessage&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">;</span><span class="w"></span>
 
-  <span class="c1">// listen for resize message from parent window (see point ② below)</span>
-  <span class="nx">eventer</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">==</span> <span class="nx">allowedOrigin</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Was expecting a message from &quot;</span> <span class="o">+</span> <span class="nx">allowedOrigin</span> <span class="o">+</span> <span class="s2">&quot;, got &quot;</span>
-                  <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="s2">&quot; instead.&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
+<span class="w">  </span><span class="c1">// listen for resize message from parent window (see point ② below)</span><span class="w"></span>
+<span class="w">  </span><span class="nx">eventer</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">allowedOrigin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Was expecting a message from &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">allowedOrigin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;, got &quot;</span><span class="w"></span>
+<span class="w">                  </span><span class="o">+</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; instead.&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">});</span><span class="w"></span>
 
-  <span class="nb">window</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// inform parent at least once after load (see point ① below)</span>
-    <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span>
+<span class="w">  </span><span class="nb">window</span><span class="p">.</span><span class="nx">onload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// inform parent at least once after load (see point ① below)</span><span class="w"></span>
+<span class="w">    </span><span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span><span class="w"></span>
 
-    <span class="c1">// monitor self-initiated changes in size (see point ③ below)</span>
-    <span class="kd">var</span> <span class="nx">mo</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MutationObserver</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="nx">mo</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nb">document</span><span class="p">,</span> <span class="p">{</span><span class="nx">subtree</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">childList</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">characterData</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
-  <span class="p">};</span>
-<span class="p">})();</span>
+<span class="w">    </span><span class="c1">// monitor self-initiated changes in size (see point ③ below)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">mo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MutationObserver</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">sendHeightOf</span><span class="p">(</span><span class="nx">containerSelector</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+<span class="w">    </span><span class="nx">mo</span><span class="p">.</span><span class="nx">observe</span><span class="p">(</span><span class="nb">document</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">subtree</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">childList</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">characterData</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">});</span><span class="w"></span>
+<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="p">})();</span><span class="w"></span>
 </pre></div>
 
 
@@ -394,47 +394,47 @@ messages from the child frame, and send resize messages when the window is
 resized. This can be achieved with the following DokuWiki markup:</p>
 <div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;embedded-app&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://your.shiny.app/url&quot;</span> <span class="na">frameborder</span><span class="o">=</span><span class="s">&quot;0&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;100%&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
-<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="c1">////////////////////////////////////////////</span>
-  <span class="c1">// CONFIGURE THESE TO MATCH YOUR USE CASE //</span>
-  <span class="c1">////////////////////////////////////////////</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="w"></span>
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">////////////////////////////////////////////</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// CONFIGURE THESE TO MATCH YOUR USE CASE //</span><span class="w"></span>
+<span class="w">  </span><span class="c1">////////////////////////////////////////////</span><span class="w"></span>
 
-  <span class="c1">// this should be the root URL of the child frame (Shiny app) which you want</span>
-  <span class="c1">// to allow to send messages to the parent</span>
-  <span class="kd">var</span> <span class="nx">allowedOrigin</span> <span class="o">=</span> <span class="s2">&quot;https://your.shiny.app&quot;</span>
+<span class="w">  </span><span class="c1">// this should be the root URL of the child frame (Shiny app) which you want</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// to allow to send messages to the parent</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">allowedOrigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://your.shiny.app&quot;</span><span class="w"></span>
 
-  <span class="c1">///////////////////////</span>
-  <span class="c1">// END CONFIGURATION //</span>
-  <span class="c1">///////////////////////</span>
+<span class="w">  </span><span class="c1">///////////////////////</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// END CONFIGURATION //</span><span class="w"></span>
+<span class="w">  </span><span class="c1">///////////////////////</span><span class="w"></span>
 
-  <span class="kd">var</span> <span class="nx">embeddedApp</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;embedded-app&quot;</span><span class="p">);</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">embeddedApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;embedded-app&quot;</span><span class="p">);</span><span class="w"></span>
 
-  <span class="kd">function</span> <span class="nx">resizeIframe</span><span class="p">(</span><span class="nx">pixels</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">embeddedApp</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="nx">pixels</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-  <span class="p">}</span>
+<span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">resizeIframe</span><span class="p">(</span><span class="nx">pixels</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">embeddedApp</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">pixels</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;px&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
-  <span class="c1">// cross-browser compatible infrastructure</span>
-  <span class="kd">var</span> <span class="nx">eventMethod</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span> <span class="o">?</span> <span class="s2">&quot;addEventListener&quot;</span> <span class="o">:</span> <span class="s2">&quot;attachEvent&quot;</span><span class="p">;</span>
-  <span class="kd">var</span> <span class="nx">eventer</span> <span class="o">=</span> <span class="nb">window</span><span class="p">[</span><span class="nx">eventMethod</span><span class="p">];</span>
-  <span class="kd">var</span> <span class="nx">messageEvent</span> <span class="o">=</span> <span class="nx">eventMethod</span> <span class="o">==</span> <span class="s2">&quot;attachEvent&quot;</span> <span class="o">?</span> <span class="s2">&quot;onmessage&quot;</span> <span class="o">:</span> <span class="s2">&quot;message&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// cross-browser compatible infrastructure</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">eventMethod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;addEventListener&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;attachEvent&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">eventer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">window</span><span class="p">[</span><span class="nx">eventMethod</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">messageEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">eventMethod</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;attachEvent&quot;</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;onmessage&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="p">;</span><span class="w"></span>
 
-  <span class="c1">// listen to message from iframe</span>
-  <span class="nx">eventer</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">===</span> <span class="nx">allowedOrigin</span><span class="p">)</span> <span class="p">{</span>
-      <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span> <span class="o">?</span> <span class="s2">&quot;message&quot;</span> <span class="o">:</span> <span class="s2">&quot;data&quot;</span><span class="p">;</span>
-      <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
-      <span class="nx">resizeIframe</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Was expecting a message from &quot;</span> <span class="o">+</span> <span class="nx">allowedOrigin</span> <span class="o">+</span> <span class="s2">&quot;, got &quot;</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">origin</span> <span class="o">+</span> <span class="s2">&quot; instead.&quot;</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">// listen to message from iframe</span><span class="w"></span>
+<span class="w">  </span><span class="nx">eventer</span><span class="p">(</span><span class="nx">messageEvent</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">allowedOrigin</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;message&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;data&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="kd">var</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">e</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span><span class="w"></span>
+<span class="w">      </span><span class="nx">resizeIframe</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Was expecting a message from &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">allowedOrigin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;, got &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot; instead.&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="kc">false</span><span class="p">);</span><span class="w"></span>
 
-  <span class="c1">// send message to iframe on window resize</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">onresize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">embeddedApp</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;parentWindowResized&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">);</span>
-  <span class="p">};</span>
-<span class="p">})();</span>
+<span class="w">  </span><span class="c1">// send message to iframe on window resize</span><span class="w"></span>
+<span class="w">  </span><span class="nb">window</span><span class="p">.</span><span class="nx">onresize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nx">embeddedApp</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;parentWindowResized&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">};</span><span class="w"></span>
+<span class="p">})();</span><span class="w"></span>
 <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
@@ -518,28 +518,8 @@ worth putting all that effort into it in the first place...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/r.html">
-                            r
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
                         <a href="https://dlukes.github.io/tag/automator.html">
                             automator
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/osx.html">
-                            osx
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/kontext.html">
-                            KonText
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/noske.html">
-                            NoSke
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -548,8 +528,13 @@ worth putting all that effort into it in the first place...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/linguistics.html">
-                            linguistics
+                        <a href="https://dlukes.github.io/tag/kontext.html">
+                            KonText
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/korpus.html">
+                            korpus
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
@@ -558,28 +543,23 @@ worth putting all that effort into it in the first place...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-2">
-                        <a href="https://dlukes.github.io/tag/korpus.html">
-                            korpus
+                        <a href="https://dlukes.github.io/tag/r.html">
+                            r
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacsclient.html">
-                            emacsclient
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/osx.html">
+                            osx
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/hack.html">
-                            hack
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/linguistics.html">
+                            linguistics
                         </a>
                     </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
-                            dokuwiki
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/par.html">
-                            par
+                    <li class="list-group-item tag-2">
+                        <a href="https://dlukes.github.io/tag/noske.html">
+                            NoSke
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -588,8 +568,18 @@ worth putting all that effort into it in the first place...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/iframe.html">
-                            iframe
+                        <a href="https://dlukes.github.io/tag/flask.html">
+                            flask
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dokuwiki.html">
+                            dokuwiki
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/underscorejs.html">
+                            underscore.js
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -598,93 +588,8 @@ worth putting all that effort into it in the first place...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/chomsky.html">
-                            Chomsky
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/lines.html">
-                            lines
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/rust.html">
-                            rust
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/perl.html">
                             perl
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/emacs.html">
-                            emacs
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/services.html">
-                            services
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/airmail.html">
-                            airmail
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/text-processing.html">
-                            text processing
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/charset.html">
-                            charset
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/dependency.html">
-                            dependency
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/html.html">
-                            html
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
-                            Wittgenstein
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/encoding.html">
-                            encoding
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/wrap.html">
-                            wrap
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/jupyter.html">
-                            jupyter
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/gui.html">
-                            gui
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/versioning.html">
-                            versioning
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/library.html">
-                            library
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -693,8 +598,93 @@ worth putting all that effort into it in the first place...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/daemon.html">
-                            daemon
+                        <a href="https://dlukes.github.io/tag/lines.html">
+                            lines
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/iframe.html">
+                            iframe
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/versioning.html">
+                            versioning
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/rust.html">
+                            rust
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/emacs.html">
+                            emacs
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wrap.html">
+                            wrap
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/semver.html">
+                            semver
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/encoding.html">
+                            encoding
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/library.html">
+                            library
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/dependency.html">
+                            dependency
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/fill.html">
+                            fill
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/charset.html">
+                            charset
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/development.html">
+                            development
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/airmail.html">
+                            airmail
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/services.html">
+                            services
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/chomsky.html">
+                            Chomsky
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/wittgenstein.html">
+                            Wittgenstein
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/par.html">
+                            par
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
@@ -708,33 +698,43 @@ worth putting all that effort into it in the first place...</p>
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/semver.html">
-                            semver
+                        <a href="https://dlukes.github.io/tag/gui.html">
+                            gui
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/fill.html">
-                            fill
+                        <a href="https://dlukes.github.io/tag/hack.html">
+                            hack
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/underscorejs.html">
-                            underscore.js
+                        <a href="https://dlukes.github.io/tag/emacsclient.html">
+                            emacsclient
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/development.html">
-                            development
-                        </a>
-                    </li>
-                    <li class="list-group-item tag-4">
-                        <a href="https://dlukes.github.io/tag/flask.html">
-                            flask
+                        <a href="https://dlukes.github.io/tag/daemon.html">
+                            daemon
                         </a>
                     </li>
                     <li class="list-group-item tag-4">
                         <a href="https://dlukes.github.io/tag/javascript.html">
                             javascript
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/jupyter.html">
+                            jupyter
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/html.html">
+                            html
+                        </a>
+                    </li>
+                    <li class="list-group-item tag-4">
+                        <a href="https://dlukes.github.io/tag/text-processing.html">
+                            text processing
                         </a>
                     </li>
                 </ul>
