@@ -256,8 +256,6 @@ want &lt;strong&gt;this&lt;/strong&gt;:&lt;/p&gt;
 will be the same, but you'll save some CPU cycles -- instead of first
 stripping the prefix and then adding the same one, Nginx just
 completely leaves it alone.&lt;/p&gt;
-&lt;p&gt;Use the previous version only if you want a &lt;em&gt;different&lt;/em&gt; prefix specified
-in the &lt;code&gt;location&lt;/code&gt; and in the &lt;code&gt;proxy_pass&lt;/code&gt; directive, for some reason.&lt;/p&gt;
 &lt;h1&gt;Minimal working example &lt;a name=mwe&gt;&lt;/a&gt;&lt;/h1&gt;
 &lt;p&gt;Let's wrap up with a runnable demo. Put this in &lt;code&gt;app.py&lt;/code&gt;:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;flask&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Flask&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;url_for&lt;/span&gt;
@@ -20902,10 +20900,10 @@ printing 1
 
 
 
-&lt;div id="5712a647-c0af-45cf-b7ca-b68100eb3ed6"&gt;&lt;/div&gt;
+&lt;div id="2e25c64f-0240-45a5-ae54-c605476336c8"&gt;&lt;/div&gt;
 &lt;div class="output_subarea output_javascript "&gt;
 &lt;script type="text/javascript"&gt;
-var element = $('#5712a647-c0af-45cf-b7ca-b68100eb3ed6');
+var element = $('#2e25c64f-0240-45a5-ae54-c605476336c8');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
