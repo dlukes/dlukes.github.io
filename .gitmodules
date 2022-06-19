@@ -4,6 +4,3 @@
 [submodule "pelican-plugins"]
 	path = pelican-plugins
 	url = git@github.com:getpelican/pelican-plugins.git
-[submodule "pelican-bibtex"]
-	path = pelican-bibtex
-	url = git@github.com:vene/pelican-bibtex.git
