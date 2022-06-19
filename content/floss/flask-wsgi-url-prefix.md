@@ -302,7 +302,9 @@ location /my-app/ {
 }
 ```
 
+<del>
 Instead, you want this:
+</del>
 
 ```nginx
 location /my-app/ {
@@ -310,6 +312,21 @@ location /my-app/ {
     # ...                            ^^^^^^^
 }
 ```
+
+Actually, as Ivan Shatsky helpfully pointed out in the comments, you
+want **this**:
+
+```nginx
+location /my-app/ {
+    proxy_pass http://127.0.0.1:8000;
+    # ...
+}
+```
+
+Notice the lack of a trailing slash after the port number. The effect
+will be the same, but you'll save some CPU cycles -- instead of first
+stripping the prefix and then adding the same one, Nginx just
+completely leaves it alone.
 
 # Minimal working example <a name=mwe></a>
 
